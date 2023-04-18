@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;400&family=Nunito&family=Poppins&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.lable {
+  @apply font-bold text-[18px];
+}
+
+.btn {
+  @apply shadow-sm shadow-primary   bg-white text-primary    uppercase rounded-full transition-all delay-100 ease-in-out duration-100;
+}
+
+.text-field {
+  @apply rounded-md w-full  border focus:outline-none focus:border-primary  border-gray-400  p-3 mb-5;
+}
