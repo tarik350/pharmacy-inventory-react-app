@@ -1,4 +1,12 @@
 import { useState, useRef } from "react";
+import {
+  ApolloClient,
+  InMemoryCache,
+  useQuery,
+  gql,
+  useMutation,
+} from "@apollo/client";
+import { resultKeyNameFromField } from "@apollo/client/utilities";
 
 const AddMedicine = () => {
   const medNameRef = useRef(null);
@@ -7,22 +15,100 @@ const AddMedicine = () => {
   const stockAmountRef = useRef(null);
 
   const [price, setPrice] = useState("");
-  const handleSubmit = (e) => {
+  const add_med = gql`
+    mutation (
+      $amountInStock: Int!
+      $brandName: String!
+      $name: String!
+      $price: Int!
+    ) {
+      insert_medicine_one(
+        object: {
+          amountInStock: $amountInStock
+          brandName: $brandName
+          name: $name
+          price: $price
+        }
+      ) {
+        id
+        name
+        brandName
+      }
+    }
+  `;
+  const [mutateFunction, { data, loading, error }] = useMutation(add_med);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const medicineName = medNameRef.current.value;
     const medicinePrice = medPriceRef.current.value;
     const medicineBrandName = brandNameRef.current.value;
     const amountInStock = stockAmountRef.current.value;
 
-    const medInformation = {
-      name: medicineName,
-      price: medicinePrice,
-      brand: medicineBrandName,
-      amountInStock: amountInStock,
-    };
+    await mutateFunction({
+      variables: {
+        amountInStock: amountInStock,
+        brandName: medicineBrandName,
+        name: medicineName,
+        price: medicinePrice,
+      },
+    });
+    console.log(data);
+    console.log(error);
 
-    console.log(medInformation);
+    // if (medicineBrandName && medicineName && medicinePrice && amountInStock) {
+    //   const medInformation = {
+    //     name: medicineName,
+    //     price: medicinePrice,
+    //     brand: medicineBrandName,
+    //     amountInStock: amountInStock,
+    //   };
+
+    //   if (loading) console.log("loading");
+    //   if (error) console.log(error);
+    //   console.log(data);
+
+    //   // client
+    //   //   .query({
+    //   //     query: gql`
+    //   //       query MyQuery {
+    //   //         medicine {
+    //   //           id
+    //   //           name
+    //   //           price
+    //   //           brandName
+    //   //           created_at
+    //   //           updated_at
+    //   //         }
+    //   //       }
+    //   //     `,
+    //   //   })
+    //   //   .then((result) => console.log(result));
+    // } else {
+    //   console.log("please fill the fields");
+    // }
   };
+
+  // const get_medicines = gql`
+  //   query MyQuery {
+  //     medicine {
+  //       id
+  //       name
+  //       price
+  //       brandName
+  //       created_at
+  //       updated_at
+  //     }
+  //   }
+  // `;
+
+  // const { loading, error, data } = useQuery(get_medicines);
+
+  // if (loading) return "Loading...";
+  // if (error) return `Error! ${error.message}`;
+
+  //mutaions
+
   return (
     <div className="flex justify-center items-center">
       <div className="m-12 rounded-xl flex bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
@@ -87,5 +173,7 @@ const AddMedicine = () => {
     </div>
   );
 };
+
+// Define mutation
 
 export default AddMedicine;
