@@ -12,13 +12,13 @@ const Navbar = () => {
     }
   };
   return (
-    <header className=" w-full  h-[100px] p-[50px] flex items-center   text-black ">
-      <div className="flex-1">
+    <header className=" w-full  h-[100px] p-[50px] flex justify-between   items-center   text-black ">
+      <div className="">
         <Link to="/">
           <h1>logo</h1>
         </Link>
       </div>
-      <nav className="">
+      <nav className="flex-1 flex justify-center ">
         <ul className="flex ">
           {navList.map((item, index) => {
             return (
@@ -39,12 +39,15 @@ const Navbar = () => {
           })}
         </ul>
       </nav>
-      {/* <div
-        onClick={toggleTheme}
-        className={`${alignment} w-[50px] h-[20px] rounded-xl  p-[3px] mx-[10px] bg-[red] flex   items-center transition-all duration-100 delay-75 ease-in-out`}
-      >
-        <div className="w-[18px] h-[18px]  rounded-full  bg-black"></div>
-      </div> */}
+      <div className="">
+        <button className="px-8 py-2 border-2 rounded-full border-primary text-primary ">
+          login
+        </button>
+        <button className="px-8 py-2 border-2 border-primary  bg-primary ml-2 text-white rounded-full">
+          {" "}
+          SignUp
+        </button>
+      </div>
     </header>
   );
 };

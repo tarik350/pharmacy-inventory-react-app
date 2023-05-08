@@ -1,80 +1,33 @@
-import { useEffect, useState } from "react";
-import { countryCode } from "../constants";
+import React from "react";
 
 const Home = () => {
-  const [appData, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [clicked, setClicked] = useState(false);
-  const fetchNews = async (code) => {
-    const res = await fetch(
-      `https://newsapi.org/v2/top-headlines?country=${code}&category=health&apiKey=e09a4a6eee8a4f6684d1d6427225b1f4`
-    );
-    const data = await res.json();
-    // console.log("app started");
-
-    // console.log(data.articles[0]);
-    setData(data.articles);
-  };
-  useEffect(() => {
-    fetchNews("in");
-  }, []);
-
   return (
-    <div className=" ">
-      <div>
-        <h1 className="text-6xl font-bold font-poppins uppercase my-12  border-b-[2px] pb-12">
-          news feed
-        </h1>
-      </div>
-      <div className="flex">
-        {countryCode.map((code, index) => {
-          return (
-            <div
-              key={index}
-              onClick={() => {
-                fetchNews(code.code);
-
-                console.log(index);
-              }}
-              className={`border-2 m-4 px-8 py-2 rounded-full hover:bg-red-300 transition-all delay-75 cursor-pointer ${
-                clicked ? "bg-red-400" : ""
-              }`}
-            >
-              {code.name}
-            </div>
-          );
-        })}
-      </div>
-      <div>
-        {appData.map((item, index) => {
-          return (
-            <div key={index} className="border-2 m-4 p-2">
-              <div className="text-xl  font-extrabold ">{item.title}</div>
-              <div>{item.description}</div>
-
-              <div>{item.content}</div>
-              <div>{item.publishedAt}</div>
-              <div className="text-blue-400 ">
-                <a
-                  target="_blank"
-                  className="underline uppercase"
-                  href={item.url}
-                >
-                  go to source
-                </a>
-              </div>
-
-              <div
-                className="  font-extralight text-gray-400 italic
-              "
-              >
-                {item.author} from {item.source.name}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+    <main>
+      <section className=" ">
+        <div>
+          <div>welcome</div>
+          <p className="text-[80px]">manage your Pharmacy with Samaritan</p>
+          <p>
+            is simply dummy text of the printing and typesetting industry. Lorem
+            Ipsum has been the industry's standard dummy text ever since the
+            1500s, when an unknown printer took a galley of type and scrambled
+            it to make a type specimen book. It has survived not only five
+            centuries, but also the leap into electronic typesetting, remaining
+            essentially unchanged. It was popularised in the 1960s with the
+            release of Letraset sheets containing Lorem Ipsum passages, and more
+            recently with desktop publishing software like Aldus PageMaker
+            including versions of Lorem Ipsum{" "}
+          </p>
+          <div>
+            <button className="">Get Started</button>
+            <p>
+              not just an inventory system, <span>1 up for your buisness</span>
+            </p>
+          </div>
+        </div>
+        <div></div>
+      </section>
+    </main>
   );
 };
 
