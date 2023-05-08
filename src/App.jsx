@@ -9,7 +9,7 @@ const App = () => {
   return (
     <div className="  font-poppins">
       <Navbar />
-      <div className=" m-10">
+      <div className=" m-10 ">
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/addmed" element={<AddMedicine />}></Route>

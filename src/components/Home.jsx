@@ -10,9 +10,9 @@ const Home = () => {
       `https://newsapi.org/v2/top-headlines?country=${code}&category=health&apiKey=e09a4a6eee8a4f6684d1d6427225b1f4`
     );
     const data = await res.json();
-    console.log("app started");
+    // console.log("app started");
 
-    console.log(data.articles[0]);
+    // console.log(data.articles[0]);
     setData(data.articles);
   };
   useEffect(() => {
@@ -46,9 +46,9 @@ const Home = () => {
         })}
       </div>
       <div>
-        {appData.map((item) => {
+        {appData.map((item, index) => {
           return (
-            <div className="border-2 m-4 p-2">
+            <div key={index} className="border-2 m-4 p-2">
               <div className="text-xl  font-extrabold ">{item.title}</div>
               <div>{item.description}</div>
 

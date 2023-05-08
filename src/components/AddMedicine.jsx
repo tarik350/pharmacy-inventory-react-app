@@ -36,6 +36,7 @@ const AddMedicine = () => {
       }
     }
   `;
+
   const [mutateFunction, { data, loading, error }] = useMutation(add_med);
 
   const handleSubmit = async (e) => {
@@ -45,16 +46,22 @@ const AddMedicine = () => {
     const medicineBrandName = brandNameRef.current.value;
     const amountInStock = stockAmountRef.current.value;
 
-    await mutateFunction({
+    mutateFunction({
       variables: {
         amountInStock: amountInStock,
         brandName: medicineBrandName,
         name: medicineName,
         price: medicinePrice,
       },
-    });
-    console.log(data);
-    console.log(error);
+    })
+      .then((value) => {
+        console.log("-=-=-=-");
+        alert("medicine added successfull");
+      })
+      .catch((err) => {
+        console.log("=-0=-=-=-=-");
+        alert(`error: ${err}`);
+      });
 
     // if (medicineBrandName && medicineName && medicinePrice && amountInStock) {
     //   const medInformation = {
@@ -68,22 +75,22 @@ const AddMedicine = () => {
     //   if (error) console.log(error);
     //   console.log(data);
 
-    //   // client
-    //   //   .query({
-    //   //     query: gql`
-    //   //       query MyQuery {
-    //   //         medicine {
-    //   //           id
-    //   //           name
-    //   //           price
-    //   //           brandName
-    //   //           created_at
-    //   //           updated_at
-    //   //         }
-    //   //       }
-    //   //     `,
-    //   //   })
-    //   //   .then((result) => console.log(result));
+    //   client
+    //     .query({
+    //       query: gql`
+    //         query MyQuery {
+    //           medicine {
+    //             id
+    //             name
+    //             price
+    //             brandName
+    //             created_at
+    //             updated_at
+    //           }
+    //         }
+    //       `,
+    //     })
+    //     .then((result) => console.log(result));
     // } else {
     //   console.log("please fill the fields");
     // }
@@ -112,7 +119,7 @@ const AddMedicine = () => {
   return (
     <div className="flex justify-center items-center">
       <div className="m-12 rounded-xl flex bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
-        <div className="flex flex-col relative  bg-white w-full   mx-[3px] my-[3px] border-2 p-12  shadow-2xl rounded-lg ">
+        <div className="flex flex-col relative  bg-white w-full   m-[3px] border-2 p-12  shadow-2xl rounded-lg ">
           <div className="title">
             <h2 className="text-4xl text-primary font-bold uppercase font-poppins ">
               Add medicine to inventory
