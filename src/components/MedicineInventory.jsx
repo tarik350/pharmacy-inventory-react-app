@@ -18,7 +18,6 @@ const MedicineInventory = () => {
   const { loading, error, data } = useQuery(GET_MEDICINE);
   if (loading) return "loading...";
   if (error) return `error : ${error}`;
-  // console.log(data.medicine);
   return (
     <div className="   mx-[200px]">
       {data.medicine.map((item, index) => {
@@ -31,10 +30,10 @@ const MedicineInventory = () => {
               <div>{item.price}</div>
             </div>
             <div className="flex ">
-              <div className="bg-red-600 w-max h-max px-4 py-2 rounded-full text-white mr-4">
+              <div className="bg-red-600 w-max h-max px-4 py-2 rounded-full cursor-pointer text-white mr-4">
                 delete
               </div>
-              <div className="bg-blue-600 w-max h-max px-4 py-2 rounded-full text-white">
+              <div className="bg-blue-600 w-max cursor-pointer h-max px-4 py-2 rounded-full text-white">
                 edit
               </div>
             </div>
