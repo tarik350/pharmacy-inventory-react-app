@@ -7,14 +7,19 @@ import { Route, Routes } from "react-router-dom";
 
 const App = () => {
   return (
-    <div className="  font-poppins">
-      <Navbar />
-      <div className=" m-24  ">
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/addmed" element={<AddMedicine />}></Route>
-          <Route path="/inventory" element={<MedicineInventory />}></Route>
-        </Routes>
+    <div className="  font-poppins h-screen ">
+      <div className=" flex w-full h-full ">
+        <div className="flex-initial w-64 bg-gray-100">
+          <Navbar />
+        </div>
+
+        <div className="flex-1 m-4">
+          <Routes className="  ">
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/addmed" element={<AddMedicine />}></Route>
+            <Route path="/inventory" element={<MedicineInventory />}></Route>
+          </Routes>
+        </div>
       </div>
     </div>
   );

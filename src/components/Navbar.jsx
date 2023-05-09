@@ -2,6 +2,7 @@ import { useState } from "react";
 import { navList } from "../constants";
 import { Link } from "react-router-dom";
 
+import { IoChevronForward } from "react-icons/io5";
 const Navbar = () => {
   const [alignment, setAlignment] = useState("justify-start");
   const toggleTheme = () => {
@@ -12,14 +13,14 @@ const Navbar = () => {
     }
   };
   return (
-    <header className=" w-full  h-[100px] p-[50px] flex justify-between   items-center   text-black ">
+    <header className=" w-full  h-[100px] p-[50px] flex flex-col justify-between   items-center   text-black ">
       <div className="">
         <Link to="/">
           <h1>logo</h1>
         </Link>
       </div>
-      <nav className="flex-1 flex justify-center ">
-        <ul className="flex ">
+      <nav className="flex-1 flex justify-center items-center ">
+        <ul className="flex flex-col  justify-center ">
           {navList.map((item, index) => {
             return (
               <li
@@ -32,7 +33,7 @@ const Navbar = () => {
                   className="uppercase text-[14px] text-black hover:text-secondary transition-all "
                   to={item.link}
                 >
-                  {item.name}
+                  <div>{item.name}</div>
                 </Link>
               </li>
             );

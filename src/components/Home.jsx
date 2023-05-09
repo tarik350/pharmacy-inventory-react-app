@@ -3,8 +3,8 @@ import Card from "./utils/Card";
 
 const Home = () => {
   return (
-    <main className="flex items-center h-full">
-      <section className="flex">
+    <main className="flex items-center justify-between h-full">
+      <section className="flex justify-center">
         <div className="w-1/2">
           <div className="bg-black w-max text-white px-4 rounded-full py-[3px]  font-extralight ">
             welcome
@@ -26,16 +26,18 @@ const Home = () => {
           </p>
 
           <div className="flex items-center">
-            <button className="bg-black text-white px-6 py-4 mr-2">
+            <button className="bg-black text-white px-6 py-4 mr-6">
               Get Started
             </button>
             <p>
               not just an inventory system,{" "}
-              <span className="block">1 up for your buisness</span>
+              <span className=" block font-poppins  font-bold leading-[130%] bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500 bg-clip-text  text-transparent">
+                1 up for your buisness
+              </span>
             </p>
           </div>
         </div>
-        <div className=" w-[500px] h-[500px] overflow-hidden rounded-full">
+        <div className="ml-24 w-[500px] h-[500px] ">
           <img
             className=" object-contain  "
             src={pharma_woman}
@@ -43,9 +45,6 @@ const Home = () => {
           />
         </div>
         {/* for some rectangular card for the ui */}
-        <div>
-          <div></div>
-        </div>
       </section>
     </main>
   );
