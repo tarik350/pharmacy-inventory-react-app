@@ -9,7 +9,7 @@ const App = () => {
   return (
     <div className="  font-poppins h-screen ">
       <div className=" flex w-full h-full ">
-        <div className="flex-initial w-64 bg-gray-100">
+        <div className="flex-initial w-[400px] bg-gray-100">
           <Navbar />
         </div>
 

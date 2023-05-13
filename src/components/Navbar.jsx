@@ -13,7 +13,7 @@ const Navbar = () => {
     }
   };
   return (
-    <header className=" w-full  h-[100px] p-[50px] flex flex-col justify-between   items-center   text-black ">
+    <header className=" w-full relative   h-[100px] p-[50px] flex flex-col justify-between   items-center   text-black ">
       <div className="">
         <Link to="/">
           <h1>logo</h1>
@@ -40,15 +40,6 @@ const Navbar = () => {
           })}
         </ul>
       </nav>
-      <div className="">
-        <button className="px-8 py-2 border-2 rounded-full border-primary text-primary ">
-          login
-        </button>
-        <button className="px-8 py-2 border-2 border-primary  bg-primary ml-2 text-white rounded-full">
-          {" "}
-          SignUp
-        </button>
-      </div>
     </header>
   );
 };

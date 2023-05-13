@@ -30,7 +30,7 @@ const DELETE_FUNCTION = gql`
 `;
 
 const MedicineInventory = () => {
-  const { loading, error, data } = useQuery(GET_MEDICINE, {
+  const { refetch, loading, error, data } = useQuery(GET_MEDICINE, {
     pollInterval: 500,
   });
 
@@ -44,7 +44,6 @@ const MedicineInventory = () => {
       },
     }).then((value) => {
       console.log(value);
-      alert("medicine deleted successfull");
     });
   };
 

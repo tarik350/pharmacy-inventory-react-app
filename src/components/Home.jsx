@@ -1,10 +1,14 @@
 import { pharma_woman } from "../assets";
+import Auth from "./Auth";
 import Card from "./utils/Card";
 
 const Home = () => {
   return (
-    <main className="flex items-center justify-between h-full">
-      <section className="flex justify-center">
+    <main className="flex flex-col items-center  h-full">
+      <div className="  self-end my-8">
+        <Auth />
+      </div>
+      <section className="flex justify-center items-center flex-2 ">
         <div className="w-1/2">
           <div className="bg-black w-max text-white px-4 rounded-full py-[3px]  font-extralight ">
             welcome
