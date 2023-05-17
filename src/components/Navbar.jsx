@@ -13,13 +13,17 @@ const Navbar = () => {
     }
   };
   return (
-    <header className=" w-full relative   h-[100px] p-[50px] flex flex-col justify-between   items-center   text-black ">
+    <header className=" w-full relative  h-full  p-[50px] flex flex-col    items-center   text-black ">
       <div className="">
         <Link to="/">
-          <h1>logo</h1>
+          <div className="border-4 border-gray-400  rounded-full flex justify-center items-center w-[130px] h-[130px] ">
+            <h1 className="text-[20px]  border-radius font-poppins  font-bold leading-[130%] bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500 bg-clip-text inline-block text-transparent">
+              Samaritan
+            </h1>
+          </div>
         </Link>
       </div>
-      <nav className="flex-1 flex justify-center items-center ">
+      <nav className=" flex justify-center items-center mt-[100px] ">
         <ul className="flex flex-col  justify-center ">
           {navList.map((item, index) => {
             return (
@@ -30,10 +34,10 @@ const Navbar = () => {
                 }`}
               >
                 <Link
-                  className="uppercase text-[14px] text-black hover:text-secondary transition-all "
+                  className="uppercase text-[20px]  font-bold text-black hover:text-secondary transition-all "
                   to={item.link}
                 >
-                  <div>{item.name}</div>
+                  <div className="my-2  px-2"> {item.name}</div>
                 </Link>
               </li>
             );

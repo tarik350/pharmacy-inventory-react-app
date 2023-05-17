@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { countryCode } from "../constants";
 
-const Home = () => {
+const NewsFeed = () => {
   const [appData, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [clicked, setClicked] = useState(false);
@@ -78,4 +78,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default NewsFeed;

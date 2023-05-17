@@ -1,12 +1,15 @@
 import { pharma_woman } from "../assets";
 import Auth from "./Auth";
 import Card from "./utils/Card";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = () => {
   return (
     <main className="flex flex-col items-center  h-full">
       <div className="  self-end my-8">
         <Auth />
+
+        <div className=" text-xl text-red "></div>
       </div>
       <section className="flex justify-center items-center flex-2 ">
         <div className="w-1/2">

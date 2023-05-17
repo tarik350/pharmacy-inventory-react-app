@@ -11,31 +11,28 @@ const GET_MEDICINE = gql`
     medicine {
       name
       price
-      id
-      brandName
-      amountInStock
     }
   }
 `;
 
-const DELETE_FUNCTION = gql`
-  mutation ($id: uuid!) {
-    delete_medicine_by_pk(id: $id) {
-      name
-      id
-      price
-      brandName
-    }
-  }
-`;
+// const DELETE_FUNCTION = gql`
+//   mutation ($id: uuid!) {
+//     delete_medicine_by_pk(id: $id) {
+//       name
+//       id
+//       price
+//       brandName
+//     }
+//   }
+// `;
 
 const MedicineInventory = () => {
   const { refetch, loading, error, data } = useQuery(GET_MEDICINE, {
     pollInterval: 500,
   });
 
-  const [mutateFunction, { deleteData, deleteLoading, deleteError }] =
-    useMutation(DELETE_FUNCTION);
+  // const [mutateFunction, { deleteData, deleteLoading, deleteError }] =
+  //   useMutation(DELETE_FUNCTION);
 
   const handleDelete = async (id) => {
     mutateFunction({
