@@ -32,15 +32,8 @@ const App = () => {
         <div className="flex-initial w-[300px] bg-gray-100">
           <Navbar />
         </div>
-        <button
-          onClick={() => {
-            handleTest();
-          }}
-        >
-          test
-        </button>
 
-        <div className="flex-1 m-4">
+        <div className="flex-1 flex justify-center items-center m-4">
           <Routes className="  ">
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/" element={<Home />}></Route>

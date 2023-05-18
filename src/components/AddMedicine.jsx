@@ -166,7 +166,15 @@ const AddMedicine = () => {
           </form>
           <div className=" bg-gradient-to-r w-max self-end rounded-full p-[2px]  from-indigo-500 via-purple-500 to-pink-500   justify-end">
             <button
-              onClick={handleSubmit}
+              onClick={() => {
+                const token = localStorage.getItem("token");
+                console.log("submitting");
+                if (token) {
+                  handleSubmit();
+                } else {
+                  alert("you have to login first");
+                }
+              }}
               type="submit"
               className="btn group px-[14px]   py-[12px]  "
             >
