@@ -7,24 +7,6 @@ import { Route, Routes } from "react-router-dom";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import LoginPage from "./components/LoginPage";
 
-const login = gql`
-  {
-    login(email: "test") {
-      id
-      token
-    }
-  }
-`;
-
-const getMed = gql`
-  {
-    users {
-      id
-      name
-    }
-  }
-`;
-
 const App = () => {
   return (
     <div className="  font-poppins h-screen ">

@@ -530,6 +530,22 @@ video {
   right: 1.25rem;
 }
 
+.top-1\/2{
+  top: 50%;
+}
+
+.right-6{
+  right: 1.5rem;
+}
+
+.right-4{
+  right: 1rem;
+}
+
+.top-4{
+  top: 1rem;
+}
+
 .m-12{
   margin: 3rem;
 }
@@ -695,6 +711,10 @@ video {
 
 .w-\[200px\]{
   width: 200px;
+}
+
+.w-\[400px\]{
+  width: 400px;
 }
 
 .flex-1{

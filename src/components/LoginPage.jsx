@@ -6,10 +6,11 @@ import Card from "./utils/Card";
 import Button from "./utils/Button";
 import { BsEmojiLaughing } from "react-icons/bs";
 import useDidMountEffect from "./utils/useDidMountEffect";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const login = gql`
-  query myQuery($email: String!) {
-    login(email: $email) {
+  query myQuery($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
       id
       token
     }
@@ -23,10 +24,17 @@ const LoginPage = () => {
   const passwordRef = useRef(null);
 
   const [email, setEmail] = useState(null);
-  // const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [passwordVisibility, setPassordVisibility] = useState("password");
 
   useDidMountEffect(() => {
     console.log(`email setted to : ${email}`);
+
+    ///this only runs when both email and passwrod are changed
+
+    ///there are times where the email is corret  and you want to
+    ///change the password but it does not work
 
     refetch()
       .then((value) => {
@@ -48,7 +56,7 @@ const LoginPage = () => {
         //user not found
         console.log(`erorr from apollo: ${erorr}`);
       });
-  }, [email]);
+  }, [email, password]);
 
   // useEffect(, [email]);
 
@@ -56,6 +64,7 @@ const LoginPage = () => {
     enabled: false,
     variables: {
       email,
+      password,
     },
   });
   const navigate = useNavigate();
@@ -67,7 +76,16 @@ const LoginPage = () => {
   };
 
   const handleLogin = async () => {
+    //add validation to check if the email and password value are
+    //diffrent from null
     setEmail(emailRef.current.value);
+    setPassword(passwordRef.current.value);
+  };
+
+  const togglePasswordVisibility = () => {
+    if (passwordVisibility === "password") {
+      setPassordVisibility("text");
+    } else setPassordVisibility("password");
   };
   return (
     <div className="flex justify-center items-center">
@@ -78,19 +96,33 @@ const LoginPage = () => {
               login
             </h2>
           </div>
-          <div className="flex items-center justify-center bg-white flex-col w-[300px]">
+          <div className="flex  bg-white flex-col w-[400px]">
             <input
               ref={emailRef}
               type="text"
               className="text-field"
               placeholder="email"
             />
-            <input
-              ref={passwordRef}
-              type="password"
-              className="text-field"
-              placeholder="password"
-            />
+            <div className="flex-1 relative">
+              <input
+                ref={passwordRef}
+                type={passwordVisibility}
+                className="text-field"
+                placeholder="password"
+              />
+              <button
+                onClick={() => {
+                  togglePasswordVisibility();
+                }}
+                className="absolute right-4 top-4"
+              >
+                {passwordVisibility === "password" ? (
+                  <AiFillEye />
+                ) : (
+                  <AiFillEyeInvisible />
+                )}
+              </button>
+            </div>
             <Button className="" title="Login" onClick={handleLogin} />
           </div>
         </div>
