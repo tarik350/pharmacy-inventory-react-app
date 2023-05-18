@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const navigate = useNavigate();
-  const { loginStatus, setLoginStatus } = useState(true);
+  const [loginStatus, setLoginStatus] = useState(true);
 
   // const {
   //   getAccessTokenSilently,

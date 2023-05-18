@@ -9,6 +9,7 @@ import {
 import { resultKeyNameFromField } from "@apollo/client/utilities";
 
 const AddMedicine = () => {
+  console.log("mounted");
   const medNameRef = useRef(null);
   const medPriceRef = useRef(null);
   const brandNameRef = useRef(null);

@@ -33,7 +33,7 @@ const App = () => {
           <Navbar />
         </div>
 
-        <div className="flex-1 flex justify-center items-center m-4">
+        <div className="flex-1  m-4">
           <Routes className="  ">
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/" element={<Home />}></Route>
@@ -41,6 +41,11 @@ const App = () => {
             <Route path="/inventory" element={<MedicineInventory />}></Route>
           </Routes>
         </div>
+        {/* <div className="flex-1 w-full">
+          <Routes>
+            <Route path="/inventory" element={<MedicineInventory />}></Route>
+          </Routes>
+        </div> */}
       </div>
     </div>
   );

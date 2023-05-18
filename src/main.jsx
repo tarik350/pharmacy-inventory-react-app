@@ -27,16 +27,28 @@ const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem("token");
 
-  console.log(`token : ${token}`);
+  console.log(`token from main: ${token}`);
 
   // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      // "x-hasura-admin-secret":
-      //   "ATTrUy0HHKdRxhQxjBrKSu3AEGW3SdmBZmj7paW5tezpEik5xMTcTnxckOVJI9Fz",
-      authorization: token ? `Bearer ${token}` : ``,
-    },
-  };
+
+  if (token) {
+    return {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    };
+  } else {
+    return {
+      headers: {},
+    };
+  }
+  // return {
+  //   headers: {
+  //     // "x-hasura-admin-secret":
+  //     //   "ATTrUy0HHKdRxhQxjBrKSu3AEGW3SdmBZmj7paW5tezpEik5xMTcTnxckOVJI9Fz",
+  //     // authorization: token ? `Bearer ${token}` : ``,
+  //   },
+  // };
 });
 
 const client = new ApolloClient({
