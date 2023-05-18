@@ -6,6 +6,7 @@ import { paddingX } from "./styles";
 import { Route, Routes } from "react-router-dom";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import LoginPage from "./components/LoginPage";
+import SignupPage from "./components/SignupPage";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <div className="flex-1  m-4">
           <Routes className="  ">
             <Route path="/login" element={<LoginPage />}></Route>
+            <Route path="/signup" element={<SignupPage />}></Route>
             <Route path="/" element={<Home />}></Route>
             <Route path="/addmed" element={<AddMedicine />}></Route>
             <Route path="/inventory" element={<MedicineInventory />}></Route>
