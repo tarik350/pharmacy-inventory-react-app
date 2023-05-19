@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const navigate = useNavigate();
-  const [loginStatus, setLoginStatus] = useState(true);
+  // const [loginStatus, setLoginStatus] = useState(true);
 
   // const {
   //   getAccessTokenSilently,
@@ -24,7 +24,11 @@ const Auth = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    setLoginStatus(false);
+
+    //show modal before navigating to login page
+    navigate("/login");
+
+    // setLoginStatus(false);
   };
 
   const token = localStorage.getItem("token");

@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ApolloClient,
   InMemoryCache,
@@ -9,6 +10,17 @@ import {
 import { resultKeyNameFromField } from "@apollo/client/utilities";
 
 const AddMedicine = () => {
+  const autorized = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!autorized) {
+      navigate("/login");
+    } else {
+      console.log("authorized");
+    }
+  }, []);
+
   console.log("mounted");
   const medNameRef = useRef(null);
   const medPriceRef = useRef(null);

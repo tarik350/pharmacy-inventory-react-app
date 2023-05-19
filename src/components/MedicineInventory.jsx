@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import Card from "./utils/Card";
 import { HiOutlinePlus } from "react-icons/hi";
 import { BsSearch } from "react-icons/bs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiFillEdit } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 const GET_MEDICINE = gql`
   query get_med {
@@ -27,6 +28,16 @@ const GET_MEDICINE = gql`
 // `;
 
 const MedicineInventory = () => {
+  const autorized = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!autorized) {
+      navigate("/login");
+    } else {
+      console.log("authorized");
+    }
+  }, []);
   const { refetch, loading, error, data } = useQuery(GET_MEDICINE, {
     pollInterval: 500,
   });

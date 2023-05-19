@@ -1,9 +1,22 @@
+import { useEffect } from "react";
 import { pharma_woman } from "../assets";
 import Auth from "./Auth";
 import Card from "./utils/Card";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const autorized = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(`autorized: ${autorized} `);
+    if (!autorized) {
+      navigate("/login");
+    } else {
+      console.log("authorized");
+    }
+  }, []);
+
   return (
     <main className="flex flex-col items-center  h-full">
       <div className="  self-end my-8">

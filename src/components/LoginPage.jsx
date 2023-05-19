@@ -89,10 +89,15 @@ const LoginPage = () => {
       setPassordVisibility("text");
     } else setPassordVisibility("password");
   };
+
+  const gotoSignup = () => {
+    navigate("/signup");
+  };
+
   return (
     <div className="flex justify-center items-center h-screen">
-      <div>
-        <div>
+      <div className="flex">
+        <div className="">
           <div className="title flex justify-center my-4 ">
             <h2 className="text-4xl text-primary font-bold uppercase font-poppins ">
               login
@@ -134,7 +139,12 @@ const LoginPage = () => {
                 login
               </button>
               <div className="flex-1 p-[2px]  rounded-2xl  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
-                <button className="w-full h-full uppercase rounded-2xl bg-white">
+                <button
+                  onClickCapture={() => {
+                    gotoSignup();
+                  }}
+                  className="w-full h-full uppercase rounded-2xl bg-white"
+                >
                   create account
                 </button>
               </div>
