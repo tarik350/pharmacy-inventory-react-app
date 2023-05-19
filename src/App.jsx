@@ -36,7 +36,7 @@ const App = () => {
           <Navbar />
         </div>
       </ShowNavBar>
-      <div className="flex-1 mx-[50px]  my-12">
+      <div className="flex-1 ">
         <Routes>
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/signup" element={<SignupPage />}></Route>

@@ -7,6 +7,7 @@ import Button from "./utils/Button";
 import { BsEmojiLaughing } from "react-icons/bs";
 import useDidMountEffect from "./utils/useDidMountEffect";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { pharma_woman } from "../assets";
 
 const login = gql`
   query myQuery($email: String!, $password: String!) {
@@ -96,14 +97,15 @@ const LoginPage = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="flex">
-        <div className="">
-          <div className="title flex justify-center my-4 ">
-            <h2 className="text-4xl text-primary font-bold uppercase font-poppins ">
+      <div className="flex  justify-between items-center w-full">
+        {/* this is for login fields */}
+        <div className="flex-1 flex flex-col  items-center ">
+          <div className="title my-4   flex ">
+            <h2 className="text-4xl  text-primary font-bold uppercase font-poppins ">
               login
             </h2>
           </div>
-          <div className="flex  bg-white flex-col w-[400px]">
+          <div className="flex  bg-white flex-col w-[500px]">
             <input
               ref={emailRef}
               type="text"
@@ -114,7 +116,7 @@ const LoginPage = () => {
               <input
                 ref={passwordRef}
                 type={passwordVisibility}
-                className=" py-[20px] text-field "
+                className=" py-[20px] w-full text-field "
                 placeholder="password"
               />
               <button
@@ -155,6 +157,10 @@ const LoginPage = () => {
               <button className="">signup</button>
             </div> */}
           </div>
+        </div>
+        {/* this is for the image */}
+        <div className="flex-1">
+          <img className="  " src={pharma_woman} alt="pharmcist woman" />
         </div>
       </div>
     </div>
