@@ -23,8 +23,11 @@ const LoginPage = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
+  let navigate = useNavigate();
+
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState("");
+  const [refreshPage, setRefresh] = useState(false);
 
   const [passwordVisibility, setPassordVisibility] = useState("password");
 
@@ -45,6 +48,7 @@ const LoginPage = () => {
           console.log(`user has data`);
           //if there is a data
           localStorage.setItem("token", value.data.login.token);
+          setRefresh(true);
           navigateHome();
         } else {
           //if the user not found
@@ -58,8 +62,6 @@ const LoginPage = () => {
       });
   }, [email, password]);
 
-  // useEffect(, [email]);
-
   const { data, error, loading, refetch } = useQuery(login, {
     enabled: false,
     variables: {
@@ -67,7 +69,7 @@ const LoginPage = () => {
       password,
     },
   });
-  const navigate = useNavigate();
+
   //   const { enabled, setEnabled } = useState(false);
 
   const navigateHome = () => {
@@ -88,9 +90,9 @@ const LoginPage = () => {
     } else setPassordVisibility("password");
   };
   return (
-    <div className="flex justify-center items-center">
-      <div className="m-12 w-max rounded-xl flex  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
-        <div className="flex flex-col relative  bg-white w-full   m-[3px] border-2 p-12  shadow-2xl rounded-lg ">
+    <div className="flex justify-center items-center h-screen">
+      <div>
+        <div>
           <div className="title flex justify-center my-4 ">
             <h2 className="text-4xl text-primary font-bold uppercase font-poppins ">
               login
@@ -107,7 +109,7 @@ const LoginPage = () => {
               <input
                 ref={passwordRef}
                 type={passwordVisibility}
-                className="text-field"
+                className=" py-[20px] text-field "
                 placeholder="password"
               />
               <button
@@ -123,7 +125,25 @@ const LoginPage = () => {
                 )}
               </button>
             </div>
-            <Button className="" title="Login" onClick={handleLogin} />
+            <div className="flex justify-between">
+              <button
+                className="mr-[10px] uppercase py-[20px] rounded-xl flex-1  text-white bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500"
+                title="Login"
+                onClick={handleLogin}
+              >
+                login
+              </button>
+              <div className="flex-1 p-[2px]  rounded-2xl  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
+                <button className="w-full h-full uppercase rounded-2xl bg-white">
+                  create account
+                </button>
+              </div>
+            </div>
+            {/* 
+            <div className="flex">
+              <p className="text-black">if you don't have an account</p>{" "}
+              <button className="">signup</button>
+            </div> */}
           </div>
         </div>
       </div>

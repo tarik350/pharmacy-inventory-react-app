@@ -13,7 +13,7 @@
 }
 
 .text-field {
-  @apply rounded-md w-full  border focus:outline-none focus:border-primary  border-gray-400  p-3 mb-5;
+  @apply rounded-md w-full text-[18px]  border focus:outline-none focus:border-primary  border-gray-400  px-3 py-[20px] mb-5;
 }
 th {
   @apply bg-blue-100 border text-left px-8 py-4;
