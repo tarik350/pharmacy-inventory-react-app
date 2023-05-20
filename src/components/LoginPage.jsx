@@ -49,6 +49,7 @@ const LoginPage = () => {
           console.log(`user has data`);
           //if there is a data
           localStorage.setItem("token", value.data.login.token);
+          localStorage.setItem("id", value.data.login.id);
           setRefresh(true);
           navigateHome();
         } else {
@@ -94,6 +95,9 @@ const LoginPage = () => {
   const gotoSignup = () => {
     navigate("/signup");
   };
+
+  // if (loading) return <div>loading</div>;
+  // if (error) return <div>erorr</div>;
 
   return (
     <div className="flex justify-center items-center h-screen">

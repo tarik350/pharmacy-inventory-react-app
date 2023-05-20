@@ -8,28 +8,47 @@ import { AiFillEdit } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 const GET_MEDICINE = gql`
-  query get_med {
-    medicine {
+  {
+    {
+      medicine {
+        amount_in_stock
+        brand_name
+        id
+        name
+        price
+      }
+    }
+    
+  }
+`;
+
+const DELETE_FUNCTION = gql`
+  mutation ($id: uuid!) {
+    delete_medicine_by_pk(id: $id) {
       name
+      id
       price
+      brandName
     }
   }
 `;
 
-// const DELETE_FUNCTION = gql`
-//   mutation ($id: uuid!) {
-//     delete_medicine_by_pk(id: $id) {
-//       name
-//       id
-//       price
-//       brandName
-//     }
-//   }
-// `;
-
 const MedicineInventory = () => {
   const autorized = localStorage.getItem("token");
   const navigate = useNavigate();
+
+  const [mutateFunction, { deleteData, deleteLoading, deleteError }] =
+    useMutation(DELETE_FUNCTION);
+
+  const handleDelete = async (id) => {
+    mutateFunction({
+      variables: {
+        id: id,
+      },
+    }).then((value) => {
+      console.log(value);
+    });
+  };
 
   useEffect(() => {
     if (!autorized) {
@@ -119,19 +138,6 @@ const MedicineInventory = () => {
       </div>
     )
   );
-
-  // const [mutateFunction, { deleteData, deleteLoading, deleteError }] =
-  //   useMutation(DELETE_FUNCTION);
-
-  const handleDelete = async (id) => {
-    mutateFunction({
-      variables: {
-        id: id,
-      },
-    }).then((value) => {
-      console.log(value);
-    });
-  };
 
   // if (loading) return "loading...";
   // if (error) {

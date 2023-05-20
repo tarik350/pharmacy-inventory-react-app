@@ -9,6 +9,32 @@ import {
 } from "@apollo/client";
 import { resultKeyNameFromField } from "@apollo/client/utilities";
 
+const ADD_MEDICINE = gql`
+  mutation (
+    $medicineName: String!
+    $medicinePrice: Int!
+    $userId: uuid!
+    $brandName: String!
+    $amountInStock: Int!
+  ) {
+    insert_medicine_one(
+      object: {
+        name: $medicineName
+        price: $medicinePrice
+        user_id: $userId
+        brand_name: $brandName
+        amount_in_stock: $amountInStock
+      }
+    ) {
+      id
+      medicine_user {
+        id
+        name
+      }
+    }
+  }
+`;
+
 const AddMedicine = () => {
   const autorized = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -21,36 +47,15 @@ const AddMedicine = () => {
     }
   }, []);
 
-  console.log("mounted");
   const medNameRef = useRef(null);
   const medPriceRef = useRef(null);
   const brandNameRef = useRef(null);
   const stockAmountRef = useRef(null);
 
   const [price, setPrice] = useState("");
-  const add_med = gql`
-    mutation (
-      $amountInStock: Int!
-      $brandName: String!
-      $name: String!
-      $price: Int!
-    ) {
-      insert_medicine_one(
-        object: {
-          amountInStock: $amountInStock
-          brandName: $brandName
-          name: $name
-          price: $price
-        }
-      ) {
-        id
-        name
-        brandName
-      }
-    }
-  `;
 
-  const [mutateFunction, { data, loading, error }] = useMutation(add_med);
+  const [addMedicineMutation, { data, loading, error }] =
+    useMutation(ADD_MEDICINE);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,55 +63,30 @@ const AddMedicine = () => {
     const medicinePrice = medPriceRef.current.value;
     const medicineBrandName = brandNameRef.current.value;
     const amountInStock = stockAmountRef.current.value;
+    const userId = localStorage.getItem("id");
 
-    mutateFunction({
-      variables: {
-        amountInStock: amountInStock,
-        brandName: medicineBrandName,
-        name: medicineName,
-        price: medicinePrice,
-      },
-    })
-      .then((value) => {
-        console.log("-=-=-=-");
-        alert("medicine added successfull");
+    if (medicineBrandName && medicineName && medicinePrice && amountInStock) {
+      addMedicineMutation({
+        variables: {
+          amountInStock: amountInStock,
+          brandName: medicineBrandName,
+          medicineName: medicineName,
+          medicinePrice: medicinePrice,
+          userId: userId,
+        },
       })
-      .catch((err) => {
-        console.log("=-0=-=-=-=-");
-        alert(`error: ${err}`);
-      });
-
-    // if (medicineBrandName && medicineName && medicinePrice && amountInStock) {
-    //   const medInformation = {
-    //     name: medicineName,
-    //     price: medicinePrice,
-    //     brand: medicineBrandName,
-    //     amountInStock: amountInStock,
-    //   };
-
-    //   if (loading) console.log("loading");
-    //   if (error) console.log(error);
-    //   console.log(data);
-
-    //   client
-    //     .query({
-    //       query: gql`
-    //         query MyQuery {
-    //           medicine {
-    //             id
-    //             name
-    //             price
-    //             brandName
-    //             created_at
-    //             updated_at
-    //           }
-    //         }
-    //       `,
-    //     })
-    //     .then((result) => console.log(result));
-    // } else {
-    //   console.log("please fill the fields");
-    // }
+        .then((value) => {
+          //medicine added successfully notification
+          console.log(`medince added successfully`);
+        })
+        .catch((err) => {
+          // alert(`error: ${err}`);
+          console.log(`eror: ${err}`);
+        });
+    } else {
+      //notify users elegantly
+      //that they have to insert all the fields
+    }
   };
 
   // const get_medicines = gql`
@@ -176,26 +156,27 @@ const AddMedicine = () => {
                 />
               </div>
             </div>
+            <div className=" bg-gradient-to-r w-max  rounded-full p-[2px]  from-indigo-500 via-purple-500 to-pink-500   justify-end">
+              <button
+                onClick={(event) => {
+                  handleSubmit(event);
+                  // const token = localStorage.getItem("token");
+                  // console.log("submitting");
+                  // if (token) {
+                  //   handleSubmit(event);
+                  // } else {
+                  //   alert("you have to login first");
+                  // }
+                }}
+                type="submit"
+                className="btn group px-[14px]   py-[12px]  "
+              >
+                <p className=" group-hover:bg-gradient-to-r  group-hover:from-indigo-500 group-hover:via-purple-500 group-hover:to-pink-500 group-hover:inline-block group-hover:text-transparent group-hover:bg-clip-text">
+                  add to inventory
+                </p>
+              </button>
+            </div>
           </form>
-          <div className=" bg-gradient-to-r w-max self-end rounded-full p-[2px]  from-indigo-500 via-purple-500 to-pink-500   justify-end">
-            <button
-              onClick={() => {
-                const token = localStorage.getItem("token");
-                console.log("submitting");
-                if (token) {
-                  handleSubmit();
-                } else {
-                  alert("you have to login first");
-                }
-              }}
-              type="submit"
-              className="btn group px-[14px]   py-[12px]  "
-            >
-              <p className=" group-hover:bg-gradient-to-r  group-hover:from-indigo-500 group-hover:via-purple-500 group-hover:to-pink-500 group-hover:inline-block group-hover:text-transparent group-hover:bg-clip-text">
-                add to inventory
-              </p>
-            </button>
-          </div>
         </div>
       </div>
     </div>
