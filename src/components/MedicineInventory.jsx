@@ -9,16 +9,13 @@ import { useNavigate } from "react-router-dom";
 
 const GET_MEDICINE = gql`
   {
-    {
-      medicine {
-        amount_in_stock
-        brand_name
-        id
-        name
-        price
-      }
+    medicine {
+      amount_in_stock
+      brand_name
+      id
+      name
+      price
     }
-    
   }
 `;
 
@@ -28,7 +25,6 @@ const DELETE_FUNCTION = gql`
       name
       id
       price
-      brandName
     }
   }
 `;
@@ -46,7 +42,7 @@ const MedicineInventory = () => {
         id: id,
       },
     }).then((value) => {
-      console.log(value);
+      // setDeleteState(true);
     });
   };
 
@@ -58,7 +54,7 @@ const MedicineInventory = () => {
     }
   }, []);
   const { refetch, loading, error, data } = useQuery(GET_MEDICINE, {
-    pollInterval: 500,
+    // pollInterval: 10,
   });
 
   if (loading) return <div>loading</div>;
@@ -113,9 +109,9 @@ const MedicineInventory = () => {
                 <tbody key={index}>
                   <tr className="">
                     <td className="">{item.name}</td>
-                    <td className="">{item.brandName}</td>
+                    <td className="">{item.brand_name}</td>
                     <td className="">{item.price}</td>
-                    <td className="">{item.amountInStock}</td>
+                    <td className="">{item.amount_in_stock}</td>
                     <td className="w-[10px]  cursor-pointer group  hover:bg-red-600 hover:text-white transition-all delay-75">
                       <div
                         className=""
