@@ -4,7 +4,7 @@ import Card from "./utils/Card";
 import { HiOutlinePlus } from "react-icons/hi";
 import { BsSearch } from "react-icons/bs";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { AiFillEdit } from "react-icons/ai";
+import { AiFillEdit, AiOutlineConsoleSql } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 
@@ -20,6 +20,18 @@ const GET_MEDICINE = gql`
   }
 `;
 
+const DELETE_MED = gql`
+  mutation ($id: uuid!) {
+    delete_medicine(where: { id: { _eq: $id } }) {
+      returning {
+        name
+        price
+        id
+      }
+    }
+  }
+`;
+
 const DELETE_FUNCTION = gql`
   mutation ($id: uuid!) {
     delete_medicine_by_pk(id: $id) {
@@ -31,14 +43,17 @@ const DELETE_FUNCTION = gql`
 `;
 
 const MedicineInventory = () => {
+  const [showMessage, setShowMessage] = useState(false);
+  let deleteMedicinesId = [];
+
   const autorized = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  const [mutateFunction, { deleteData, deleteLoading, deleteError }] =
+  const [deleteMutationFunction, { deleteData, deleteLoading, deleteError }] =
     useMutation(DELETE_FUNCTION);
 
   const handleDelete = async (id) => {
-    mutateFunction({
+    deleteMutationFunction({
       variables: {
         id: id,
       },
@@ -46,6 +61,10 @@ const MedicineInventory = () => {
       // setDeleteState(true);
     });
   };
+
+  ///how to  check if there is a row selected and show or not show the delete button
+  ///dynamically
+  ///i have to read more about react state and hooks
 
   useEffect(() => {
     if (!autorized) {
@@ -68,14 +87,39 @@ const MedicineInventory = () => {
   if (error) {
     return (
       <div className="flex justify-center items-center h-full w-full">
-        <CircularProgress />
+        <p className="text-[red]">{error.message}</p>
       </div>
     );
   }
 
+  const deleteMultipleMedicine = () => {
+    if (deleteMedicinesId.length !== 0) {
+      console.log("deleting");
+
+      for (let id in deleteMedicinesId) {
+        console.log(` deleting :${deleteMedicinesId[id]}`);
+        /// we have to make this on the back end with cusome logic to handle it
+
+        //create a custom login and send it the array
+        //and at the back end loop over each value and delete
+
+        deleteMutationFunction({
+          variables: {
+            id: deleteMedicinesId[id],
+          },
+        }).then((value) => {
+          console.log("delete successfully");
+        });
+      }
+    } else {
+      //show message
+      console.log("nothing to delte");
+    }
+  };
+
   return (
     data && (
-      <div className="   text-[12px] ">
+      <div className="   text-[10px] ">
         <div className=" flex items-center justify-between my-[40px] mx-[40px]">
           <div>
             <h1 className="text-black font-extrabold text-[28px]">Medicine</h1>
@@ -100,10 +144,11 @@ const MedicineInventory = () => {
         </div>
         <div className="flex flex-1 m-[40px]  rounded-xl  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
           <div className=" flex-col relative  bg-white w-full   m-[3px] border-2  p-2  shadow-2xl rounded-lg ">
-            <div className=" ">
+            <div className=" flex flex-col">
               <table className="table-auto   w-full">
                 <thead>
                   <tr>
+                    <th></th>
                     <th className="">Name</th>
                     <th className="">Generic name</th>
                     <th className="">SKU</th>
@@ -130,6 +175,26 @@ const MedicineInventory = () => {
                   return (
                     <tbody key={index}>
                       <tr className="">
+                        <td>
+                          <input
+                            type="checkbox"
+                            value={item.id}
+                            onChange={(event) => {
+                              if (event.currentTarget.checked) {
+                                console.log("checked");
+                                deleteMedicinesId.push(
+                                  event.currentTarget.value
+                                );
+                                console.log(deleteMedicinesId);
+                              } else {
+                                deleteMedicinesId = deleteMedicinesId.filter(
+                                  (e) => e !== event.currentTarget.value
+                                );
+                                console.log(`deleted : ${deleteMedicinesId}`);
+                              }
+                            }}
+                          />
+                        </td>
                         <td className="">{item.name}</td>
                         <td className="">{item.brand_name}</td>
                         <td className="">{item.price}</td>
@@ -159,6 +224,20 @@ const MedicineInventory = () => {
                   );
                 })}
               </table>
+              <div className="flex items-center self-end">
+                <div className="error">
+                  <p>{}</p>
+                </div>
+                <button
+                  onClick={() => {
+                    console.log("delete clicked");
+                    deleteMultipleMedicine();
+                  }}
+                  className="  bg-[red] my-3 text-[14px] text-white px-4 py-2 font-bold "
+                >
+                  delete
+                </button>
+              </div>
             </div>
           </div>
         </div>
