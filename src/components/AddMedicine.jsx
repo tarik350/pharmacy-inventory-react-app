@@ -17,25 +17,37 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const ADD_MEDICINE = gql`
   mutation (
-    $medicineName: String!
-    $medicinePrice: Int!
-    $userId: uuid!
+    $stock: Int!
     $brandName: String!
-    $amountInStock: Int!
+    $catagory: String!
+    $genericName: String!
+    $manufacturer: String!
+    $medicineName: String!
+    $price: Int!
+    $sku: String!
+    $userId: uuid!
+    $weight: String!
+    $description: String!
   ) {
-    insert_medicine_one(
-      object: {
-        name: $medicineName
-        price: $medicinePrice
-        user_id: $userId
+    insert_medicine(
+      objects: {
+        amount_in_stock: $stock
         brand_name: $brandName
-        amount_in_stock: $amountInStock
+        catagory: $catagory
+        generic_name: $genericName
+        manufacturer: $manufacturer
+        medicine_name: $medicineName
+        price: $price
+        sku: $sku
+        user_id: $userId
+        weight: $weight
+        description: $description
       }
     ) {
-      id
-      medicine_user {
-        id
-        name
+      returning {
+        brand_name
+        generic_name
+        medicne_name
       }
     }
   }
@@ -59,6 +71,7 @@ const AddMedicine = () => {
   const stockAmountRef = useRef(null);
   const descriptionRef = useRef(null);
   const manufacturerRef = useRef(null);
+  const genericNameRef = useRef(null);
   const skuRef = useRef(null);
   const weightRef = useRef(null);
   const statusRef = useRef(null);
@@ -79,21 +92,30 @@ const AddMedicine = () => {
     const description = descriptionRef.current.getContent({ format: "text" });
     const sku = skuRef.current.value;
     const weight = weightRef.current.value;
+    const price = priceRef.current.value;
+    const genericName = genericNameRef.current.value;
     const status = statusRef.current.value;
 
     const manufacturer = manufacturerRef.current.value;
 
-    // const userId = localStorage.getItem("id");
+    const userId = localStorage.getItem("id");
 
     console.log(`catagory selected : ${catagory}`);
     if (medicineBrandName && medicineName && medicinePrice && amountInStock) {
       addMedicineMutation({
         variables: {
-          amountInStock: amountInStock,
+          stock: amountInStock,
           brandName: medicineBrandName,
           medicineName: medicineName,
           medicinePrice: medicinePrice,
           userId: userId,
+          catagory: catagory,
+          manufacturer: manufacturer,
+          weight: weight,
+          sku: sku,
+          description: description,
+          genericName: genericName,
+          price: price,
         },
       })
         .then((value) => {
@@ -150,7 +172,7 @@ const AddMedicine = () => {
               <div className="containerDiv flex flex-col justify-center ">
                 <div className="mb-8 flex">
                   <div className="mr-4 grow">
-                    <label className="lable">Name</label>
+                    <label className="lable">Medicine Name</label>
                     <input
                       className="text-field"
                       ref={medNameRef}
@@ -158,24 +180,22 @@ const AddMedicine = () => {
                     />
                   </div>
                   <div className="mr-4 grow">
-                    <label className="lable">brand</label>
+                    <label className="lable">Generic Name</label>
+                    <input
+                      className="text-field"
+                      ref={genericNameRef}
+                      placeholder="generic name"
+                    />
+                  </div>
+                  <div className="mr-4 grow">
+                    <label className="lable">Medicine brand</label>
                     <input
                       className="text-field"
                       ref={brandNameRef}
                       placeholder="brand name"
                     />
                   </div>
-                  <div className="flex items-center relative   mr-4">
-                    <div className="grow">
-                      <label className="lable">SKU</label>
-                      <input
-                        className="text-field"
-                        ref={skuRef}
-                        placeholder="SKU"
-                      />
-                    </div>
-                  </div>
-
+                  <div className="flex items-center relative   mr-4"></div>
                   <div className="grow">
                     <div className="mr-4 ">
                       <label className="lable">Expire Date</label>
@@ -279,6 +299,14 @@ const AddMedicine = () => {
                       className="text-field"
                       ref={statusRef}
                       placeholder="Status"
+                    />
+                  </div>
+                  <div className="">
+                    <label className="lable">SKU</label>
+                    <input
+                      className="text-field"
+                      ref={skuRef}
+                      placeholder="SKU"
                     />
                   </div>
                 </div>

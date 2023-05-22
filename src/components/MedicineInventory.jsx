@@ -11,31 +11,38 @@ import { CircularProgress } from "@mui/material";
 const GET_MEDICINE = gql`
   {
     medicine {
+      medicine_name
       amount_in_stock
       brand_name
+      catagory
+      description
+      generic_name
       id
-      name
+      manufacturer
       price
+      sku
+      user_id
+      weight
     }
   }
 `;
+
+// const DELETE_MED = gql`
+//   mutation ($id: uuid!) {
+//     delete_medicine(where: { id: { _eq: $id } }) {
+//       returning {
+//         medicine_name
+//         price
+//         id
+//       }
+//     }
+//   }
+// `;
 
 const DELETE_MED = gql`
   mutation ($id: uuid!) {
-    delete_medicine(where: { id: { _eq: $id } }) {
-      returning {
-        name
-        price
-        id
-      }
-    }
-  }
-`;
-
-const DELETE_FUNCTION = gql`
-  mutation ($id: uuid!) {
     delete_medicine_by_pk(id: $id) {
-      name
+      medicine_name
       id
       price
     }
@@ -50,7 +57,7 @@ const MedicineInventory = () => {
   const navigate = useNavigate();
 
   const [deleteMutationFunction, { deleteData, deleteLoading, deleteError }] =
-    useMutation(DELETE_FUNCTION);
+    useMutation(DELETE_MED);
 
   const handleDelete = async (id) => {
     deleteMutationFunction({
@@ -172,6 +179,7 @@ const MedicineInventory = () => {
                   </tr>
                 </thead>
                 {data.medicine.map((item, index) => {
+                  console.log(item);
                   return (
                     <tbody key={index}>
                       <tr className="">
@@ -195,17 +203,17 @@ const MedicineInventory = () => {
                             }}
                           />
                         </td>
-                        <td className="">{item.name}</td>
+                        <td className="">{item.medicine_name}</td>
+                        <td className="">{item.generic_name}</td>
+                        <td className="">{item.sku}</td>
+                        <td className="">{item.weight}</td>
+                        <td className="">{item.catagory}</td>
+                        <td className="">{item.manufacturer}</td>
                         <td className="">{item.brand_name}</td>
                         <td className="">{item.price}</td>
                         <td className="">{item.amount_in_stock}</td>
-                        <td className="">place holder</td>
-                        <td className="">place holder</td>
-                        <td className="">place holder</td>
-                        <td className="">place holder</td>
-                        <td className="">place holder</td>
-                        <td className="">place holder</td>
-                        <td className="">place holder</td>
+                        <td className="">{}</td>
+                        <td className="">{}</td>
                         <td className="w-[10px]  cursor-pointer group  hover:bg-red-600 hover:text-white transition-all delay-75">
                           <div
                             className=""
