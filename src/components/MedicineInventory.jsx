@@ -98,65 +98,69 @@ const MedicineInventory = () => {
             </button>
           </div>
         </div>
-        <div className="border-2 p-4 mx-[40px]">
-          <table className="table-auto   w-full">
-            <thead>
-              <tr>
-                <th className="">Name</th>
-                <th className="">Generic name</th>
-                <th className="">SKU</th>
-                <th className="">Weight</th>
-                <th className="">Catagory</th>
-                <th className="">Manufacturer</th>
-                <th className="">Brand name</th>
-                <th className="">price</th>
-                <th className="">stock</th>
-                <th className="">Expire date</th>
-                <th className="">status</th>
+        <div className="flex flex-1 m-[40px]  rounded-xl  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
+          <div className=" flex-col relative  bg-white w-full   m-[3px] border-2  p-2  shadow-2xl rounded-lg ">
+            <div className=" ">
+              <table className="table-auto   w-full">
+                <thead>
+                  <tr>
+                    <th className="">Name</th>
+                    <th className="">Generic name</th>
+                    <th className="">SKU</th>
+                    <th className="">Weight</th>
+                    <th className="">Catagory</th>
+                    <th className="">Manufacturer</th>
+                    <th className="">Brand name</th>
+                    <th className="">price</th>
+                    <th className="">stock</th>
+                    <th className="">Expire date</th>
+                    <th className="">status</th>
 
-                {/* <th>Catagory</th>
+                    {/* <th>Catagory</th>
               <th>manufacturer</th>
               <th>price</th>
               <th>store</th>
               <th>expire date</th>
               <th>status</th> */}
-                <th className="border-none bg-transparent "></th>
-                <th className="border-none bg-transparent"></th>
-              </tr>
-            </thead>
-            {data.medicine.map((item, index) => {
-              return (
-                <tbody key={index}>
-                  <tr className="">
-                    <td className="">{item.name}</td>
-                    <td className="">{item.brand_name}</td>
-                    <td className="">{item.price}</td>
-                    <td className="">{item.amount_in_stock}</td>
-                    <td className="">place holder</td>
-                    <td className="">place holder</td>
-                    <td className="">place holder</td>
-                    <td className="">place holder</td>
-                    <td className="">place holder</td>
-                    <td className="">place holder</td>
-                    <td className="">place holder</td>
-                    <td className="w-[10px]  cursor-pointer group  hover:bg-red-600 hover:text-white transition-all delay-75">
-                      <div
-                        className=""
-                        onClick={(event) => {
-                          handleDelete(item.id);
-                        }}
-                      >
-                        <RiDeleteBin6Line className="text-red-600 group-hover:text-white text-xl transition-all delay-75" />
-                      </div>
-                    </td>
-                    <td className="w-[10px]  cursor-pointer group hover:bg-blue-600 transition-all delay-75 ">
-                      <AiFillEdit className="text-blue-600 group-hover:text-white text-xl transition-all delay-75" />
-                    </td>
+                    <th className="border-none bg-transparent "></th>
+                    <th className="border-none bg-transparent"></th>
                   </tr>
-                </tbody>
-              );
-            })}
-          </table>
+                </thead>
+                {data.medicine.map((item, index) => {
+                  return (
+                    <tbody key={index}>
+                      <tr className="">
+                        <td className="">{item.name}</td>
+                        <td className="">{item.brand_name}</td>
+                        <td className="">{item.price}</td>
+                        <td className="">{item.amount_in_stock}</td>
+                        <td className="">place holder</td>
+                        <td className="">place holder</td>
+                        <td className="">place holder</td>
+                        <td className="">place holder</td>
+                        <td className="">place holder</td>
+                        <td className="">place holder</td>
+                        <td className="">place holder</td>
+                        <td className="w-[10px]  cursor-pointer group  hover:bg-red-600 hover:text-white transition-all delay-75">
+                          <div
+                            className=""
+                            onClick={(event) => {
+                              handleDelete(item.id);
+                            }}
+                          >
+                            <RiDeleteBin6Line className="text-red-600 group-hover:text-white text-xl transition-all delay-75" />
+                          </div>
+                        </td>
+                        <td className="w-[10px]  cursor-pointer group hover:bg-blue-600 transition-all delay-75 ">
+                          <AiFillEdit className="text-blue-600 group-hover:text-white text-xl transition-all delay-75" />
+                        </td>
+                      </tr>
+                    </tbody>
+                  );
+                })}
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     )

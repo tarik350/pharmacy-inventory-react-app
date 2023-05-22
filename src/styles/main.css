@@ -618,6 +618,10 @@ video {
   margin: 3px;
 }
 
+.m-\[40px\]{
+  margin: 40px;
+}
+
 .mx-2{
   margin-left: 0.5rem;
   margin-right: 0.5rem;
