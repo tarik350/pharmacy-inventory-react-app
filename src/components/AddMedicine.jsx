@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { inventoryFields } from "../constants";
 import {
   ApolloClient,
   InMemoryCache,
@@ -119,43 +120,110 @@ const AddMedicine = () => {
             </h2>
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="mt-12">
-              <label className="lable">Name</label>
-              <input
-                className="text-field"
-                ref={medNameRef}
-                placeholder="medicine name"
-              />
-              <div>
-                <label className="lable">brand</label>
-                <input
-                  className="text-field"
-                  ref={brandNameRef}
-                  placeholder="brand name"
-                />
-              </div>
-              <div className="flex items-center">
-                <div className="flex-1 ">
-                  <label className="lable">price</label>
+            {/* first row */}
+            <div className="containerDiv flex flex-col w-full">
+              <div className="mt-12 flex">
+                <div className="mr-4 grow">
+                  <label className="lable">Name</label>
                   <input
                     className="text-field"
-                    ref={medPriceRef}
-                    placeholder="price"
+                    ref={medNameRef}
+                    placeholder="medicine name"
                   />
                 </div>
-                <p className="ml-2 lable "> Birr</p>
-              </div>
+                <div className="mr-4 grow">
+                  <label className="lable">brand</label>
+                  <input
+                    className="text-field"
+                    ref={brandNameRef}
+                    placeholder="brand name"
+                  />
+                </div>
+                <div className="flex items-center relative   mr-4">
+                  <div className="grow">
+                    <label className="lable">SKU</label>
+                    <input
+                      className="text-field"
+                      ref={medPriceRef}
+                      placeholder="SKU"
+                    />
+                  </div>
+                </div>
 
-              <div>
-                <label className="lable">amount in stock</label>
-                <input
-                  type="number"
-                  className="text-field"
-                  ref={stockAmountRef}
-                  placeholder="how many in stock?"
-                />
+                <div className="grow">
+                  <label className="lable ">Weight</label>
+                  <input
+                    type="number"
+                    className="text-field"
+                    ref={stockAmountRef}
+                    placeholder="Weight"
+                  />
+                </div>
+              </div>
+              {/* second row */}
+              <div className="mt-12 flex">
+                <div className="mr-4 grow">
+                  <label className="lable">Catagory</label>
+                  <input
+                    className="text-field"
+                    ref={medNameRef}
+                    placeholder="Catagory"
+                  />
+                </div>
+                <div className="mr-4 grow">
+                  <label className="lable">Manufacturer</label>
+                  <input
+                    className="text-field"
+                    ref={brandNameRef}
+                    placeholder="Manufacurer"
+                  />
+                </div>
+                <div className="flex items-center relative  grow  mr-4">
+                  <div className="grow">
+                    <label className="lable">price</label>
+                    <input
+                      className="text-field"
+                      ref={medPriceRef}
+                      placeholder="price"
+                    />
+                  </div>
+                  <p className="ml-2 lable absolute right-0 top-7 text-gray-300 p-2">
+                    {" "}
+                    Birr
+                  </p>
+                </div>
+
+                <div className="">
+                  <label className="lable">amount in stock</label>
+                  <input
+                    type="number"
+                    className="text-field"
+                    ref={stockAmountRef}
+                    placeholder="how many in stock?"
+                  />
+                </div>
+              </div>
+              {/* third row */}
+              <div className="mt-12 flex">
+                <div className="mr-4">
+                  <label className="lable">Expire Date</label>
+                  <input
+                    className="text-field"
+                    ref={medNameRef}
+                    placeholder="Expire Date"
+                  />
+                </div>
+                <div className="mr-4">
+                  <label className="lable">Staus</label>
+                  <input
+                    className="text-field"
+                    ref={brandNameRef}
+                    placeholder="Status"
+                  />
+                </div>
               </div>
             </div>
+            end of text field
             <div className=" bg-gradient-to-r w-max  rounded-full p-[2px]  from-indigo-500 via-purple-500 to-pink-500   justify-end">
               <button
                 onClick={(event) => {

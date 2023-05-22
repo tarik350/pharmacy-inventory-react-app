@@ -90,9 +90,16 @@ const MedicineInventory = () => {
             <thead>
               <tr>
                 <th className="">Name</th>
-                <th className="">brand name</th>
+                <th className="">Generic name</th>
+                <th className="">SKU</th>
+                <th className="">Weight</th>
+                <th className="">Catagory</th>
+                <th className="">Manufacturer</th>
+                <th className="">Brand name</th>
                 <th className="">price</th>
                 <th className="">stock</th>
+                <th className="">Expire date</th>
+                <th className="">status</th>
 
                 {/* <th>Catagory</th>
               <th>manufacturer</th>
@@ -112,6 +119,13 @@ const MedicineInventory = () => {
                     <td className="">{item.brand_name}</td>
                     <td className="">{item.price}</td>
                     <td className="">{item.amount_in_stock}</td>
+                    <td className="">place holder</td>
+                    <td className="">place holder</td>
+                    <td className="">place holder</td>
+                    <td className="">place holder</td>
+                    <td className="">place holder</td>
+                    <td className="">place holder</td>
+                    <td className="">place holder</td>
                     <td className="w-[10px]  cursor-pointer group  hover:bg-red-600 hover:text-white transition-all delay-75">
                       <div
                         className=""
