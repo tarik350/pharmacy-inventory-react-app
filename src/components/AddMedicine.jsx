@@ -28,6 +28,7 @@ const ADD_MEDICINE = gql`
     $userId: uuid!
     $weight: String!
     $description: String!
+    $expireDate: String!
   ) {
     insert_medicine(
       objects: {
@@ -42,12 +43,13 @@ const ADD_MEDICINE = gql`
         user_id: $userId
         weight: $weight
         description: $description
+        expire_date: $expireDate
       }
     ) {
       returning {
         brand_name
         generic_name
-        medicne_name
+        medicine_name
       }
     }
   }
@@ -116,6 +118,7 @@ const AddMedicine = () => {
           description: description,
           genericName: genericName,
           price: price,
+          expireDate: expireDate,
         },
       })
         .then((value) => {

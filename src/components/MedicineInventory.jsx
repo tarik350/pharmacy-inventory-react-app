@@ -22,6 +22,7 @@ const GET_MEDICINE = gql`
       price
       sku
       user_id
+      expire_date
       weight
     }
   }
@@ -51,13 +52,17 @@ const DELETE_MED = gql`
 
 const MedicineInventory = () => {
   const [showMessage, setShowMessage] = useState(false);
+  const [showProgressMultiple, setshowProgressMultiple] = useState(false);
+  const [showProgress, setShowProgress] = useState(false);
   let deleteMedicinesId = [];
 
   const autorized = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  const [deleteMutationFunction, { deleteData, deleteLoading, deleteError }] =
-    useMutation(DELETE_MED);
+  const [
+    deleteMutationFunction,
+    { data: deleteData, loading: deleteLoading, error: deleteError },
+  ] = useMutation(DELETE_MED);
 
   const handleDelete = async (id) => {
     deleteMutationFunction({
@@ -69,6 +74,9 @@ const MedicineInventory = () => {
     });
   };
 
+  if (deleteLoading) {
+    console.log("delet loading");
+  }
   ///how to  check if there is a row selected and show or not show the delete button
   ///dynamically
   ///i have to read more about react state and hooks
@@ -100,9 +108,8 @@ const MedicineInventory = () => {
   }
 
   const deleteMultipleMedicine = () => {
+    setShowProgress();
     if (deleteMedicinesId.length !== 0) {
-      console.log("deleting");
-
       for (let id in deleteMedicinesId) {
         console.log(` deleting :${deleteMedicinesId[id]}`);
         /// we have to make this on the back end with cusome logic to handle it
@@ -118,11 +125,14 @@ const MedicineInventory = () => {
           console.log("delete successfully");
         });
       }
+      setShowProgress(false);
     } else {
       //show message
       console.log("nothing to delte");
     }
   };
+
+  if (loading) return <div>loading</div>;
 
   return (
     data && (
@@ -179,9 +189,8 @@ const MedicineInventory = () => {
                   </tr>
                 </thead>
                 {data.medicine.map((item, index) => {
-                  console.log(item);
                   return (
-                    <tbody key={index}>
+                    <tbody className="" key={index}>
                       <tr className="">
                         <td>
                           <input
@@ -212,8 +221,8 @@ const MedicineInventory = () => {
                         <td className="">{item.brand_name}</td>
                         <td className="">{item.price}</td>
                         <td className="">{item.amount_in_stock}</td>
-                        <td className="">{}</td>
-                        <td className="">{}</td>
+                        <td className="">{item.expire_date}</td>
+                        <td className="">active</td>
                         <td className="w-[10px]  cursor-pointer group  hover:bg-red-600 hover:text-white transition-all delay-75">
                           <div
                             className=""
@@ -243,7 +252,7 @@ const MedicineInventory = () => {
                   }}
                   className="  bg-[red] my-3 text-[14px] text-white px-4 py-2 font-bold "
                 >
-                  delete
+                  {showProgress ? <CircularProgress /> : "delete"}
                 </button>
               </div>
             </div>
