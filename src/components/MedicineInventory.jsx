@@ -6,6 +6,7 @@ import { BsSearch } from "react-icons/bs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiFillEdit } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 const GET_MEDICINE = gql`
   {
@@ -57,13 +58,25 @@ const MedicineInventory = () => {
     // pollInterval: 10,
   });
 
-  if (loading) return <div>loading</div>;
-  if (error) return <div>{`erorr is : ${error}`}</div>;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-full w-full">
+        <CircularProgress />
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-full w-full">
+        <CircularProgress />
+      </div>
+    );
+  }
 
   return (
     data && (
-      <div className="   ">
-        <div className=" flex items-center justify-between mb-[]">
+      <div className="   text-[12px] ">
+        <div className=" flex items-center justify-between my-[40px] mx-[40px]">
           <div>
             <h1 className="text-black font-extrabold text-[28px]">Medicine</h1>
             <p className="text-gray-500">Here is the medicine list.</p>
@@ -85,7 +98,7 @@ const MedicineInventory = () => {
             </button>
           </div>
         </div>
-        <div className="border-2 p-4">
+        <div className="border-2 p-4 mx-[40px]">
           <table className="table-auto   w-full">
             <thead>
               <tr>

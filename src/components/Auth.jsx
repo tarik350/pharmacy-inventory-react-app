@@ -39,7 +39,7 @@ const Auth = () => {
     return (
       <button
         onClick={() => handleLogout()}
-        className="px-8 py-2 mx-2 border-2  border-primary text-primary  ml-2 rounded-full"
+        className="px-8 py-2  border-2  border-primary text-primary  ml-2 "
       >
         LOG OUT
       </button>
@@ -49,7 +49,7 @@ const Auth = () => {
     return (
       <button
         onClick={() => handleLogin()}
-        className="px-12 uppercase  py-2 border-2 rounded-full border-primary  bg-primary  text-white "
+        className="px-12 uppercase  py-2 border-2  border-primary  bg-primary  text-white "
       >
         login
       </button>

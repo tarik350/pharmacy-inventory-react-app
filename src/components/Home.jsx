@@ -18,14 +18,12 @@ const Home = () => {
   }, []);
 
   return (
-    <main className="flex flex-col items-center  h-full">
-      <div className="  self-end my-8">
+    <main className="flex flex-col mx-[40px] justify-center items-center  ">
+      <div className="self-end my-8">
         <Auth />
-
-        <div className=" text-xl text-red "></div>
       </div>
-      <section className="flex justify-center items-center flex-2 ">
-        <div className="w-1/2">
+      <section className="flex  justify-center items-center flex-2 ">
+        <div className="w-1/2 grow">
           <div className="bg-black w-max text-white px-4 rounded-full py-[3px]  font-extralight ">
             welcome
           </div>

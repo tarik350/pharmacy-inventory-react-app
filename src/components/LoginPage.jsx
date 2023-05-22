@@ -1,10 +1,8 @@
 import { useState, useRef, useEffect } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 
-import { gql, useQuery, useMutation, useLazyQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import Card from "./utils/Card";
-import Button from "./utils/Button";
-import { BsEmojiLaughing } from "react-icons/bs";
 import useDidMountEffect from "./utils/useDidMountEffect";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { pharma_woman } from "../assets";
@@ -18,27 +16,28 @@ const login = gql`
   }
 `;
 
-// let email = "";
-
 const LoginPage = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-
   let navigate = useNavigate();
 
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState("");
-  const [refreshPage, setRefresh] = useState(false);
+
+  ///the problem here is the query runs every time the component mounts
+  ///i only want the query to excute when i click the click button i thout i have implemented that
+  const { data, error, loading, refetch } = useQuery(login, {
+    enabled: false,
+    variables: {
+      email,
+      password,
+    },
+  });
 
   const [passwordVisibility, setPassordVisibility] = useState("password");
 
   useDidMountEffect(() => {
     console.log(`email setted to : ${email}`);
-
-    ///this only runs when both email and passwrod are changed
-
-    ///there are times where the email is corret  and you want to
-    ///change the password but it does not work
 
     refetch()
       .then((value) => {
@@ -46,14 +45,16 @@ const LoginPage = () => {
         console.log(`value retrned from backend: ${value.data}`);
 
         if (value.data) {
-          console.log(`user has data`);
+          console.log(`user has data: ${value.data}`);
+
           //if there is a data
           localStorage.setItem("token", value.data.login.token);
           localStorage.setItem("id", value.data.login.id);
-          setRefresh(true);
+
           navigateHome();
         } else {
           //if the user not found
+
           const errorMessage = value.errors[0].message;
           console.log(`erorr from auth: ${errorMessage}`);
         }
@@ -64,26 +65,28 @@ const LoginPage = () => {
       });
   }, [email, password]);
 
-  const { data, error, loading, refetch } = useQuery(login, {
-    enabled: false,
-    variables: {
-      email,
-      password,
-    },
-  });
-
-  //   const { enabled, setEnabled } = useState(false);
-
   const navigateHome = () => {
     // 👇️ navigate to /
     navigate("/");
   };
 
   const handleLogin = async () => {
+    if (error) {
+    }
     //add validation to check if the email and password value are
     //diffrent from null
-    setEmail(emailRef.current.value);
-    setPassword(passwordRef.current.value);
+    console.log("login running ");
+
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    if (email && password) {
+      setEmail(email);
+      setPassword(password);
+    } else {
+      //validation
+      //make the border red and show error massage
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -95,9 +98,6 @@ const LoginPage = () => {
   const gotoSignup = () => {
     navigate("/signup");
   };
-
-  // if (loading) return <div>loading</div>;
-  // if (error) return <div>erorr</div>;
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -113,36 +113,41 @@ const LoginPage = () => {
             <input
               ref={emailRef}
               type="text"
-              className="text-field"
+              className="rounded-md w-full text-[16px] grow  border focus:outline-none focus:border-primary  border-gray-400  px-3 py-[20px]"
               placeholder="email"
             />
             <div className="flex-1 relative">
               <input
                 ref={passwordRef}
                 type={passwordVisibility}
-                className=" py-[20px] w-full text-field "
+                className=" rounded-md my-4 w-full text-[16px] grow  border focus:outline-none focus:border-primary  border-gray-400  px-3 py-[20px] "
                 placeholder="password"
               />
               <button
                 onClick={() => {
                   togglePasswordVisibility();
                 }}
-                className="absolute right-4 top-4"
+                className="absolute right-4 top-10 "
               >
                 {passwordVisibility === "password" ? (
-                  <AiFillEye />
+                  <AiFillEye size="18px" />
                 ) : (
-                  <AiFillEyeInvisible />
+                  <AiFillEyeInvisible size="18px" />
                 )}
               </button>
             </div>
+            {/* <div className="massage">{error.message}</div> */}
             <div className="flex justify-between">
               <button
-                className="mr-[10px] uppercase py-[20px] rounded-xl flex-1  text-white bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500"
+                className="mr-[10px] flex justify-center  uppercase py-[20px] rounded-xl flex-1  text-white bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500"
                 title="Login"
                 onClick={handleLogin}
               >
-                login
+                {loading ? (
+                  <CircularProgress size="1rem" style={{ color: "white" }} />
+                ) : (
+                  "login"
+                )}
               </button>
               <div className="flex-1 p-[2px]  rounded-2xl  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
                 <button

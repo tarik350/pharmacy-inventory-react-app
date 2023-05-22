@@ -9,7 +9,7 @@
 }
 
 .btn {
-  @apply shadow-sm shadow-primary   bg-white text-primary    uppercase rounded-full transition-all delay-100 ease-in-out duration-100;
+  @apply shadow-sm shadow-primary   bg-white text-primary    uppercase  transition-all delay-100 ease-in-out duration-100;
 }
 
 .text-field {
