@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { inventoryFields } from "../constants";
 import {
@@ -9,6 +9,12 @@ import {
   useMutation,
 } from "@apollo/client";
 import { resultKeyNameFromField } from "@apollo/client/utilities";
+import { Editor } from "@tinymce/tinymce-react";
+// import { DatePicker, Space } from "antd";
+
+import TableDatePicker from "./Test";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const ADD_MEDICINE = gql`
   mutation (
@@ -49,23 +55,38 @@ const AddMedicine = () => {
   }, []);
 
   const medNameRef = useRef(null);
-  const medPriceRef = useRef(null);
+  const priceRef = useRef(null);
   const brandNameRef = useRef(null);
   const stockAmountRef = useRef(null);
-
-  const [price, setPrice] = useState("");
+  const descriptionRef = useRef(null);
+  const manufacturerRef = useRef(null);
+  const skuRef = useRef(null);
+  const weightRef = useRef(null);
+  const statusRef = useRef(null);
+  // const [price, setPrice] = useState("");
 
   const [addMedicineMutation, { data, loading, error }] =
     useMutation(ADD_MEDICINE);
 
+  const [expireDate, setExpireDate] = useState("");
+  const [catagory, setCatagory] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const medicineName = medNameRef.current.value;
-    const medicinePrice = medPriceRef.current.value;
+    const medicinePrice = priceRef.current.value;
     const medicineBrandName = brandNameRef.current.value;
     const amountInStock = stockAmountRef.current.value;
-    const userId = localStorage.getItem("id");
+    const description = descriptionRef.current.getContent({ format: "text" });
+    const sku = skuRef.current.value;
+    const weight = weightRef.current.value;
+    const status = statusRef.current.value;
 
+    const manufacturer = manufacturerRef.current.value;
+
+    // const userId = localStorage.getItem("id");
+
+    console.log(`catagory selected : ${catagory}`);
     if (medicineBrandName && medicineName && medicinePrice && amountInStock) {
       addMedicineMutation({
         variables: {
@@ -119,10 +140,10 @@ const AddMedicine = () => {
               Add medicine to inventory
             </h2>
           </div>
-          <form onSubmit={handleSubmit}>
+          <form className="" onSubmit={handleSubmit}>
             {/* first row */}
-            <div className="containerDiv flex flex-col w-full">
-              <div className="mt-12 flex">
+            <div className="containerDiv flex flex-col justify-center ">
+              <div className="my-8 flex">
                 <div className="mr-4 grow">
                   <label className="lable">Name</label>
                   <input
@@ -144,86 +165,149 @@ const AddMedicine = () => {
                     <label className="lable">SKU</label>
                     <input
                       className="text-field"
-                      ref={medPriceRef}
+                      ref={skuRef}
                       placeholder="SKU"
                     />
                   </div>
                 </div>
 
                 <div className="grow">
-                  <label className="lable ">Weight</label>
-                  <input
-                    type="number"
-                    className="text-field"
-                    ref={stockAmountRef}
-                    placeholder="Weight"
-                  />
+                  <div className="mr-4 ">
+                    <label className="lable">Expire Date</label>
+
+                    <DatePicker
+                      className="rounded-md w-full text-[14px] grow  border focus:outline-none focus:border-primary  border-gray-400  px-3 py-[10px] "
+                      popperProps={{
+                        positionFixed: true, // use this to make the popper position: fixed
+                        strategy: "fixed",
+                      }}
+                      portalId="root"
+                      selected={expireDate}
+                      selectsStart
+                      startDate={expireDate}
+                      placeholderText="Start Date"
+                      // popoverAttachment={
+                      //   smallScreen ? "bottom center" : undefined
+                      // }
+                      // popoverTargetAttachment={
+                      //   smallScreen ? "top center" : undefined
+                      // }
+                      // popoverTargetOffset={smallScreen ? "0px 0px" : undefined}
+                      // endDate={endDate}
+                      onChange={(date) => {
+                        console.log(`date is : ${date}`);
+                        // setStartDate(date);
+                        setExpireDate(date);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
               {/* second row */}
-              <div className="mt-12 flex">
+              <div className="mb-8 flex items-center">
                 <div className="mr-4 grow">
                   <label className="lable">Catagory</label>
-                  <input
+                  <select
                     className="text-field"
-                    ref={medNameRef}
-                    placeholder="Catagory"
-                  />
+                    name="dog-names"
+                    id="dog-names"
+                    value={catagory}
+                    onChange={(value) => {
+                      // console.log(`value is: ${value.target.value}`);
+                      setCatagory(value.target.value);
+                    }}
+                  >
+                    <option>select</option>
+                    <option value="rigatoni">Rigatoni</option>
+                    <option value="dave">Dave</option>
+                    <option value="pumpernickel">Pumpernickel</option>
+                    <option value="reeses">Reeses</option>
+                  </select>
                 </div>
                 <div className="mr-4 grow">
                   <label className="lable">Manufacturer</label>
                   <input
                     className="text-field"
-                    ref={brandNameRef}
-                    placeholder="Manufacurer"
+                    ref={manufacturerRef}
+                    placeholder="Manufacturer"
                   />
                 </div>
-                <div className="flex items-center relative  grow  mr-4">
+                <div className="flex items-center relative   mr-4">
                   <div className="grow">
-                    <label className="lable">price</label>
+                    <label className="lable">Price</label>
                     <input
                       className="text-field"
-                      ref={medPriceRef}
-                      placeholder="price"
+                      ref={priceRef}
+                      placeholder="Price"
                     />
                   </div>
-                  <p className="ml-2 lable absolute right-0 top-7 text-gray-300 p-2">
-                    {" "}
+                  <p className="absolute right-0 px-2 top-8 text-gray-300">
                     Birr
                   </p>
                 </div>
 
-                <div className="">
-                  <label className="lable">amount in stock</label>
+                <div className="grow">
+                  <label className="lable ">Stock</label>
                   <input
                     type="number"
                     className="text-field"
                     ref={stockAmountRef}
-                    placeholder="how many in stock?"
+                    placeholder="Stock"
                   />
                 </div>
               </div>
-              {/* third row */}
-              <div className="mt-12 flex">
+              {/* third row  */}
+
+              <div className="mb-8 flex ">
                 <div className="mr-4">
-                  <label className="lable">Expire Date</label>
+                  <label className="lable ">Weight</label>
                   <input
+                    type="text"
                     className="text-field"
-                    ref={medNameRef}
-                    placeholder="Expire Date"
+                    ref={weightRef}
+                    placeholder="Weight"
                   />
                 </div>
                 <div className="mr-4">
-                  <label className="lable">Staus</label>
+                  <label className="lable">Status</label>
                   <input
                     className="text-field"
-                    ref={brandNameRef}
+                    ref={statusRef}
                     placeholder="Status"
                   />
                 </div>
               </div>
             </div>
-            end of text field
+            <div>
+              <label className="lable">Medicine description</label>
+              <div className="z-0">
+                <Editor
+                  apiKey="utllbsqr2qw8jfn1o7uj4rijs3puf8wd44tmv0ndfwsoyr5o"
+                  // ref={descriptionRef}
+                  onInit={(evt, editor) => (descriptionRef.current = editor)}
+                  // outputFormat="text"
+                  // initialValue="<p>This is the initial content of the editor.</p>"
+                  init={{
+                    height: 200,
+                    menubar: false,
+                    plugins: [
+                      "advlist autolink lists link image charmap print preview anchor",
+                      "searchreplace visualblocks code fullscreen",
+                      "insertdatetime media table paste code help wordcount",
+                    ],
+                    toolbar:
+                      "undo redo | formatselect | " +
+                      "bold italic backcolor | alignleft aligncenter " +
+                      "alignright alignjustify | bullist numlist outdent indent | " +
+                      "removeformat | help",
+                    content_style:
+                      "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                  }}
+                />
+              </div>
+            </div>
+            {/* end of text field */}
+
             <div className=" bg-gradient-to-r w-max  rounded-full p-[2px]  from-indigo-500 via-purple-500 to-pink-500   justify-end">
               <button
                 onClick={(event) => {

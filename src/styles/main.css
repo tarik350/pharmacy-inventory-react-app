@@ -518,6 +518,10 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.fixed{
+  position: fixed;
+}
+
 .absolute{
   position: absolute;
 }
@@ -542,8 +546,24 @@ video {
   top: 1rem;
 }
 
-.top-7{
-  top: 1.75rem;
+.top-5{
+  top: 1.25rem;
+}
+
+.top-12{
+  top: 3rem;
+}
+
+.top-10{
+  top: 2.5rem;
+}
+
+.top-8{
+  top: 2rem;
+}
+
+.z-0{
+  z-index: 0;
 }
 
 .m-12{
@@ -583,6 +603,10 @@ video {
   margin-bottom: 2rem;
 }
 
+.mb-5{
+  margin-bottom: 1.25rem;
+}
+
 .mb-\[\]{
   margin-bottom: ;
 }
@@ -615,8 +639,28 @@ video {
   margin-top: 3rem;
 }
 
+.mt-2{
+  margin-top: 0.5rem;
+}
+
 .mt-\[100px\]{
   margin-top: 100px;
+}
+
+.mt-8{
+  margin-top: 2rem;
+}
+
+.mb-8{
+  margin-bottom: 2rem;
+}
+
+.mb-2{
+  margin-bottom: 0.5rem;
+}
+
+.mb-4{
+  margin-bottom: 1rem;
 }
 
 .block{
@@ -749,6 +793,10 @@ video {
   align-self: flex-end;
 }
 
+.overflow-auto{
+  overflow: auto;
+}
+
 .overflow-hidden{
   overflow: hidden;
 }
@@ -765,8 +813,16 @@ video {
   border-radius: 0.5rem;
 }
 
+.rounded-md{
+  border-radius: 0.375rem;
+}
+
 .rounded-xl{
   border-radius: 0.75rem;
+}
+
+.border{
+  border-width: 1px;
 }
 
 .border-2{
@@ -888,6 +944,11 @@ video {
   padding-right: 0.5rem;
 }
 
+.px-3{
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
 .px-4{
   padding-left: 1rem;
   padding-right: 1rem;
@@ -916,6 +977,11 @@ video {
 .py-4{
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.py-\[10px\]{
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .py-\[12px\]{
@@ -949,6 +1015,10 @@ video {
 .text-6xl{
   font-size: 3.75rem;
   line-height: 1;
+}
+
+.text-\[14px\]{
+  font-size: 14px;
 }
 
 .text-\[20px\]{
@@ -1101,7 +1171,6 @@ video {
 }
 
 .text-field{
-  margin-bottom: 1.25rem;
   width: 100%;
   flex-grow: 1;
   border-radius: 0.375rem;
@@ -1172,6 +1241,16 @@ td{
 .hover\:text-white:hover{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.focus\:border-primary:focus{
+  --tw-border-opacity: 1;
+  border-color: rgb(114 9 183 / var(--tw-border-opacity));
+}
+
+.focus\:outline-none:focus{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .group:hover .group-hover\:inline-block{
