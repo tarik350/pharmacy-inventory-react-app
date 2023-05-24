@@ -22,6 +22,16 @@ td {
   @apply border text-left px-8 py-4;
 }
 
+.modal-background {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.center {
+  transform: translate(-50%, -50%);
+}
+
 /* th{
   @apply bg-blue-100 border text-left px-8 py-4;
 }

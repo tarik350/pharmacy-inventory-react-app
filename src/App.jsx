@@ -1,6 +1,6 @@
 import { Navbar, Home } from "./components";
 import AddMedicine from "./components/AddMedicine";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import MedicineInventory from "./components/MedicineInventory";
 import { paddingX } from "./styles";
 import { Route, Routes } from "react-router-dom";
@@ -11,6 +11,7 @@ import NewsFeed from "./components/NewsFeed";
 import { pharma_woman } from "./assets";
 import Samaratan from "./components/Samaratan";
 import ShowNavBar from "./components/utils/ShowNavBar";
+import MessageModal from "./components/utils/Modal";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(

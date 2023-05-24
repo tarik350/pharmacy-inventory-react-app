@@ -10,6 +10,7 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { Auth0Provider } from "@auth0/auth0-react";
+import { ShowModalProvider } from "./components/state/show-modal";
 
 import { setContext } from "@apollo/client/link/context";
 import Auth from "./components/Auth";
@@ -26,8 +27,10 @@ const httpLink = createHttpLink({
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem("token");
+  const uid = localStorage.getItem("id");
 
   console.log(`token from main: ${token}`);
+  console.log(`user id : ${uid} `);
 
   // return the headers to the context so httpLink can read them
 
@@ -60,20 +63,22 @@ const domain = import.meta.env.VITE_REACT_APP_AUTH0_DOMAIN;
 const clientId = import.meta.env.VITE_REACT_APP_AUTH0_CLINET_ID;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <Auth0Provider
-    domain={domain}
-    clientId={clientId}
-    authorizationParams={{
-      redirect_uri: window.location.origin,
-    }}
-    useRefreshTokens
-    cacheLocation="localstorage"
-  >
-    <ApolloProvider client={client}>
-      <BrowserRouter>
-        <App />
-        {/* <Auth /> */}
-      </BrowserRouter>
-    </ApolloProvider>
-  </Auth0Provider>
+  <ShowModalProvider>
+    <Auth0Provider
+      domain={domain}
+      clientId={clientId}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+      useRefreshTokens
+      cacheLocation="localstorage"
+    >
+      <ApolloProvider client={client}>
+        <BrowserRouter>
+          <App />
+          {/* <Auth /> */}
+        </BrowserRouter>
+      </ApolloProvider>
+    </Auth0Provider>
+  </ShowModalProvider>
 );

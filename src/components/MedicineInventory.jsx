@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import Card from "./utils/Card";
 import { HiOutlinePlus } from "react-icons/hi";
-import { BsSearch } from "react-icons/bs";
+import { BsSearch, BsWindowDash, BsWindowDesktop } from "react-icons/bs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiFillEdit, AiOutlineConsoleSql } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
+import ShowModalContext from "./state/show-modal";
 
 const GET_MEDICINE = gql`
   {
@@ -51,9 +52,15 @@ const DELETE_MED = gql`
 `;
 
 const MedicineInventory = () => {
-  const [showMessage, setShowMessage] = useState(false);
-  const [showProgressMultiple, setshowProgressMultiple] = useState(false);
+  const showModalContext = useContext(ShowModalContext);
+  const deleteMedicinesIdState = showModalContext.deletedMedicineIds;
+  const addMedicineToDeleteList = showModalContext.addList;
+  const removeMedicineFromDeleteList = showModalContext.removeList;
+  const clearList = showModalContext.clearList;
+
   const [showProgress, setShowProgress] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   let deleteMedicinesId = [];
 
   const autorized = localStorage.getItem("token");
@@ -64,22 +71,20 @@ const MedicineInventory = () => {
     { data: deleteData, loading: deleteLoading, error: deleteError },
   ] = useMutation(DELETE_MED);
 
-  const handleDelete = async (id) => {
-    deleteMutationFunction({
+  const deleteSingleMedicine = async (id) => {
+    console.log("delete started");
+    await deleteMutationFunction({
       variables: {
         id: id,
       },
     }).then((value) => {
-      // setDeleteState(true);
+      console.log(`medincne deleted successfull: ${value}`);
     });
   };
 
   if (deleteLoading) {
     console.log("delet loading");
   }
-  ///how to  check if there is a row selected and show or not show the delete button
-  ///dynamically
-  ///i have to read more about react state and hooks
 
   useEffect(() => {
     if (!autorized) {
@@ -89,7 +94,7 @@ const MedicineInventory = () => {
     }
   }, []);
   const { refetch, loading, error, data } = useQuery(GET_MEDICINE, {
-    // pollInterval: 10,
+    pollInterval: 10,
   });
 
   if (loading) {
@@ -108,24 +113,24 @@ const MedicineInventory = () => {
   }
 
   const deleteMultipleMedicine = () => {
-    setShowProgress();
-    if (deleteMedicinesId.length !== 0) {
-      for (let id in deleteMedicinesId) {
-        console.log(` deleting :${deleteMedicinesId[id]}`);
+    console.log(`deletd state: ${deleteMedicinesIdState}`);
+
+    if (deleteMedicinesIdState.length !== 0) {
+      for (let id in deleteMedicinesIdState) {
+        console.log(` deleting :${deleteMedicinesIdState[id]}`);
         /// we have to make this on the back end with cusome logic to handle it
 
         //create a custom login and send it the array
         //and at the back end loop over each value and delete
-
         deleteMutationFunction({
           variables: {
-            id: deleteMedicinesId[id],
+            id: deleteMedicinesIdState[id],
           },
         }).then((value) => {
           console.log("delete successfully");
         });
       }
-      setShowProgress(false);
+      clearList();
     } else {
       //show message
       console.log("nothing to delte");
@@ -136,8 +141,44 @@ const MedicineInventory = () => {
 
   return (
     data && (
-      <div className="   text-[10px] ">
-        <div className=" flex items-center justify-between my-[40px] mx-[40px]">
+      <div className="   text-[10px]  ">
+        <div
+          className={`${
+            showModal
+              ? "flex  items-end justify-center   rounded-xl  absolute top-[50%] z-50 left-[50%] center"
+              : "hidden"
+          }   `}
+        >
+          <div className=" flex modal-background flex-wrap justify-center items-center ">
+            <div className="bg-white text-black p-[100px]  ">
+              <p className="text-xl py-4 uppercase">
+                {`are you sure you want to delete ${deleteMedicinesIdState.length} items`}{" "}
+              </p>
+              <div className="flex justify-center items-center">
+                <button
+                  onClick={() => {
+                    deleteMultipleMedicine();
+                    setShowModal(false);
+                    console.log("state updated");
+                    // window.location.reload(true);
+                  }}
+                  className="btn px-4 py-2 mx-2 text-xl"
+                >
+                  yes
+                </button>
+                <button
+                  className="btn px-4 py-2 mx-2 text-xl"
+                  onClick={() => {
+                    setShowModal(false);
+                  }}
+                >
+                  no
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <header className=" flex items-center justify-between my-[40px] mx-[40px]">
           <div>
             <h1 className="text-black font-extrabold text-[28px]">Medicine</h1>
             <p className="text-gray-500">Here is the medicine list.</p>
@@ -153,12 +194,18 @@ const MedicineInventory = () => {
               />
             </div>
 
-            <button className="flex h-max items-center border-2 shadow-lg border-primary px-4 py-2 text-white bg-primary  font-extrabold uppercase">
+            <button
+              onClick={() => {
+                navigate("/addmed");
+              }}
+              className="flex h-max items-center border-2 shadow-lg border-primary px-4 py-2 text-white bg-primary  font-extrabold uppercase"
+            >
               <HiOutlinePlus className="mr-2" />
               add medicine
             </button>
           </div>
-        </div>
+        </header>
+
         <div className="flex flex-1 m-[40px]  rounded-xl  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
           <div className=" flex-col relative  bg-white w-full   m-[3px] border-2  p-2  shadow-2xl rounded-lg ">
             <div className=" flex flex-col">
@@ -199,13 +246,21 @@ const MedicineInventory = () => {
                             onChange={(event) => {
                               if (event.currentTarget.checked) {
                                 console.log("checked");
-                                deleteMedicinesId.push(
+                                console.log(event.currentTarget.value);
+
+                                // deleteMedicinesId.push(
+                                //   event.currentTarget.value
+                                // );
+                                addMedicineToDeleteList(
                                   event.currentTarget.value
                                 );
-                                console.log(deleteMedicinesId);
+                                console.log(`inserted : ${deleteMedicinesId}`);
                               } else {
-                                deleteMedicinesId = deleteMedicinesId.filter(
-                                  (e) => e !== event.currentTarget.value
+                                // deleteMedicinesId = deleteMedicinesId.filter(
+                                //   (e) => e !== event.currentTarget.value
+                                // );
+                                removeMedicineFromDeleteList(
+                                  event.currentTarget.value
                                 );
                                 console.log(`deleted : ${deleteMedicinesId}`);
                               }
@@ -225,10 +280,11 @@ const MedicineInventory = () => {
                         <td className="">active</td>
                         <td className="w-[10px]  cursor-pointer group  hover:bg-red-600 hover:text-white transition-all delay-75">
                           <div
-                            className=""
-                            onClick={(event) => {
-                              handleDelete(item.id);
+                            onClick={() => {
+                              console.log("delete single");
+                              deleteSingleMedicine(item.id);
                             }}
+                            className=" cursor-pointer"
                           >
                             <RiDeleteBin6Line className="text-red-600 group-hover:text-white text-xl transition-all delay-75" />
                           </div>
@@ -248,7 +304,15 @@ const MedicineInventory = () => {
                 <button
                   onClick={() => {
                     console.log("delete clicked");
-                    deleteMultipleMedicine();
+                    // openModal();
+                    // setList(deleteMedicinesId);
+                    // deleteMedicinesId = [];
+                    if (deleteMedicinesIdState.length !== 0) {
+                      setShowModal(true);
+                      console.log(`state array : ${deleteMedicinesIdState}`);
+                    }
+
+                    // deleteMultipleMedicine();
                   }}
                   className="  bg-[red] my-3 text-[14px] text-white px-4 py-2 font-bold "
                 >
