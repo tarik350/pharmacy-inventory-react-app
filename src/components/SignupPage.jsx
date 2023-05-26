@@ -4,6 +4,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useMutation, gql } from "@apollo/client";
 import { pharma_woman } from "../assets";
 import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 const SIGNUP = gql`
   mutation (
@@ -27,7 +28,7 @@ const SignupPage = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const nameRef = useRef(null);
-  const pharmacy_nameRef = useRef(null);
+  const pharmacyNameRef = useRef(null);
   const locationRef = useRef(null);
 
   const navigate = useNavigate();
@@ -46,34 +47,44 @@ const SignupPage = () => {
     const name = nameRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    const pharmacy_name = pharmacy_nameRef.current.value;
+    const pharmacyName = pharmacyNameRef.current.value;
     const location = locationRef.current.value;
 
-    signupMutation({
-      variables: {
-        email: email,
-        name: name,
-        password: password,
-        pharmacy_name: pharmacy_name,
-      },
-    })
-      .then((value) => {
-        console.log("sinup successful");
-        console.log(value.data.signup.token);
-
-        console.log(`value.data.signup.token}`);
-        localStorage.setItem("token", value.data.signup.token);
-        localStorage.setItem("id", value.data.signup.id);
-
-        navigate("/");
+    if (name && email && password && pharmacyName && location) {
+      signupMutation({
+        variables: {
+          email: email,
+          name: name,
+          password: password,
+          pharmacy_name: pharmacyName,
+        },
       })
-      .catch((err) => {
-        console.log(`some error : ${err}`);
-      });
+        .then((value) => {
+          console.log("sinup successful");
+          console.log(value.data.signup.token);
+
+          console.log(`value.data.signup.token}`);
+          localStorage.setItem("token", value.data.signup.token);
+          localStorage.setItem("id", value.data.signup.id);
+
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(`some error : ${err}`);
+        });
+    } else {
+      //all feilds should be provided
+      //ena location add emyaregebet fildem yasfelegal after integrating google map
+      console.log("all fields should be provided");
+    }
   };
 
-  if (loading) return <div>loading...</div>;
+  // if (loading) return <div>loading...</div>;
   if (error) return <div>{`error is : ${error.message}`}</div>;
+
+  const gotoLogin = () => {
+    navigate("/login");
+  };
 
   return (
     // <div className="flex justify-center items-center">
@@ -104,7 +115,7 @@ const SignupPage = () => {
               placeholder="email"
             />
             <input
-              ref={pharmacy_nameRef}
+              ref={pharmacyNameRef}
               type="text"
               className="text-field-signup"
               placeholder="pharmacy name"
@@ -136,15 +147,27 @@ const SignupPage = () => {
                 )}
               </button>
             </div>
-            <button
-              onClick={() => {
-                console.log("signing up user");
-                signupUser();
-              }}
-              className=" uppercase py-[20px] rounded-xl flex-1  text-white bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500"
-            >
-              signup
-            </button>
+            <div className="flex justify-between">
+              <button
+                className="mr-[10px] flex justify-center  uppercase py-[20px] rounded-xl flex-1  text-white bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500"
+                title="sighup"
+                onClick={() => {
+                  signupUser();
+                }}
+              >
+                {loading ? <CircularProgress /> : "sign up"}
+              </button>
+              <div className="flex-1 p-[2px]  rounded-2xl  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
+                <button
+                  onClickCapture={() => {
+                    gotoLogin();
+                  }}
+                  className="w-full h-full uppercase rounded-2xl bg-white"
+                >
+                  Login
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <div className="flex-1">
