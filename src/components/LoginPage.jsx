@@ -168,7 +168,7 @@ const LoginPage = () => {
                   }}
                   className="w-full h-full uppercase rounded-2xl bg-white"
                 >
-                  create account
+                  signup
                 </button>
               </div>
             </div>

@@ -102,38 +102,55 @@ const SignupPage = () => {
           </div>
 
           <div className="flex  bg-white flex-col w-[500px]">
-            <input
-              ref={nameRef}
-              type="text"
-              className="text-field-signup"
-              placeholder="name"
-            />
-            <input
-              ref={emailRef}
-              type="text"
-              className="text-field-signup"
-              placeholder="email"
-            />
-            <input
-              ref={pharmacyNameRef}
-              type="text"
-              className="text-field-signup"
-              placeholder="pharmacy name"
-            />
-            <input
-              ref={locationRef}
-              type="text"
-              className="text-field-signup"
-              placeholder="location"
-            />
+            <div>
+              <label className="">Name*</label>
+              <input
+                ref={nameRef}
+                type="text"
+                className="text-field-signup"
+                placeholder="name"
+              />
+            </div>
+            <div>
+              <label className="">Email*</label>
+
+              <input
+                ref={emailRef}
+                type="text"
+                className="text-field-signup"
+                placeholder="email"
+              />
+            </div>
+
+            <div>
+              <label className="">Pharmacy Name*</label>
+              <input
+                ref={pharmacyNameRef}
+                type="text"
+                className="text-field-signup"
+                placeholder="pharmacy name"
+              />
+            </div>
+            <div>
+              <label className="">Location*</label>
+              <input
+                ref={locationRef}
+                type="text"
+                className="text-field-signup"
+                placeholder="location"
+              />
+            </div>
 
             <div className="flex-1 relative">
-              <input
-                ref={passwordRef}
-                type={passwordVisibility}
-                className="text-field-signup"
-                placeholder="password"
-              />
+              <div>
+                <label className="">Password*</label>
+                <input
+                  ref={passwordRef}
+                  type={passwordVisibility}
+                  className="text-field-signup"
+                  placeholder="password"
+                />
+              </div>
               <button
                 onClick={() => {
                   togglePasswordVisibility();
@@ -155,7 +172,11 @@ const SignupPage = () => {
                   signupUser();
                 }}
               >
-                {loading ? <CircularProgress /> : "sign up"}
+                {loading ? (
+                  <CircularProgress size="1rem" style={{ color: "white" }} />
+                ) : (
+                  "signup"
+                )}
               </button>
               <div className="flex-1 p-[2px]  rounded-2xl  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
                 <button
