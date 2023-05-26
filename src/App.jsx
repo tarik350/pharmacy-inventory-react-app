@@ -7,11 +7,8 @@ import { Route, Routes } from "react-router-dom";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
-import NewsFeed from "./components/NewsFeed";
-import { pharma_woman } from "./assets";
-import Samaratan from "./components/Samaratan";
 import ShowNavBar from "./components/utils/ShowNavBar";
-import MessageModal from "./components/utils/Modal";
+import Test from "./components/Test";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -41,7 +38,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/signup" element={<SignupPage />}></Route>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="/" element={<Test />}></Route>
           <Route path="/addmed" element={<AddMedicine />}></Route>
           <Route path="/inventory" element={<MedicineInventory />}></Route>
         </Routes>
