@@ -94,13 +94,14 @@ const LoginPage = () => {
     <div className="flex justify-center items-center h-screen">
       <div className="flex  justify-between items-center w-full">
         {/* this is for login fields */}
-        <div className="flex-1 flex flex-col  items-center ">
-          <div className="title my-4   flex ">
+        <div className="flex-1 flex flex-col  ml-12 ">
+          <div className="title    flex flex-col self-start my-[80px] ">
             <h2 className="text-4xl  text-primary font-bold uppercase font-poppins ">
-              login
+              Welcome Back!
             </h2>
+            <p className="">Please Log into your account</p>
           </div>
-          <div className="flex  bg-white flex-col w-[500px]">
+          <div className="flex   flex-col w-[500px]">
             <input
               // ref={emailRef}
               onChange={(e) => {
@@ -108,7 +109,7 @@ const LoginPage = () => {
               }}
               type="text"
               className="rounded-md w-full text-[16px] grow  border focus:outline-none focus:border-primary  border-gray-400  px-3 py-[20px]"
-              placeholder="email"
+              placeholder="Email Address"
             />
             <div className="flex-1 relative">
               <input
@@ -118,7 +119,7 @@ const LoginPage = () => {
                 }}
                 type={passwordVisibility}
                 className=" rounded-md my-4 w-full text-[16px] grow  border focus:outline-none focus:border-primary  border-gray-400  px-3 py-[20px] "
-                placeholder="password"
+                placeholder="Password"
               />
               <button
                 onClick={() => {
@@ -135,6 +136,15 @@ const LoginPage = () => {
             </div>
             <div className="error massage">
               {lazyError ? lazyError.message : ""}
+            </div>
+            <div className="flex justify-between mt-2 mb-12">
+              <div className="flex ">
+                <input className="" type="checkbox" />
+                <p className="mx-[4px]">Remember me</p>
+              </div>
+              <div>
+                <button className="text-[red]">Forget password?</button>
+              </div>
             </div>
             <div className="flex justify-between">
               <button

@@ -76,38 +76,43 @@ const SignupPage = () => {
   if (error) return <div>{`error is : ${error.message}`}</div>;
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="m-12 w-max rounded-xl flex  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
-        <div className="flex flex-col relative  bg-white w-full   m-[3px] border-2 p-12  shadow-2xl rounded-lg ">
-          <div className="title flex justify-center my-4 ">
+    // <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center h-screen">
+      <div className="flex  justify-between items-center w-full">
+        {/* this is for login fields */}
+        <div className="flex flex-1 flex-col ml-12 items-stretch  ">
+          <div className="title flex  flex-col  self-start my-[80px] ">
             <h2 className="text-4xl text-primary font-bold uppercase font-poppins ">
-              Sign up
+              Dont have an Account?
             </h2>
+            <p className="text-gray-500 text-xl">
+              Please sign in with simple steps
+            </p>
           </div>
 
-          <div className="flex  bg-white flex-col w-[400px]">
+          <div className="flex  bg-white flex-col w-[500px]">
             <input
               ref={nameRef}
               type="text"
-              className="text-field"
+              className="text-field-signup"
               placeholder="name"
             />
             <input
               ref={emailRef}
               type="text"
-              className="text-field"
+              className="text-field-signup"
               placeholder="email"
             />
             <input
               ref={pharmacy_nameRef}
               type="text"
-              className="text-field"
+              className="text-field-signup"
               placeholder="pharmacy name"
             />
             <input
               ref={locationRef}
               type="text"
-              className="text-field"
+              className="text-field-signup"
               placeholder="location"
             />
 
@@ -115,14 +120,14 @@ const SignupPage = () => {
               <input
                 ref={passwordRef}
                 type={passwordVisibility}
-                className="text-field"
+                className="text-field-signup"
                 placeholder="password"
               />
               <button
                 onClick={() => {
                   togglePasswordVisibility();
                 }}
-                className="absolute right-4 top-4"
+                className="absolute right-4 top-6"
               >
                 {passwordVisibility === "password" ? (
                   <AiFillEye />
@@ -141,6 +146,9 @@ const SignupPage = () => {
               signup
             </button>
           </div>
+        </div>
+        <div className="flex-1">
+          <img src={pharma_woman} alt="pharmacy woman" />
         </div>
       </div>
     </div>
