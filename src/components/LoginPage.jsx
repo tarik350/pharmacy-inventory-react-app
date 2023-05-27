@@ -1,13 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
-
 import { NetworkStatus, gql, useLazyQuery, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import useDidMountEffect from "./utils/useDidMountEffect";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { pharma_woman } from "../assets";
-import { RiContactsBookLine } from "react-icons/ri";
-import { selectionSetMatchesResult } from "@apollo/client/cache/inmemory/helpers";
 
 const login = gql`
   query myQuery($email: String!, $password: String!) {
