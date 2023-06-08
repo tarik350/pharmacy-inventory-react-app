@@ -94,7 +94,7 @@ const MedicineInventory = () => {
     }
   }, []);
   const { refetch, loading, error, data } = useQuery(GET_MEDICINE, {
-    pollInterval: 10,
+    // pollInterval: 10,
   });
 
   if (loading) {

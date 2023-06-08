@@ -4,6 +4,7 @@ import { NetworkStatus, gql, useLazyQuery, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { pharma_woman } from "../assets";
+import { useForm, FormProvider, useFormContext } from "react-hook-form";
 
 const login = gql`
   query myQuery($email: String!, $password: String!) {
@@ -17,8 +18,22 @@ const login = gql`
 const LoginPage = () => {
   let navigate = useNavigate();
 
+  // const methods = useForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  // const { register } = useFormContext();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const onSubmit = handleSubmit((data) => {
+    // console.log(data);
+    handleLogin(data.email, data.password);
+  });
 
   ///the problem here is the query runs every time the component mounts
   ///i only want the query to excute when i click the click button i thout i have implemented that
@@ -41,39 +56,35 @@ const LoginPage = () => {
     { loading: lazyLoading, error: lazyError, data: lasyData },
   ] = useLazyQuery(login);
 
-  const handleLogin = async () => {
+  const handleLogin = async (email, password) => {
     console.log("login running ");
 
-    if (email && password) {
-      getLoginData({
-        variables: {
-          email,
-          password,
-        },
+    getLoginData({
+      variables: {
+        email,
+        password,
+      },
+    })
+      .then((value) => {
+        if (value.data) {
+          console.log(`user has data: ${value.data}`);
+
+          //if there is a data
+          localStorage.setItem("token", value.data.login.token);
+          localStorage.setItem("id", value.data.login.id);
+
+          // navigateHome();
+          navigate("/");
+        } else {
+          //if the user not found
+
+          const errorMessage = value.errors[0].message;
+          console.log(`erorr from auth: ${errorMessage}`);
+        }
       })
-        .then((value) => {
-          if (value.data) {
-            console.log(`user has data: ${value.data}`);
-
-            //if there is a data
-            localStorage.setItem("token", value.data.login.token);
-            localStorage.setItem("id", value.data.login.id);
-
-            // navigateHome();
-            navigate("/");
-          } else {
-            //if the user not found
-
-            const errorMessage = value.errors[0].message;
-            console.log(`erorr from auth: ${errorMessage}`);
-          }
-        })
-        .catch((err) => {
-          console.log(`error is : ${err}`);
-        });
-    } else {
-      console.log("email and password can not be empty");
-    }
+      .catch((err) => {
+        console.log(`error is : ${err}`);
+      });
   };
 
   const togglePasswordVisibility = () => {
@@ -97,83 +108,119 @@ const LoginPage = () => {
             </h2>
             <p className="">Please Log into your account</p>
           </div>
-          <div className="flex   flex-col w-[500px]">
-            <input
-              // ref={emailRef}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              type="text"
-              className="rounded-md w-full text-[16px] grow  border focus:outline-none focus:border-primary  border-gray-400  px-3 py-[20px]"
-              placeholder="Email Address"
-            />
-            <div className="flex-1 relative">
-              <input
-                // ref={passwordRef}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-                type={passwordVisibility}
-                className=" rounded-md my-4 w-full text-[16px] grow  border focus:outline-none focus:border-primary  border-gray-400  px-3 py-[20px] "
-                placeholder="Password"
-              />
-              <button
-                onClick={() => {
-                  togglePasswordVisibility();
-                }}
-                className="absolute right-4 top-10 "
-              >
-                {passwordVisibility === "password" ? (
-                  <AiFillEye size="18px" />
-                ) : (
-                  <AiFillEyeInvisible size="18px" />
-                )}
-              </button>
-            </div>
-            <div className="error massage">
-              {lazyError ? lazyError.message : ""}
-            </div>
-            <div className="flex justify-between mt-2 mb-12">
-              <div className="flex ">
-                <input className="" type="checkbox" />
-                <p className="mx-[4px]">Remember me</p>
-              </div>
-              <div>
-                <button className="text-[red]">Forget password?</button>
-              </div>
-            </div>
-            <div className="flex justify-between">
-              <button
-                className="mr-[10px] flex justify-center  uppercase py-[20px] rounded-xl flex-1  text-white bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500"
-                title="Login"
-                onClick={() => {
-                  handleLogin();
-                }}
-              >
-                {/* login */}
-                {lazyLoading ? (
-                  <CircularProgress size="1rem" style={{ color: "white" }} />
-                ) : (
-                  "login"
-                )}
-              </button>
-              <div className="flex-1 p-[2px]  rounded-2xl  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
-                <button
-                  onClickCapture={() => {
-                    gotoSignup();
+          <form noValidate onSubmit={(e) => e.preventDefault()}>
+            <div className="flex   flex-col w-[500px]">
+              <div className="">
+                <input
+                  onChange={(e) => {
+                    setEmail(e.target.value);
                   }}
-                  className="w-full h-full uppercase rounded-2xl bg-white"
+                  type="text"
+                  className={`${
+                    errors.email ? " border-[2px] border-red-600" : "border"
+                  }  rounded-md mt-4 w-full text-[16px] grow   focus:outline-none focus:border-primary  border-gray-400  px-3 py-[20px] `}
+                  placeholder="Email Address"
+                  {...register("email", {
+                    pattern: {
+                      value:
+                        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                      message: "*please enter a proper email",
+                    },
+                    required: {
+                      value: true,
+                      message: "*required",
+                    },
+                  })}
+                />
+                {errors.email && (
+                  <span className=" text-red-500">{errors.email.message}</span>
+                )}
+              </div>
+              <div className="flex-1 relative">
+                <input
+                  // ref={passwordRef}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  type={passwordVisibility}
+                  className={`${
+                    errors.password ? " border-[2px] border-red-600" : "border"
+                  }  rounded-md mt-4 w-full text-[16px] grow   focus:outline-none focus:border-primary  border-gray-400  px-3 py-[20px] `}
+                  placeholder="Password"
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "*required",
+                    },
+                  })}
+                />
+                {errors.password && (
+                  <span className="text-red-600">
+                    {errors.password.message}
+                  </span>
+                )}
+
+                <button
+                  onClick={() => {
+                    togglePasswordVisibility();
+                  }}
+                  className="absolute right-4 top-10 "
                 >
-                  signup
+                  {passwordVisibility === "password" ? (
+                    <AiFillEye size="18px" />
+                  ) : (
+                    <AiFillEyeInvisible size="18px" />
+                  )}
                 </button>
               </div>
-            </div>
-            {/* 
+
+              <div className="flex justify-between mt-2 mb-12">
+                <div className="flex ">
+                  <input className="" type="checkbox" />
+                  <p className="mx-[4px]">Remember me</p>
+                </div>
+                <div>
+                  <button className="text-[red]">Forget password?</button>
+                </div>
+              </div>
+              <div className="text-[20px] text-[red] w-max px-[22px] my-2">
+                {lazyError ? <blink>{lazyError.message}</blink> : ""}
+              </div>
+              <div className="flex justify-between">
+                <button
+                  className="mr-[10px] flex justify-center  uppercase py-[20px] rounded-xl flex-1  text-white bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500"
+                  title="Login"
+                  onClick={() => {
+                    onSubmit();
+                  }}
+                >
+                  {/* login */}
+                  {lazyLoading ? (
+                    <CircularProgress size="1rem" style={{ color: "white" }} />
+                  ) : (
+                    "login"
+                  )}
+                </button>
+                <div className="flex-1 p-[2px]  rounded-2xl  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
+                  <button
+                    type="submit"
+                    onClickCapture={() => {
+                      // e.preventDefault();
+                      gotoSignup();
+                    }}
+                    className="w-full h-full uppercase rounded-2xl bg-white"
+                  >
+                    signup
+                  </button>
+                </div>
+              </div>
+              {/* 
             <div className="flex">
               <p className="text-black">if you don't have an account</p>{" "}
               <button className="">signup</button>
             </div> */}
-          </div>
+            </div>
+          </form>
         </div>
         {/* this is for the image */}
         <div className="flex-1">

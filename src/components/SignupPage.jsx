@@ -5,6 +5,7 @@ import { useMutation, gql } from "@apollo/client";
 import { pharma_woman } from "../assets";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
+import { useForm } from "react-hook-form";
 
 const SIGNUP = gql`
   mutation (
@@ -31,6 +32,13 @@ const SignupPage = () => {
   const pharmacyNameRef = useRef(null);
   const locationRef = useRef(null);
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
   const navigate = useNavigate();
 
   const [passwordVisibility, setPassordVisibility] = useState("password");
@@ -43,6 +51,32 @@ const SignupPage = () => {
 
   const [signupMutation, { data, loading, error }] = useMutation(SIGNUP);
 
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+    signupMutation({
+      variables: {
+        email: data.email,
+        name: data.name,
+        password: data.password,
+        pharmacy_name: data.pharmacyName,
+      },
+    })
+      .then((value) => {
+        console.log("sinup successful");
+        console.log(value.data.signup.token);
+
+        console.log(`value.data.signup.token}`);
+        localStorage.setItem("token", value.data.signup.token);
+        localStorage.setItem("id", value.data.signup.id);
+
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(`some error : ${err}`);
+      });
+    // handleLogin(data.email, data.password);
+  });
+
   const signupUser = () => {
     const name = nameRef.current.value;
     const email = emailRef.current.value;
@@ -51,27 +85,6 @@ const SignupPage = () => {
     const location = locationRef.current.value;
 
     if (name && email && password && pharmacyName && location) {
-      signupMutation({
-        variables: {
-          email: email,
-          name: name,
-          password: password,
-          pharmacy_name: pharmacyName,
-        },
-      })
-        .then((value) => {
-          console.log("sinup successful");
-          console.log(value.data.signup.token);
-
-          console.log(`value.data.signup.token}`);
-          localStorage.setItem("token", value.data.signup.token);
-          localStorage.setItem("id", value.data.signup.id);
-
-          navigate("/");
-        })
-        .catch((err) => {
-          console.log(`some error : ${err}`);
-        });
     } else {
       //all feilds should be provided
       //ena location add emyaregebet fildem yasfelegal after integrating google map
@@ -80,7 +93,7 @@ const SignupPage = () => {
   };
 
   // if (loading) return <div>loading...</div>;
-  if (error) return <div>{`error is : ${error.message}`}</div>;
+  if (error) console.warn(error);
 
   const gotoLogin = () => {
     navigate("/login");
@@ -100,96 +113,159 @@ const SignupPage = () => {
               Please sign in with simple steps
             </p>
           </div>
-
-          <div className="flex  bg-white flex-col w-[500px]">
-            <div>
-              <label className="">Name*</label>
-              <input
-                ref={nameRef}
-                type="text"
-                className="text-field-signup"
-                placeholder="name"
-              />
-            </div>
-            <div>
-              <label className="">Email*</label>
-
-              <input
-                ref={emailRef}
-                type="text"
-                className="text-field-signup"
-                placeholder="email"
-              />
-            </div>
-
-            <div>
-              <label className="">Pharmacy Name*</label>
-              <input
-                ref={pharmacyNameRef}
-                type="text"
-                className="text-field-signup"
-                placeholder="pharmacy name"
-              />
-            </div>
-            <div>
-              <label className="">Location*</label>
-              <input
-                ref={locationRef}
-                type="text"
-                className="text-field-signup"
-                placeholder="location"
-              />
-            </div>
-
-            <div className="flex-1 relative">
-              <div>
-                <label className="">Password*</label>
+          <form onSubmit={(e) => e.preventDefault()}>
+            <div className="flex  bg-white flex-col w-[500px]">
+              <div className="mb-4">
+                <label className="">Name*</label>
                 <input
-                  ref={passwordRef}
-                  type={passwordVisibility}
+                  ref={nameRef}
+                  type="text"
+                  className={`${
+                    errors.name ? "text-field-error" : "text-field-signup"
+                  } `}
+                  placeholder="name"
+                  {...register("name", {
+                    required: {
+                      value: true,
+                      message: "*required",
+                    },
+                  })}
+                />
+                {errors.name && (
+                  <span className="error-message">{errors.name.message}</span>
+                )}
+              </div>
+              <div className="mb-4">
+                <label className="">Email*</label>
+
+                <input
+                  ref={emailRef}
+                  type="text"
+                  className={`${
+                    errors.email ? "text-field-error" : "text-field-signup"
+                  } `}
+                  placeholder="email"
+                  {...register("email", {
+                    pattern: {
+                      value:
+                        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                      message: "*please enter a proper email",
+                    },
+                    required: {
+                      value: true,
+                      message: "*required",
+                    },
+                  })}
+                />
+                {errors.email && (
+                  <span className="error-message">{errors.email.message}</span>
+                )}
+              </div>
+
+              <div className="mb-4">
+                <label className="">Pharmacy Name*</label>
+                <input
+                  ref={pharmacyNameRef}
+                  type="text"
+                  // className="text-field-signup"
+                  className={`${
+                    errors.pharmacyName
+                      ? "text-field-error"
+                      : "text-field-signup"
+                  } `}
+                  placeholder="pharmacy name"
+                  {...register("pharmacyName", {
+                    required: {
+                      value: true,
+                      message: "*required",
+                    },
+                  })}
+                />
+                {errors.pharmacyName && (
+                  <span className="error-message">
+                    {errors.pharmacyName.message}
+                  </span>
+                )}
+              </div>
+              <div className="mb-4">
+                <label className="">Location*</label>
+                <input
+                  ref={locationRef}
+                  type="text"
                   className="text-field-signup"
-                  placeholder="password"
+                  // className={`${
+                  //   errors.name ? "text-field-error" : "text-field-signup"
+                  // } `}
+                  placeholder="location"
                 />
               </div>
-              <button
-                onClick={() => {
-                  togglePasswordVisibility();
-                }}
-                className="absolute right-4 top-6"
-              >
-                {passwordVisibility === "password" ? (
-                  <AiFillEye />
-                ) : (
-                  <AiFillEyeInvisible />
-                )}
-              </button>
-            </div>
-            <div className="flex justify-between">
-              <button
-                className="mr-[10px] flex justify-center  uppercase py-[20px] rounded-xl flex-1  text-white bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500"
-                title="sighup"
-                onClick={() => {
-                  signupUser();
-                }}
-              >
-                {loading ? (
-                  <CircularProgress size="1rem" style={{ color: "white" }} />
-                ) : (
-                  "signup"
-                )}
-              </button>
-              <div className="flex-1 p-[2px]  rounded-2xl  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
+
+              <div className="flex-1 relative mb-4">
+                <div className="mb-4">
+                  <label className="">Password*</label>
+                  <input
+                    ref={passwordRef}
+                    type={passwordVisibility}
+                    // className="text-field-signup"
+                    className={`${
+                      errors.password ? "text-field-error" : "text-field-signup"
+                    } `}
+                    placeholder="password"
+                    {...register("password", {
+                      required: {
+                        value: true,
+                        message: "*required",
+                      },
+                    })}
+                  />
+                  {errors.password && (
+                    <span className="error-message">
+                      {errors.password.message}
+                    </span>
+                  )}
+                </div>
                 <button
-                  onClickCapture={() => {
-                    gotoLogin();
+                  onClick={() => {
+                    togglePasswordVisibility();
                   }}
-                  className="w-full h-full uppercase rounded-2xl bg-white"
+                  className="absolute right-4 top-6"
                 >
-                  Login
+                  {passwordVisibility === "password" ? (
+                    <AiFillEye />
+                  ) : (
+                    <AiFillEyeInvisible />
+                  )}
                 </button>
               </div>
+              {error && <>{error.message}</>}
+              <div className="flex justify-between">
+                <button
+                  className="mr-[10px] flex justify-center  uppercase py-[20px] rounded-xl flex-1  text-white bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500"
+                  title="sighup"
+                  onClick={() => {
+                    onSubmit();
+                    // signupUser();
+                  }}
+                >
+                  {loading ? (
+                    <CircularProgress size="1rem" style={{ color: "white" }} />
+                  ) : (
+                    "signup"
+                  )}
+                </button>
+                <div className="flex-1 p-[2px]  rounded-2xl  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
+                  <button
+                    onClickCapture={() => {
+                      gotoLogin();
+                    }}
+                    className="w-full h-full uppercase rounded-2xl bg-white"
+                  >
+                    Login
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
         <div className="flex-1">
           <img src={pharma_woman} alt="pharmacy woman" />

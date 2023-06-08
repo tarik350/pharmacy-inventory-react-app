@@ -124,6 +124,10 @@ const AddMedicine = () => {
         .then((value) => {
           //medicine added successfully notification
           console.log(`medince added successfully`);
+          // console.log(`value: ${value}`);
+          console.log("lsjkdflsjdflsjdflj");
+          console.log(value.data.insert_medicine.returning[0]);
+          // console.log(`returned value: ${value.toStirng()}`);
         })
         .catch((err) => {
           // alert(`error: ${err}`);

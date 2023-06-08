@@ -9,7 +9,7 @@
 }
 
 .btn {
-  @apply shadow-sm shadow-primary   bg-white text-primary    uppercase  transition-all delay-100 ease-in-out duration-100;
+  @apply shadow-sm shadow-primary  bg-white text-primary    uppercase  transition-all delay-100 ease-in-out duration-100;
 }
 
 .text-field {
@@ -23,7 +23,14 @@ td {
 }
 
 .text-field-signup {
-  @apply rounded-md w-full text-[16px] mb-4 grow  border focus:outline-none focus:border-primary  border-gray-400  px-3 py-[20px];
+  @apply rounded-md w-full text-[16px]  grow  border focus:outline-none focus:border-primary  border-gray-400  px-3 py-[20px];
+}
+.text-field-error {
+  @apply rounded-md w-full text-[16px]  grow border  border-red-600 focus:outline-none focus:border-primary    px-3 py-[20px];
+}
+
+.error-message {
+  @apply text-red-600;
 }
 
 .modal-background {
