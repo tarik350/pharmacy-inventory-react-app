@@ -30,7 +30,7 @@ td {
 }
 
 .error-message {
-  @apply text-red-600;
+  @apply text-red-600 text-[100px];
 }
 
 .modal-background {

@@ -10,10 +10,9 @@ import {
 } from "@apollo/client";
 import { resultKeyNameFromField } from "@apollo/client/utilities";
 import { Editor } from "@tinymce/tinymce-react";
-// import { DatePicker, Space } from "antd";
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useForm } from "react-hook-form";
 
 const ADD_MEDICINE = gql`
   mutation (
@@ -67,6 +66,8 @@ const AddMedicine = () => {
     }
   }, []);
 
+  const { register, handleSubmit, formState: errors } = useForm();
+
   const medNameRef = useRef(null);
   const priceRef = useRef(null);
   const brandNameRef = useRef(null);
@@ -85,7 +86,7 @@ const AddMedicine = () => {
   const [expireDate, setExpireDate] = useState("");
   const [catagory, setCatagory] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleAddSubmit = async (e) => {
     e.preventDefault();
     const medicineName = medNameRef.current.value;
     const medicinePrice = priceRef.current.value;
@@ -139,6 +140,11 @@ const AddMedicine = () => {
     }
   };
 
+  const onSubmit = handleSubmit((data) => {
+    // console.log(data);
+    // handleLogin(data.email, data.password);
+  });
+
   // const get_medicines = gql`
   //   query MyQuery {
   //     medicine {
@@ -174,7 +180,11 @@ const AddMedicine = () => {
       <div className="flex mx-[40px] justify-center items-center   ">
         <div className="flex flex-1  rounded-xl  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
           <div className=" flex-col relative  bg-white w-full   m-[3px] border-2 p-12  shadow-2xl rounded-lg ">
-            <form className="flex flex-col" onSubmit={handleSubmit}>
+            <form
+              className="flex flex-col"
+              onSubmit={(e) => e.preventDefault()}
+              noValidate
+            >
               {/* first row */}
               <div className="containerDiv flex flex-col justify-center ">
                 <div className="mb-8 flex">
@@ -184,7 +194,21 @@ const AddMedicine = () => {
                       className="text-field"
                       ref={medNameRef}
                       placeholder="medicine name"
+                      {...register("medicineName", {
+                        required: {
+                          value: true,
+                          message: "required",
+                        },
+                      })}
                     />
+                    {errors.medicineName
+                      ? console.log(errors.medicineName)
+                      : console.log("no error")}
+                    {/* {errors.medicineName && (
+                      <span className="error-message">
+                        {errors.medicineName.message}
+                      </span>
+                    )} */}
                   </div>
                   <div className="mr-4 grow">
                     <label className="lable">Generic Name</label>
@@ -192,7 +216,16 @@ const AddMedicine = () => {
                       className="text-field"
                       ref={genericNameRef}
                       placeholder="generic name"
+                      {...register("genericName", {
+                        required: {
+                          value: true,
+                          message: "required",
+                        },
+                      })}
                     />
+                    {errors.genericName && (
+                      <span>{errors.genericName.message}</span>
+                    )}
                   </div>
                   <div className="mr-4 grow">
                     <label className="lable">Medicine brand</label>
@@ -200,7 +233,16 @@ const AddMedicine = () => {
                       className="text-field"
                       ref={brandNameRef}
                       placeholder="brand name"
+                      {...register("brandName", {
+                        required: {
+                          value: true,
+                          message: "required",
+                        },
+                      })}
                     />
+                    {errors.brandName && (
+                      <span>{errors.brandName.message}</span>
+                    )}
                   </div>
                   <div className="flex items-center relative   mr-4"></div>
                   <div className="grow">
@@ -231,6 +273,12 @@ const AddMedicine = () => {
                           // setStartDate(date);
                           setExpireDate(date);
                         }}
+                        {...register("date", {
+                          required: {
+                            value: true,
+                            message: "required",
+                          },
+                        })}
                       />
                     </div>
                   </div>
@@ -248,6 +296,12 @@ const AddMedicine = () => {
                         // console.log(`value is: ${value.target.value}`);
                         setCatagory(value.target.value);
                       }}
+                      {...register("catagory", {
+                        required: {
+                          value: true,
+                          message: "required",
+                        },
+                      })}
                     >
                       <option>select</option>
                       <option value="rigatoni">Rigatoni</option>
@@ -255,6 +309,7 @@ const AddMedicine = () => {
                       <option value="pumpernickel">Pumpernickel</option>
                       <option value="reeses">Reeses</option>
                     </select>
+                    {errors.catagory && <span>{errors.catagory.message}</span>}
                   </div>
                   <div className="mr-4 grow">
                     <label className="lable">Manufacturer</label>
@@ -262,7 +317,16 @@ const AddMedicine = () => {
                       className="text-field"
                       ref={manufacturerRef}
                       placeholder="Manufacturer"
+                      {...register("manufacturer", {
+                        required: {
+                          value: true,
+                          message: "required",
+                        },
+                      })}
                     />
+                    {errors.manufacturer && (
+                      <span>{errors.manufacturer.message}</span>
+                    )}
                   </div>
                   <div className="flex items-center relative   mr-4">
                     <div className="grow">
@@ -271,7 +335,14 @@ const AddMedicine = () => {
                         className="text-field"
                         ref={priceRef}
                         placeholder="Price"
+                        {...register("price", {
+                          required: {
+                            value: true,
+                            message: "required",
+                          },
+                        })}
                       />
+                      {errors.price && <span>{errors.price.message}</span>}
                     </div>
                     <p className="absolute right-0 px-2 top-8 text-gray-300">
                       Birr
@@ -285,7 +356,14 @@ const AddMedicine = () => {
                       className="text-field"
                       ref={stockAmountRef}
                       placeholder="Stock"
+                      {...register("stock", {
+                        required: {
+                          value: true,
+                          message: "required",
+                        },
+                      })}
                     />
+                    {errors.stock && <span>{errors.stock.message}</span>}
                   </div>
                 </div>
                 {/* third row  */}
@@ -298,7 +376,14 @@ const AddMedicine = () => {
                       className="text-field"
                       ref={weightRef}
                       placeholder="Weight"
+                      {...register("weight", {
+                        required: {
+                          value: true,
+                          message: "required",
+                        },
+                      })}
                     />
+                    {errors.weight && <span>{errors.weight.message}</span>}
                   </div>
                   <div className="mr-4">
                     <label className="lable">Status</label>
@@ -306,7 +391,14 @@ const AddMedicine = () => {
                       className="text-field"
                       ref={statusRef}
                       placeholder="Status"
+                      {...register("status", {
+                        required: {
+                          value: true,
+                          message: "required",
+                        },
+                      })}
                     />
+                    {errors.status && <span>{errors.status.message}</span>}
                   </div>
                   <div className="">
                     <label className="lable">SKU</label>
@@ -314,7 +406,18 @@ const AddMedicine = () => {
                       className="text-field"
                       ref={skuRef}
                       placeholder="SKU"
+                      {...register("sku", {
+                        required: {
+                          value: true,
+                          message: "required",
+                        },
+                      })}
                     />
+                    {errors.sku && (
+                      <span className="error-message">
+                        {errors.sku.message}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -350,17 +453,17 @@ const AddMedicine = () => {
 
               <div className="self-end mt-12 bg-gradient-to-r w-max p-[2px]  from-indigo-500 via-purple-500 to-pink-500   justify-end">
                 <button
-                  onClick={(event) => {
-                    handleSubmit(event);
+                  onClick={() => {
+                    // handleAddSubmit();
+                    onSubmit();
                     // const token = localStorage.getItem("token");
                     // console.log("submitting");
                     // if (token) {
-                    //   handleSubmit(event);
+                    //   handleAddSubmit(event);
                     // } else {
                     //   alert("you have to login first");
                     // }
                   }}
-                  type="submit"
                   className="btn group px-[14px]   py-[12px]  "
                 >
                   <p className=" group-hover:bg-gradient-to-r  group-hover:from-indigo-500 group-hover:via-purple-500 group-hover:to-pink-500 group-hover:inline-block group-hover:text-transparent group-hover:bg-clip-text">

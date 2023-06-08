@@ -110,7 +110,7 @@ const LoginPage = () => {
           </div>
           <form noValidate onSubmit={(e) => e.preventDefault()}>
             <div className="flex   flex-col w-[500px]">
-              <div className="">
+              <div className="mb-4">
                 <input
                   onChange={(e) => {
                     setEmail(e.target.value);
