@@ -66,7 +66,11 @@ const AddMedicine = () => {
     }
   }, []);
 
-  const { register, handleSubmit, formState: errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const medNameRef = useRef(null);
   const priceRef = useRef(null);
@@ -141,7 +145,7 @@ const AddMedicine = () => {
   };
 
   const onSubmit = handleSubmit((data) => {
-    // console.log(data);
+    console.log(data);
     // handleLogin(data.email, data.password);
   });
 
@@ -197,18 +201,18 @@ const AddMedicine = () => {
                       {...register("medicineName", {
                         required: {
                           value: true,
-                          message: "required",
+                          message: "*required",
                         },
                       })}
                     />
-                    {errors.medicineName
+                    {/* {errors.medicineName
                       ? console.log(errors.medicineName)
-                      : console.log("no error")}
-                    {/* {errors.medicineName && (
+                      : console.log("no error")} */}
+                    {errors.medicineName && (
                       <span className="error-message">
                         {errors.medicineName.message}
                       </span>
-                    )} */}
+                    )}
                   </div>
                   <div className="mr-4 grow">
                     <label className="lable">Generic Name</label>
@@ -219,7 +223,7 @@ const AddMedicine = () => {
                       {...register("genericName", {
                         required: {
                           value: true,
-                          message: "required",
+                          message: "*required",
                         },
                       })}
                     />
@@ -236,12 +240,14 @@ const AddMedicine = () => {
                       {...register("brandName", {
                         required: {
                           value: true,
-                          message: "required",
+                          message: "*required",
                         },
                       })}
                     />
                     {errors.brandName && (
-                      <span>{errors.brandName.message}</span>
+                      <span className="error-message">
+                        {errors.brandName.message}
+                      </span>
                     )}
                   </div>
                   <div className="flex items-center relative   mr-4"></div>
@@ -260,6 +266,7 @@ const AddMedicine = () => {
                         selectsStart
                         startDate={expireDate}
                         placeholderText="Start Date"
+                        value={expireDate}
                         // popoverAttachment={
                         //   smallScreen ? "bottom center" : undefined
                         // }
@@ -269,17 +276,26 @@ const AddMedicine = () => {
                         // popoverTargetOffset={smallScreen ? "0px 0px" : undefined}
                         // endDate={endDate}
                         onChange={(date) => {
-                          console.log(`date is : ${date}`);
-                          // setStartDate(date);
+                          console.log("change");
+                          console.log(date);
                           setExpireDate(date);
                         }}
-                        {...register("date", {
-                          required: {
-                            value: true,
-                            message: "required",
-                          },
-                        })}
+                        // onChange={(date) => {
+                        //   console.log(`date is : ${date}`);
+                        //   // setStartDate(date);
+                        // }}
+                        // {...register("date", {
+                        //   required: {
+                        //     value: true,
+                        //     message: "*required",
+                        //   },
+                        // })}
                       />
+                      {/* {errors.date && (
+                        <span className="error-message">
+                          {errors.date.message}
+                        </span>
+                      )} */}
                     </div>
                   </div>
                 </div>
@@ -299,7 +315,7 @@ const AddMedicine = () => {
                       {...register("catagory", {
                         required: {
                           value: true,
-                          message: "required",
+                          message: "*required",
                         },
                       })}
                     >
@@ -309,7 +325,9 @@ const AddMedicine = () => {
                       <option value="pumpernickel">Pumpernickel</option>
                       <option value="reeses">Reeses</option>
                     </select>
-                    {errors.catagory && <span>{errors.catagory.message}</span>}
+                    {errors.catagory && (
+                      <span className="errror-">{errors.catagory.message}</span>
+                    )}
                   </div>
                   <div className="mr-4 grow">
                     <label className="lable">Manufacturer</label>

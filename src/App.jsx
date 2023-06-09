@@ -9,6 +9,7 @@ import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import ShowNavBar from "./components/utils/ShowNavBar";
 import Test from "./components/Test";
+import FakeAddMedicine from "./components/FakeAddMed";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -39,7 +40,7 @@ const App = () => {
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/signup" element={<SignupPage />}></Route>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/addmed" element={<AddMedicine />}></Route>
+          <Route path="/addmed" element={<FakeAddMedicine />}></Route>
           <Route path="/inventory" element={<MedicineInventory />}></Route>
         </Routes>
       </div>
