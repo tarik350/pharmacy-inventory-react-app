@@ -1,13 +1,30 @@
 import {
   AiFillHome,
+  AiFillMedicineBox,
   AiFillPlusCircle,
   AiOutlineAppstoreAdd,
+  AiOutlineMedicineBox,
 } from "react-icons/ai";
+import { MdArrowForwardIos } from "react-icons/md";
+import { GiMedicines } from "react-icons/gi";
 
 export const navList = [
   { name: "home", link: "/", icon: <AiFillHome /> },
-  { name: "Add", link: "/addmed", icon: <AiFillPlusCircle /> },
-  { name: "inventory", link: "/inventory", icon: <AiOutlineAppstoreAdd /> },
+
+  {
+    name: "medicine",
+    list: [
+      { name: "Add", link: "/addmed", icon: <AiFillPlusCircle /> },
+      { name: "inventory", link: "/inventory", icon: <AiOutlineAppstoreAdd /> },
+    ],
+    // link: "/inventory",
+    icon: <GiMedicines />,
+    expand: <MdArrowForwardIos />,
+  },
+
+  { name: "suport", link: "/inventory", icon: <AiOutlineAppstoreAdd /> },
+  { name: "about", link: "/inventory", icon: <AiOutlineAppstoreAdd /> },
+  { name: "sign out", link: "/inventory", icon: <AiOutlineAppstoreAdd /> },
 ];
 
 export const countryCode = [
