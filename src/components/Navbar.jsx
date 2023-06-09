@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { navList } from "../constants";
 import { Link } from "react-router-dom";
+import { logo } from "../assets";
 
 import { IoChevronForward } from "react-icons/io5";
 const Navbar = () => {
@@ -16,10 +17,8 @@ const Navbar = () => {
     <header className=" w-full relative  h-full  p-[50px] flex flex-col    items-center   text-black ">
       <div className="">
         <Link to="/">
-          <div className="border-4 border-gray-400  rounded-full flex justify-center items-center w-[130px] h-[130px] ">
-            <h1 className="text-[20px]  border-radius font-poppins  font-bold leading-[130%] bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500 bg-clip-text inline-block text-transparent">
-              Samaritan
-            </h1>
+          <div className="border-4 border-gray-400 overflow-hidden  rounded-full flex justify-center items-center w-[130px] h-[130px] ">
+            <img className=" object-cover" src={logo} />
           </div>
         </Link>
       </div>
@@ -30,14 +29,17 @@ const Navbar = () => {
               <li
                 key={index}
                 className={`${
-                  index === navList.length - 1 ? "" : "mr-4 md:mr-8"
+                  index === navList.length - 1 ? "" : "mr-4  md:mr-8"
                 }`}
               >
                 <Link
-                  className="uppercase text-[20px]  font-bold text-black hover:text-secondary transition-all "
+                  className="uppercase text-[17px]   text-black hover:text-secondary transition-all "
                   to={item.link}
                 >
-                  <div className="my-2  px-2"> {item.name}</div>
+                  <div className="flex items-center">
+                    {item.icon}
+                    <div className="my-2  px-2"> {item.name}</div>
+                  </div>
                 </Link>
               </li>
             );

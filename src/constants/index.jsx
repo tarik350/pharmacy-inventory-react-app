@@ -1,7 +1,13 @@
+import {
+  AiFillHome,
+  AiFillPlusCircle,
+  AiOutlineAppstoreAdd,
+} from "react-icons/ai";
+
 export const navList = [
-  { name: "home", link: "/" },
-  { name: "Add", link: "/addmed" },
-  { name: "inventory", link: "/inventory" },
+  { name: "home", link: "/", icon: <AiFillHome /> },
+  { name: "Add", link: "/addmed", icon: <AiFillPlusCircle /> },
+  { name: "inventory", link: "/inventory", icon: <AiOutlineAppstoreAdd /> },
 ];
 
 export const countryCode = [

@@ -1073,6 +1073,11 @@ video {
      object-fit: contain;
 }
 
+.object-cover{
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 .p-12{
   padding: 3rem;
 }
@@ -1208,6 +1213,10 @@ video {
 .text-xl{
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+
+.text-\[17px\]{
+  font-size: 17px;
 }
 
 .font-bold{
