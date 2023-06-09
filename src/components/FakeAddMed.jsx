@@ -128,7 +128,7 @@ const FakeAddMedicine = () => {
     const medicinePrice = priceRef.current.value;
     const medicineBrandName = brandNameRef.current.value;
     const amountInStock = stockAmountRef.current.value;
-    const description = descriptionRef.current.getContent({ format: "text" });
+
     const sku = skuRef.current.value;
     const weight = weightRef.current.value;
     const price = priceRef.current.value;
@@ -137,35 +137,8 @@ const FakeAddMedicine = () => {
 
     const manufacturer = manufacturerRef.current.value;
 
-    const userId = localStorage.getItem("id");
-
     console.log(`catagory selected : ${catagory}`);
     if (medicineBrandName && medicineName && medicinePrice && amountInStock) {
-      addMedicineMutation({
-        variables: {
-          stock: amountInStock,
-          brandName: medicineBrandName,
-          medicineName: medicineName,
-          medicinePrice: medicinePrice,
-          userId: userId,
-          catagory: catagory,
-          manufacturer: manufacturer,
-          weight: weight,
-          sku: sku,
-          description: description,
-          genericName: genericName,
-          price: price,
-          expireDate: expireDate,
-        },
-      })
-        .then((value) => {
-          console.log(`medince added successfully`);
-          console.log("lsjkdflsjdflsjdflj");
-          console.log(value.data.insert_medicine.returning[0]);
-        })
-        .catch((err) => {
-          console.log(`eror: ${err}`);
-        });
     } else {
     }
   };
@@ -178,13 +151,37 @@ const FakeAddMedicine = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    //to query expire date
-    console.log(`expire date : ${data.expiredDate}`);
-    //to query date
-    console.log(`catagory: ${data.catagory.value}`);
-    // handleLogin(data.email, data.password);
+  const addMedicineToBackend = handleSubmit((data) => {
+    const userId = localStorage.getItem("id");
+    const description = descriptionRef.current.getContent({ format: "text" });
+
+    addMedicineMutation({
+      variables: {
+        stock: data.stock,
+        brandName: data.brandName,
+        medicineName: data.medicineName,
+        medicinePrice: data.price,
+        userId: userId,
+        catagory: data.catagory.value,
+        manufacturer: data.manufacturer,
+        weight: data.weight,
+        sku: data.sku,
+        description: description,
+        genericName: data.genericName,
+        price: data.price,
+        expireDate: data.expiredDate,
+      },
+    })
+      .then((value) => {
+        //notify user
+        console.log(`medince added successfully`);
+        console.log("lsjkdflsjdflsjdflj");
+        console.log(value.data.insert_medicine.returning[0]);
+      })
+      .catch((err) => {
+        //notify users
+        console.log(`eror: ${err}`);
+      });
   });
 
   return (
@@ -461,7 +458,7 @@ const FakeAddMedicine = () => {
                       // outputFormat="text"
                       // initialValue="<p>This is the initial content of the editor.</p>"
                       init={{
-                        height: 300,
+                        height: 250,
                         menubar: false,
                         plugins: [
                           "advlist autolink lists link image charmap print preview anchor",
@@ -476,6 +473,7 @@ const FakeAddMedicine = () => {
                         content_style:
                           "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                       }}
+                      onEditorChange={onchange}
                     />
                   </div>
                 </div>
@@ -483,7 +481,7 @@ const FakeAddMedicine = () => {
                 <div className="self-end mt-12 bg-gradient-to-r w-max p-[2px]  from-indigo-500 via-purple-500 to-pink-500   justify-end">
                   <button
                     onClick={() => {
-                      onSubmit();
+                      addMedicineToBackend();
                     }}
                     className="btn group px-[14px]   py-[12px]  "
                   >
@@ -501,55 +499,7 @@ const FakeAddMedicine = () => {
   );
 };
 
-// Define mutation
-
 export default FakeAddMedicine;
 
-// <form
-//               className="flex flex-col"
-//               onSubmit={(e) => e.preventDefault()}
-//               noValidate
-//             >
-//               {/* first row */}
-//               <div className="containerDiv flex flex-col justify-center ">
-//                 <div className="mb-8 flex">
-//
-//                   <div className="flex items-center relative   mr-4"></div>
-//                   <div className="grow">
-
-//                   </div>
-//                 </div>
-//                 {/* second row */}
-//                 <div className="mb-8 flex items-center">
-
-//                 </div>
-//                 {/* third row  */}
-
-//                 <div className="mb-8 flex ">
-
-// </div>
-//               </div>
-
-//               {/* end of text field */}
-
-//               <div className="self-end mt-12 bg-gradient-to-r w-max p-[2px]  from-indigo-500 via-purple-500 to-pink-500   justify-end">
-//                 <button
-//                   onClick={() => {
-//                     // handleAddSubmit();
-//                     onSubmit();
-//                     // const token = localStorage.getItem("token");
-//                     // console.log("submitting");
-//                     // if (token) {
-//                     //   handleAddSubmit(event);
-//                     // } else {
-//                     //   alert("you have to login first");
-//                     // }
-//                   }}
-//                   className="btn group px-[14px]   py-[12px]  "
-//                 >
-//                   <p className=" group-hover:bg-gradient-to-r  group-hover:from-indigo-500 group-hover:via-purple-500 group-hover:to-pink-500 group-hover:inline-block group-hover:text-transparent group-hover:bg-clip-text">
-//                     add to inventory
-//                   </p>
-//                 </button>
-//               </div>
-//             </form>
+{
+}
