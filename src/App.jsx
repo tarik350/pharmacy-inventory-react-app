@@ -1,5 +1,5 @@
-import { Navbar, Home } from "./components";
-import AddMedicine from "./components/AddMedicine";
+import { Navbar, Home, AddMedicine } from "./components";
+// import AddMedicine from "./components/AddMedicine";
 import { useState, useContext } from "react";
 import MedicineInventory from "./components/MedicineInventory";
 import { paddingX } from "./styles";
@@ -9,7 +9,6 @@ import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import ShowNavBar from "./components/utils/ShowNavBar";
 import Test from "./components/Test";
-import FakeAddMedicine from "./components/FakeAddMed";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -29,9 +28,9 @@ const App = () => {
   ///everytime the value changes we have to reset the app and rebuild the entire app
 
   return (
-    <div className="flex">
+    <div className="flex ">
       <ShowNavBar>
-        <div className="bg-gray-100 w-[330px]  h-screen">
+        <div className="bg-gray-100 flex-1 m-4 h-full rounded-xl">
           <Navbar />
         </div>
       </ShowNavBar>
@@ -40,7 +39,7 @@ const App = () => {
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/signup" element={<SignupPage />}></Route>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/addmed" element={<FakeAddMedicine />}></Route>
+          <Route path="/addmed" element={<AddMedicine />}></Route>
           <Route path="/inventory" element={<MedicineInventory />}></Route>
         </Routes>
       </div>

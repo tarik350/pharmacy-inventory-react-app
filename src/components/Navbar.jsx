@@ -24,15 +24,21 @@ const Navbar = () => {
     }
   };
   return (
-    <header className=" w-full relative  h-full  flex flex-col    items-center   text-black ">
-      <div className="">
-        <Link to="/">
-          <div className="border-4 border-gray-400 overflow-hidden  rounded-full flex justify-center items-center w-[130px] h-[130px] ">
-            <img className=" object-cover" src={logo} />
-          </div>
-        </Link>
+    <header className=" w-full relative  h-full  flex flex-col     text-black ">
+      <div className="border-b-2 pb-4 pl-4 pt-4 flex items-center">
+        <div className="pr-2 ">
+          <Link to="/">
+            <div className="border-[2px] border-gray-400 overflow-hidden  rounded-full flex justify-center items-center w-[50px] h-[50px] ">
+              <img className=" object-cover" src={logo} />
+            </div>
+          </Link>
+        </div>
+        <div>
+          <p>username</p>
+          <p>user email</p>
+        </div>
       </div>
-      <nav className=" flex justify-center items-center w-full mt-[100px] ">
+      <nav className=" flex justify-center items-center pl-4  mt-[100px] ">
         <ul className="flex flex-col  justify-center ">
           {navList.map((item, index) => {
             return (

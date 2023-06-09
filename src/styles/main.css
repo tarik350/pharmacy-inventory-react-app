@@ -626,6 +626,10 @@ video {
   margin: 40px;
 }
 
+.m-2{
+  margin: 0.5rem;
+}
+
 .mx-2{
   margin-left: 0.5rem;
   margin-right: 0.5rem;
@@ -780,6 +784,10 @@ video {
   height: 100vh;
 }
 
+.h-\[90px\]{
+  height: 90px;
+}
+
 .w-1\/2{
   width: 50%;
 }
@@ -843,6 +851,15 @@ video {
 
 .w-\[330px\]{
   width: 330px;
+}
+
+.w-fit{
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.w-\[90px\]{
+  width: 90px;
 }
 
 .flex-1{
@@ -978,6 +995,10 @@ video {
 }
 
 .border-b-\[2px\]{
+  border-bottom-width: 2px;
+}
+
+.border-b-2{
   border-bottom-width: 2px;
 }
 
@@ -1216,6 +1237,30 @@ video {
 
 .pl-\[35px\]{
   padding-left: 35px;
+}
+
+.pl-2{
+  padding-left: 0.5rem;
+}
+
+.pl-4{
+  padding-left: 1rem;
+}
+
+.pb-4{
+  padding-bottom: 1rem;
+}
+
+.pr-4{
+  padding-right: 1rem;
+}
+
+.pr-2{
+  padding-right: 0.5rem;
+}
+
+.pt-4{
+  padding-top: 1rem;
 }
 
 .font-poppins{

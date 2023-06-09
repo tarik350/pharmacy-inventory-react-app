@@ -1,6 +1,6 @@
 import Navbar from "./Navbar";
 import Home from "./Home";
-import AddMedicine from "./AddMedicine";
+import AddMedicine from "./AddMedicinePage";
 import MedicineInventory from "./MedicineInventory";
 import LoginPage from "./LoginPage";
 import SignupPage from "./SignupPage";

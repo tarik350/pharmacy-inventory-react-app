@@ -59,7 +59,7 @@ const ADD_MEDICINE = gql`
   }
 `;
 
-const FakeAddMedicine = () => {
+const AddMedicine = () => {
   const autorized = localStorage.getItem("token");
   const navigate = useNavigate();
 
@@ -499,7 +499,7 @@ const FakeAddMedicine = () => {
   );
 };
 
-export default FakeAddMedicine;
+export default AddMedicine;
 
 {
 }
