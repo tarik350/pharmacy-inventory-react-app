@@ -25,7 +25,7 @@ const Navbar = () => {
   };
   return (
     <header className=" w-full relative  h-full  flex flex-col  shadow-sm rounded-xl  text-black ">
-      <div className="border-b-2 pb-4 pl-4 pt-4 flex items-center">
+      <div className="border-b-2  border-gray-400 pb-4 pl-4 pt-4 flex items-center">
         <div className="pr-2 ">
           <Link to="/">
             <div className="border-[2px] border-gray-400 overflow-hidden  rounded-full flex justify-center items-center w-[50px] h-[50px] ">

@@ -30,7 +30,7 @@ const App = () => {
   return (
     <div className="flex  ">
       <ShowNavBar>
-        <div className="bg-gray-100  flex-1 h-[920px] my-8 mx-4 rounded-xl ">
+        <div className="bg-gray-200  flex-1 h-[920px] my-8 mx-4 rounded-xl ">
           <Navbar />
         </div>
       </ShowNavBar>
