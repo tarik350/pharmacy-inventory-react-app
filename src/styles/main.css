@@ -825,6 +825,26 @@ video {
   width: max-content;
 }
 
+.w-\[200px\]{
+  width: 200px;
+}
+
+.w-\[2400px\]{
+  width: 2400px;
+}
+
+.w-\[400px\]{
+  width: 400px;
+}
+
+.w-\[800px\]{
+  width: 800px;
+}
+
+.w-\[330px\]{
+  width: 330px;
+}
+
 .flex-1{
   flex: 1 1 0%;
 }
@@ -1330,6 +1350,11 @@ video {
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-secondary{
+  --tw-text-opacity: 1;
+  color: rgb(188 0 221 / var(--tw-text-opacity));
 }
 
 .underline{

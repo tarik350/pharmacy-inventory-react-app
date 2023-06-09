@@ -5,8 +5,9 @@ import {
   AiOutlineAppstoreAdd,
   AiOutlineMedicineBox,
 } from "react-icons/ai";
-import { MdArrowForwardIos } from "react-icons/md";
+import { MdArrowForwardIos, MdOutlineGroups, MdLogout } from "react-icons/md";
 import { GiMedicines } from "react-icons/gi";
+import { BiSupport } from "react-icons/bi";
 
 export const navList = [
   { name: "home", link: "/", icon: <AiFillHome /> },
@@ -22,9 +23,9 @@ export const navList = [
     expand: <MdArrowForwardIos />,
   },
 
-  { name: "suport", link: "/inventory", icon: <AiOutlineAppstoreAdd /> },
-  { name: "about", link: "/inventory", icon: <AiOutlineAppstoreAdd /> },
-  { name: "sign out", link: "/inventory", icon: <AiOutlineAppstoreAdd /> },
+  { name: "support", link: "/inventory", icon: <BiSupport /> },
+  { name: "about", link: "/inventory", icon: <MdOutlineGroups /> },
+  { name: "sign out", link: "/inventory", icon: <MdLogout /> },
 ];
 
 export const countryCode = [
