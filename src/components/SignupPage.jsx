@@ -228,7 +228,7 @@ const SignupPage = () => {
                   onClick={() => {
                     togglePasswordVisibility();
                   }}
-                  className="absolute right-4 top-6"
+                  className="absolute right-4 top-12"
                 >
                   {passwordVisibility === "password" ? (
                     <AiFillEye />
