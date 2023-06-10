@@ -51,20 +51,20 @@ const Navbar = () => {
         </div>
       </div>
       <nav className=" flex flex-col justify-between  h-full  mt-[100px] ">
-        <ul className="flex flex-col self-start  pl-4   justify-center ">
+        <ul className="flex flex-col self-start  pl-4 justify-center ">
           {navList.map((item, index) => {
             return (
               <li
                 key={index}
                 className={`${
                   index === navList.length - 1 ? "" : "mr-4  md:mr-8"
-                }`}
+                } mb-[10px]`}
                 onClick={() => setActive(index)}
               >
                 <Link
                   className={`${
                     active === index ? "text-secondary" : ""
-                  } uppercase text-[17px]   text-black hover:text-secondary transition-all `}
+                  } uppercase text-[18px]   text-black hover:text-secondary transition-all `}
                   to={item.link && item.link}
                 >
                   <div
@@ -122,7 +122,7 @@ const Navbar = () => {
         </ul>
 
         <div className="flex justify-center mb-4">
-          <div className="px-8 py-2 w-max   flex justify-center items-center border-2  border-primary text-primary  ml-2 ">
+          <div className="px-8 py-2 w-max   flex justify-center items-center border-2  border-primary text-primary  ">
             <MdLogout />
             <button className="ml-2" onClick={() => handleLogout()}>
               LOG OUT

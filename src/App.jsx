@@ -15,6 +15,7 @@ import {
 } from "./components";
 import { useState, useContext } from "react";
 import { Route, Routes } from "react-router-dom";
+import Test from "./charts/Test";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -47,7 +48,7 @@ const App = () => {
           <Route path="/" element={<Home />}></Route>
           <Route path="/addmed" element={<AddMedicine />}></Route>
           <Route path="/inventory" element={<MedicineInventory />}></Route>
-          <Route path="/news" element={<NewsFeed />}></Route>
+          <Route path="/news" element={<Test />}></Route>
           <Route path="/description" element={<MedicineDescription />}></Route>
           <Route path="/about" element={<About />}></Route>
           <Route path="/privacy" element={<PrivacyPolicy />}></Route>

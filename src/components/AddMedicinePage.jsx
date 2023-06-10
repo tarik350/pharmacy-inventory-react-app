@@ -63,6 +63,8 @@ const AddMedicine = () => {
   const autorized = localStorage.getItem("token");
   const navigate = useNavigate();
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
     if (!autorized) {
       navigate("/login");
@@ -112,9 +114,14 @@ const AddMedicine = () => {
     }),
   };
   const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
+    { value: "Tablet", label: "Tablet" },
+    { value: "Capsules", label: "Capsules" },
+    { value: "Liquid", label: "Liquid" },
+    { value: "Topical medicines", label: "Topical medicines" },
+    { value: "Suppositories", label: "Suppositories" },
+    { value: "Drops", label: "Drops" },
+    { value: "Inhalers", label: "Inhalers" },
+    { value: "Injections", label: "Injections" },
   ];
 
   const [addMedicineMutation, { data, loading, error }] =
@@ -308,6 +315,12 @@ const AddMedicine = () => {
                     }}
                     render={({ field }) => (
                       <Select
+                        onMenuOpen={() => {
+                          setMenuOpen(true);
+                        }}
+                        onMenuClose={() => {
+                          setMenuOpen(false);
+                        }}
                         {...field}
                         styles={customStyles}
                         isClearable
@@ -450,6 +463,7 @@ const AddMedicine = () => {
                   <label className="lable">Medicine description</label>
                   <div className="z-0">
                     <Editor
+                      className="z-0"
                       apiKey="utllbsqr2qw8jfn1o7uj4rijs3puf8wd44tmv0ndfwsoyr5o"
                       // ref={descriptionRef}
                       onInit={(evt, editor) =>
@@ -465,13 +479,16 @@ const AddMedicine = () => {
                           "searchreplace visualblocks code fullscreen",
                           "insertdatetime media table paste code help wordcount",
                         ],
+
                         toolbar:
                           "undo redo | formatselect | " +
                           "bold italic backcolor | alignleft aligncenter " +
                           "alignright alignjustify | bullist numlist outdent indent | " +
                           "removeformat | help",
+                        toolbar: false,
+
                         content_style:
-                          "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                          "body { font-family:Helvetica,Arial,sans-serif; font-size:14px z-index:0 }",
                       }}
                       onEditorChange={onchange}
                     />
