@@ -200,7 +200,7 @@ const AddMedicine = () => {
         <div className="flex flex-1  rounded-xl  bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500">
           <div className=" flex-col relative  bg-white w-full   m-[3px] border-2 p-12  shadow-2xl rounded-lg ">
             <from onSubmit={(e) => e.preventDefault()}>
-              <div className="container grid grid-cols-4 gap-y-[2px] gap-4">
+              <div className="container grid grid-cols-4 gap-y-[30px] gap-4">
                 {/* <div className="first row flex mb-4"> */}
                 <div className="mr-4 grow">
                   <label className="lable">Medicine Name</label>

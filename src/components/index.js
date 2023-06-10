@@ -6,6 +6,11 @@ import LoginPage from "./LoginPage";
 import SignupPage from "./SignupPage";
 import NewsFeed from "./NewsFeed";
 import Auth from "./Auth";
+import MedicineDescription from "./MedicineDescription";
+import ShowNavBar from "./utils/ShowNavBar";
+import PrivacyPolicy from "./PrivacyPolicy";
+import TermsAndCondition from "./TermsAndCondition";
+import About from "./About";
 
 export {
   Navbar,
@@ -15,5 +20,10 @@ export {
   Auth,
   NewsFeed,
   SignupPage,
+  MedicineDescription,
+  ShowNavBar,
   LoginPage,
+  About,
+  PrivacyPolicy,
+  TermsAndCondition,
 };

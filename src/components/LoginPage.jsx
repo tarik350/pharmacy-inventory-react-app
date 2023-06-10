@@ -110,6 +110,31 @@ const LoginPage = () => {
           </div>
           <form noValidate onSubmit={(e) => e.preventDefault()}>
             <div className="flex   flex-col w-[500px]">
+              <input
+                // ref={passwordRef}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                type="text"
+                className={`${
+                  errors.email ? " border-[2px] border-red-600" : "border"
+                }  rounded-md mt-4 w-full text-[16px] grow   focus:outline-none focus:border-primary  border-gray-400  px-3 py-[20px] `}
+                placeholder="email"
+                {...register("email", {
+                  pattern: {
+                    value:
+                      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                    message: "Please provide a valid email",
+                  },
+                  required: {
+                    value: true,
+                    message: "*required",
+                  },
+                })}
+              />
+              {errors.email && (
+                <span className="text-red-600">{errors.email.message}</span>
+              )}
               <div className="flex-1 relative">
                 <input
                   // ref={passwordRef}

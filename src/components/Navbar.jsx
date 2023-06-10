@@ -14,7 +14,7 @@ import { IoChevronForward } from "react-icons/io5";
 const Navbar = () => {
   const [alignment, setAlignment] = useState("justify-start");
   const [showMedicineMenu, setShowMedicineMenu] = useState(false);
-  const [active, setActive] = useState(-1);
+  const [active, setActive] = useState(0);
 
   const toggleTheme = () => {
     if (alignment === "justify-start") {
@@ -38,8 +38,8 @@ const Navbar = () => {
           <p>user email</p>
         </div>
       </div>
-      <nav className=" flex justify-center items-center pl-4  mt-[100px] ">
-        <ul className="flex flex-col  justify-center ">
+      <nav className=" flex flex-col justify-between items-center h-full  pl-4  mt-[100px] ">
+        <ul className="flex flex-col self-start  justify-center ">
           {navList.map((item, index) => {
             return (
               <li
@@ -92,6 +92,14 @@ const Navbar = () => {
                         >
                           <p>medince list</p>
                         </Link>
+                      </li>{" "}
+                      <li>
+                        <Link
+                          className=" text-[17px]   text-black hover:text-secondary transition-all "
+                          to="/description"
+                        >
+                          <p>medince desciption</p>
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -100,6 +108,7 @@ const Navbar = () => {
             );
           })}
         </ul>
+        <div className="border-2">Login</div>
       </nav>
     </header>
   );

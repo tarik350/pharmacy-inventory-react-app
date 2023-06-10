@@ -1,14 +1,19 @@
-import { Navbar, Home, AddMedicine } from "./components";
-// import AddMedicine from "./components/AddMedicine";
+import {
+  Navbar,
+  Home,
+  AddMedicine,
+  NewsFeed,
+  MedicineDescription,
+  MedicineInventory,
+  LoginPage,
+  SignupPage,
+  ShowNavBar,
+  PrivacyPolicy,
+  TermsAndCondition,
+  About,
+} from "./components";
 import { useState, useContext } from "react";
-import MedicineInventory from "./components/MedicineInventory";
-import { paddingX } from "./styles";
 import { Route, Routes } from "react-router-dom";
-import { gql, useQuery, useMutation } from "@apollo/client";
-import LoginPage from "./components/LoginPage";
-import SignupPage from "./components/SignupPage";
-import ShowNavBar from "./components/utils/ShowNavBar";
-import Test from "./components/Test";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -30,7 +35,7 @@ const App = () => {
   return (
     <div className="flex  ">
       <ShowNavBar>
-        <div className="bg-gray-200  flex-1 h-[920px] my-8 mx-4 rounded-xl ">
+        <div className="bg-gray-200 w-[300px] h-[920px] my-8 mx-4 rounded-xl ">
           <Navbar />
         </div>
       </ShowNavBar>
@@ -41,6 +46,11 @@ const App = () => {
           <Route path="/" element={<Home />}></Route>
           <Route path="/addmed" element={<AddMedicine />}></Route>
           <Route path="/inventory" element={<MedicineInventory />}></Route>
+          <Route path="/news" element={<NewsFeed />}></Route>
+          <Route path="/description" element={<MedicineDescription />}></Route>
+          <Route path="/about" element={<About />}></Route>
+          <Route path="/privacy" element={<PrivacyPolicy />}></Route>
+          <Route path="/terms" element={<TermsAndCondition />}></Route>
         </Routes>
       </div>
     </div>

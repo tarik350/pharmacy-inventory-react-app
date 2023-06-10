@@ -5,9 +5,16 @@ import {
   AiOutlineAppstoreAdd,
   AiOutlineMedicineBox,
 } from "react-icons/ai";
-import { MdArrowForwardIos, MdOutlineGroups, MdLogout } from "react-icons/md";
+import { ImNewspaper } from "react-icons/im";
+import {
+  MdArrowForwardIos,
+  MdOutlineGroups,
+  MdLogout,
+  MdPrivacyTip,
+} from "react-icons/md";
 import { GiMedicines } from "react-icons/gi";
 import { BiSupport } from "react-icons/bi";
+import { BsFileCheck } from "react-icons/bs";
 
 export const navList = [
   { name: "home", link: "/", icon: <AiFillHome /> },
@@ -18,13 +25,18 @@ export const navList = [
       { name: "Add", link: "/addmed", icon: <AiFillPlusCircle /> },
       { name: "inventory", link: "/inventory", icon: <AiOutlineAppstoreAdd /> },
     ],
-    // link: "/inventory",
     icon: <GiMedicines />,
     expand: <MdArrowForwardIos />,
   },
-
+  { name: "news Feed", link: "/news", icon: <ImNewspaper /> },
   { name: "support", link: "/inventory", icon: <BiSupport /> },
-  { name: "about", link: "/inventory", icon: <MdOutlineGroups /> },
+  { name: "about", link: "/about", icon: <MdOutlineGroups /> },
+  { name: "privacy policy", link: "/privacy", icon: <MdPrivacyTip /> },
+  {
+    name: "terms and condition",
+    link: "/terms",
+    icon: <BsFileCheck />,
+  },
   { name: "sign out", link: "/inventory", icon: <MdLogout /> },
 ];
 
