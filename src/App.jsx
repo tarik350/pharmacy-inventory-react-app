@@ -11,6 +11,7 @@ import {
   PrivacyPolicy,
   TermsAndCondition,
   About,
+  Support,
 } from "./components";
 import { useState, useContext } from "react";
 import { Route, Routes } from "react-router-dom";
@@ -51,6 +52,7 @@ const App = () => {
           <Route path="/about" element={<About />}></Route>
           <Route path="/privacy" element={<PrivacyPolicy />}></Route>
           <Route path="/terms" element={<TermsAndCondition />}></Route>
+          <Route path="/support" element={<Support />}></Route>
         </Routes>
       </div>
     </div>

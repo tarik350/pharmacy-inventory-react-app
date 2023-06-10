@@ -11,6 +11,7 @@ import ShowNavBar from "./utils/ShowNavBar";
 import PrivacyPolicy from "./PrivacyPolicy";
 import TermsAndCondition from "./TermsAndCondition";
 import About from "./About";
+import Support from "./Support";
 
 export {
   Navbar,
@@ -25,5 +26,6 @@ export {
   LoginPage,
   About,
   PrivacyPolicy,
+  Support,
   TermsAndCondition,
 };

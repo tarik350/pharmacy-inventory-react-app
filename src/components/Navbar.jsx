@@ -1,6 +1,7 @@
 import { useState } from "react";
+
 import { navList } from "../constants";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logo } from "../assets";
 import {
   AiFillFileAdd,
@@ -9,12 +10,14 @@ import {
   AiOutlineAppstoreAdd,
   AiTwotoneAppstore,
 } from "react-icons/ai";
-
+import { MdLogout } from "react-icons/md";
 import { IoChevronForward } from "react-icons/io5";
 const Navbar = () => {
   const [alignment, setAlignment] = useState("justify-start");
   const [showMedicineMenu, setShowMedicineMenu] = useState(false);
   const [active, setActive] = useState(0);
+
+  const navigate = useNavigate();
 
   const toggleTheme = () => {
     if (alignment === "justify-start") {
@@ -22,6 +25,15 @@ const Navbar = () => {
     } else {
       setAlignment("justify-start");
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+
+    //show modal before navigating to login page
+    navigate("/login");
+
+    // setLoginStatus(false);
   };
   return (
     <header className=" w-full relative  h-full  flex flex-col  shadow-sm rounded-xl  text-black ">
@@ -38,8 +50,8 @@ const Navbar = () => {
           <p>user email</p>
         </div>
       </div>
-      <nav className=" flex flex-col justify-between items-center h-full  pl-4  mt-[100px] ">
-        <ul className="flex flex-col self-start  justify-center ">
+      <nav className=" flex flex-col justify-between  h-full  mt-[100px] ">
+        <ul className="flex flex-col self-start  pl-4   justify-center ">
           {navList.map((item, index) => {
             return (
               <li
@@ -108,7 +120,15 @@ const Navbar = () => {
             );
           })}
         </ul>
-        <div className="border-2">Login</div>
+
+        <div className="flex justify-center mb-4">
+          <div className="px-8 py-2 w-max   flex justify-center items-center border-2  border-primary text-primary  ml-2 ">
+            <MdLogout />
+            <button className="ml-2" onClick={() => handleLogout()}>
+              LOG OUT
+            </button>
+          </div>
+        </div>
       </nav>
     </header>
   );

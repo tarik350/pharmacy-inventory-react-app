@@ -29,7 +29,7 @@ export const navList = [
     expand: <MdArrowForwardIos />,
   },
   { name: "news Feed", link: "/news", icon: <ImNewspaper /> },
-  { name: "support", link: "/inventory", icon: <BiSupport /> },
+  { name: "support", link: "/support", icon: <BiSupport /> },
   { name: "about", link: "/about", icon: <MdOutlineGroups /> },
   { name: "privacy policy", link: "/privacy", icon: <MdPrivacyTip /> },
   {
@@ -37,7 +37,6 @@ export const navList = [
     link: "/terms",
     icon: <BsFileCheck />,
   },
-  { name: "sign out", link: "/inventory", icon: <MdLogout /> },
 ];
 
 export const countryCode = [

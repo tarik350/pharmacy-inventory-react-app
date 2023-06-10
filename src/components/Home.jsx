@@ -19,9 +19,7 @@ const Home = () => {
 
   return (
     <main className="flex flex-col mx-[40px] justify-center items-center  ">
-      <div className="self-end my-8">
-        <Auth />
-      </div>
+      <div className="self-end my-8">{/* <Auth /> */}</div>
       <section className="flex  justify-center items-center flex-2 ">
         <div className="w-1/2 grow">
           <div className="bg-black w-max text-white px-4 rounded-full py-[3px]  font-extralight ">
