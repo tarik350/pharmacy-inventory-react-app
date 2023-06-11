@@ -12,13 +12,33 @@ import {
 } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 import { IoChevronForward } from "react-icons/io5";
-
+import { gql, useQuery } from "@apollo/client";
 import ShowModalContext from "../state/show-modal";
+
+const GETUSER = gql`
+  query getUser($uid: uuid!) {
+    users(where: { id: { _eq: $uid } }) {
+      email
+      name
+      pharmacy_name
+      phone_number
+      users_locations {
+        address
+      }
+    }
+  }
+`;
 
 const Navbar = () => {
   const [alignment, setAlignment] = useState("justify-start");
   const [showMedicineMenu, setShowMedicineMenu] = useState(false);
   const [active, setActive] = useState(0);
+
+  const uid = localStorage.getItem("id");
+
+  const { data, error, loading } = useQuery(GETUSER, {
+    variables: { uid },
+  });
 
   const navigate = useNavigate();
 
@@ -55,10 +75,12 @@ const Navbar = () => {
             </div>
           </Link>
         </div>
-        <div>
-          <p className="text-black">{name}</p>
-          <p>{email}</p>
-        </div>
+        {data && (
+          <div>
+            <div>{data.users[0].pharmacy_name}</div>
+            <div>{data.users[0].email}</div>
+          </div>
+        )}
       </div>
       <nav className=" flex flex-col justify-between  h-full  mt-[100px] ">
         <ul className="flex flex-col self-start  pl-4 justify-center ">

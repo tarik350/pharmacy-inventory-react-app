@@ -83,22 +83,11 @@ const LoginPage = () => {
           // console.log(`user email: ${value.data.login.email}`);
           // console.log(`user address: ${value.data.location[0].address}`);
 
-          const name = value.data.login.name;
-          const email = value.data.login.email;
-          const address = value.data.location[0].address;
-
-          const user = { name: name, email: email, address: address };
-          console.log(`=-=-=-=-=-=-=-=-=- before call`);
-
           // addUser(user);
-          addUser(user);
 
           //if there is a data
           localStorage.setItem("token", value.data.login.token);
           localStorage.setItem("id", value.data.login.id);
-          localStorage.setItem("name", name);
-          localStorage.setItem("email", email);
-          localStorage.setItem("address", address);
 
           // navigateHome();
           navigate("/");

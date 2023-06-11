@@ -29,19 +29,13 @@ const Home = () => {
   });
 
   useEffect(() => {
-    console.log(`autorized: ${autorized} `);
+    // console.log(`autorized: ${autorized} `);
     if (!autorized) {
       navigate("/login");
     } else {
-      console.log("authorized");
+      // console.log("authorized");
     }
   }, []);
-
-  data && console.log(`data : ${data}`);
-  error && console.log(`error: ${error}`);
-
-  if (loading) return <div>loading..</div>;
-  if (error) return <div>{error.message}</div>;
 
   return (
     data && (
