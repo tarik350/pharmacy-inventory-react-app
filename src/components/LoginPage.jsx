@@ -1,16 +1,23 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import { NetworkStatus, gql, useLazyQuery, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { pharma_woman } from "../assets";
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import UserContext from "./state/user-state";
 
+//we should get user info here
 const login = gql`
   query myQuery($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       id
       token
+      email
+      name
+    }
+    location {
+      address
     }
   }
 `;
@@ -56,6 +63,11 @@ const LoginPage = () => {
     { loading: lazyLoading, error: lazyError, data: lasyData },
   ] = useLazyQuery(login);
 
+  const userContext = useContext(UserContext);
+  const addUser = userContext.addUser;
+
+  // const addMedicineToDeleteList = showModalContext.addList;
+
   const handleLogin = async (email, password) => {
     console.log("login running ");
 
@@ -67,8 +79,16 @@ const LoginPage = () => {
     })
       .then((value) => {
         if (value.data) {
-          console.log(`user has data: ${value.data}`);
+          // console.log(`user name: ${value.data.login.name}`);
+          // console.log(`user email: ${value.data.login.email}`);
+          // console.log(`user address: ${value.data.location[0].address}`);
 
+          const name = value.data.login.name;
+          const email = value.data.login.email;
+          const address = value.data.location[0].address;
+
+          const user = { name: name, email: email, address: address };
+          addUser({ user: user });
           //if there is a data
           localStorage.setItem("token", value.data.login.token);
           localStorage.setItem("id", value.data.login.id);
