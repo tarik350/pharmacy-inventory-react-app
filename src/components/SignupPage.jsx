@@ -15,12 +15,14 @@ const SIGNUP = gql`
     $name: String!
     $password: String!
     $pharmacy_name: String!
+    $phone_number: String!
   ) {
     signup(
       email: $email
       name: $name
       password: $password
       pharmacy_name: $pharmacy_name
+      phone_number: $phone_number
     ) {
       id
       token
@@ -115,6 +117,7 @@ const SignupPage = () => {
         name: data.name,
         password: data.password,
         pharmacy_name: data.pharmacyName,
+        phone_number: data.phone,
       },
     })
       .then((value) => {
@@ -199,14 +202,14 @@ const SignupPage = () => {
           <form onSubmit={(e) => e.preventDefault()}>
             <div className="flex  bg-white flex-col w-[500px]">
               <div className="mb-4">
-                <label className="">Name*</label>
+                <label className="">Full Name*</label>
                 <input
                   ref={nameRef}
                   type="text"
                   className={`${
                     errors.name ? "text-field-error" : "text-field-signup"
                   } `}
-                  placeholder="name"
+                  placeholder="Full Name"
                   {...register("name", {
                     required: {
                       value: true,
@@ -242,6 +245,27 @@ const SignupPage = () => {
                 />
                 {errors.email && (
                   <span className="error-message">{errors.email.message}</span>
+                )}
+              </div>
+              <div className="mb-4">
+                <label className="">Phone Number*</label>
+                <input
+                  type="text"
+                  className={`${
+                    errors.pharmacyName
+                      ? "text-field-error"
+                      : "text-field-signup"
+                  } `}
+                  placeholder="Phone Number"
+                  {...register("phone", {
+                    required: {
+                      value: true,
+                      message: "*required",
+                    },
+                  })}
+                />
+                {errors.phone && (
+                  <span className="error-message">{errors.phone.message}</span>
                 )}
               </div>
 
