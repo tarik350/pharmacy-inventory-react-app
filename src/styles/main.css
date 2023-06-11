@@ -680,6 +680,11 @@ video {
   margin-bottom: 80px;
 }
 
+.my-4{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .mb-12{
   margin-bottom: 3rem;
 }
@@ -738,6 +743,10 @@ video {
 
 .mt-\[30px\]{
   margin-top: 30px;
+}
+
+.mb-8{
+  margin-bottom: 2rem;
 }
 
 .block{
@@ -854,8 +863,16 @@ video {
   table-layout: auto;
 }
 
+.transform{
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .cursor-pointer{
   cursor: pointer;
+}
+
+.list-decimal{
+  list-style-type: decimal;
 }
 
 .grid-cols-4{
@@ -1152,6 +1169,11 @@ video {
 .py-\[3px\]{
   padding-top: 3px;
   padding-bottom: 3px;
+}
+
+.py-12{
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .pb-12{
