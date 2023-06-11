@@ -26,6 +26,20 @@ const SIGNUP = gql`
     }
   }
 `;
+
+const LOCATION = gql`
+  mutation ($long: String!, $lat: String, $userId: uuid!) {
+    insert_location(
+      objects: { latitude: $lat, longitude: $long, user_id: "" }
+    ) {
+      returning {
+        latitude
+        longitude
+        user_id
+      }
+    }
+  }
+`;
 const SignupPage = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -64,7 +78,9 @@ const SignupPage = () => {
 
   const [signupMutation, { data, loading, error }] = useMutation(SIGNUP);
 
-  const onSubmit = handleSubmit((data) => {
+  const signupUser = handleSubmit((data) => {
+    const [place] = inputRef.current.getPlaces();
+
     console.log(data);
     signupMutation({
       variables: {
@@ -90,20 +106,20 @@ const SignupPage = () => {
     // handleLogin(data.email, data.password);
   });
 
-  const signupUser = () => {
-    const name = nameRef.current.value;
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-    const pharmacyName = pharmacyNameRef.current.value;
-    const location = locationRef.current.value;
+  // const signupUser = () => {
+  //   const name = nameRef.current.value;
+  //   const email = emailRef.current.value;
+  //   const password = passwordRef.current.value;
+  //   const pharmacyName = pharmacyNameRef.current.value;
+  //   const location = locationRef.current.value;
 
-    if (name && email && password && pharmacyName && location) {
-    } else {
-      //all feilds should be provided
-      //ena location add emyaregebet fildem yasfelegal after integrating google map
-      console.log("all fields should be provided");
-    }
-  };
+  //   if (name && email && password && pharmacyName && location) {
+  //   } else {
+  //     //all feilds should be provided
+  //     //ena location add emyaregebet fildem yasfelegal after integrating google map
+  //     console.log("all fields should be provided");
+  //   }
+  // };
 
   // if (loading) return <div>loading...</div>;
   if (error) console.warn(error);
@@ -126,7 +142,7 @@ const SignupPage = () => {
               Please sign in with simple steps
             </p>
           </div>
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form signupUser={(e) => e.preventDefault()}>
             <div className="flex  bg-white flex-col w-[500px]">
               <div className="mb-4">
                 <label className="">Name*</label>
@@ -289,7 +305,7 @@ const SignupPage = () => {
                   className="mr-[10px] flex justify-center  uppercase py-[20px] rounded-xl flex-1  text-white bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500"
                   title="sighup"
                   onClick={() => {
-                    onSubmit();
+                    signupUser();
                     // signupUser();
                   }}
                 >
