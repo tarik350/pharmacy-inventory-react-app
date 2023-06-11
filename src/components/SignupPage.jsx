@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { StandaloneSearchBox, LoadScript } from "@react-google-maps/api";
+import LoginPage from "./LoginPage";
 
 const SIGNUP = gql`
   mutation (
@@ -28,18 +29,42 @@ const SIGNUP = gql`
 `;
 
 const LOCATION = gql`
-  mutation ($long: String!, $lat: String, $userId: uuid!) {
-    insert_location(
-      objects: { latitude: $lat, longitude: $long, user_id: "" }
-    ) {
-      returning {
-        latitude
-        longitude
-        user_id
+  mutation (
+    $longitude: String!
+    $latitude: String!
+    $userId: uuid!
+    $address: String!
+  ) {
+    insert_location_one(
+      object: {
+        latitude: $latitude
+        longitude: $longitude
+        user_id: $userId
+        address: $address
       }
+    ) {
+      user_id
+      latitude
+      address
+      longitude
     }
   }
 `;
+
+// const LOCATION = gql`
+//   mutation {
+//     insert_location_one(
+//       object: {
+//         latitude: "100"
+//         longitude: "100"
+//         user_id: "f35d8a6d-b80c-433e-8ffd-e00d009230ea"
+//       }
+//     ) {
+//       user_id
+//     }
+//   }
+// `;
+
 const SignupPage = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -77,10 +102,12 @@ const SignupPage = () => {
   };
 
   const [signupMutation, { data, loading, error }] = useMutation(SIGNUP);
+  const [
+    setLocationMutation,
+    { data: locationData, loading: locationLoading, error: locationError },
+  ] = useMutation(LOCATION);
 
   const signupUser = handleSubmit((data) => {
-    const [place] = inputRef.current.getPlaces();
-
     console.log(data);
     signupMutation({
       variables: {
@@ -91,12 +118,16 @@ const SignupPage = () => {
       },
     })
       .then((value) => {
-        console.log("sinup successful");
-        console.log(value.data.signup.token);
+        const user_id = value.data.signup.id;
 
-        console.log(`value.data.signup.token}`);
+        console.log("sinup successful");
+        // console.log(value.data.signup.token);
+
+        // console.log(`value.data.signup.token}`);
+
         localStorage.setItem("token", value.data.signup.token);
         localStorage.setItem("id", value.data.signup.id);
+        addUserLocation();
 
         navigate("/");
       })
@@ -105,6 +136,29 @@ const SignupPage = () => {
       });
     // handleLogin(data.email, data.password);
   });
+
+  const addUserLocation = () => {
+    const [place] = inputRef.current.getPlaces();
+    const latitude = place.geometry.location.lat().toString();
+    const longitude = place.geometry.location.lng().toString();
+    const address = place.formatted_address;
+    const userId = localStorage.getItem("id");
+
+    console.log(`longitude : ${longitude}`);
+    console.log(`latitude: ${latitude}`);
+    setLocationMutation({
+      variables: {
+        latitude: latitude,
+        longitude: longitude,
+        userId: userId,
+        address: address,
+      },
+    })
+      .then((value) => {
+        console.log("location added successfully");
+      })
+      .catch((err) => console.log(`error: ${err.message}`));
+  };
 
   // const signupUser = () => {
   //   const name = nameRef.current.value;
@@ -142,7 +196,7 @@ const SignupPage = () => {
               Please sign in with simple steps
             </p>
           </div>
-          <form signupUser={(e) => e.preventDefault()}>
+          <form onSubmit={(e) => e.preventDefault()}>
             <div className="flex  bg-white flex-col w-[500px]">
               <div className="mb-4">
                 <label className="">Name*</label>
@@ -306,6 +360,7 @@ const SignupPage = () => {
                   title="sighup"
                   onClick={() => {
                     signupUser();
+                    // addUserLocation();
                     // signupUser();
                   }}
                 >
