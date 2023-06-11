@@ -606,6 +606,42 @@ video {
   top: 50%;
 }
 
+.right-\[100px\]{
+  right: 100px;
+}
+
+.right-\[40\%\]{
+  right: 40%;
+}
+
+.right-\[45\%\]{
+  right: 45%;
+}
+
+.top-\[20\%\]{
+  top: 20%;
+}
+
+.top-\[10\%\]{
+  top: 10%;
+}
+
+.top-\[5\%\]{
+  top: 5%;
+}
+
+.top-\[3\%\]{
+  top: 3%;
+}
+
+.top-\[7\%\]{
+  top: 7%;
+}
+
+.right-\[43\%\]{
+  right: 43%;
+}
+
 .z-0{
   z-index: 0;
 }
@@ -678,6 +714,31 @@ video {
 .my-\[80px\]{
   margin-top: 80px;
   margin-bottom: 80px;
+}
+
+.my-4{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.my-24{
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+}
+
+.mx-24{
+  margin-left: 6rem;
+  margin-right: 6rem;
+}
+
+.mx-\[100px\]{
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.mx-\[200px\]{
+  margin-left: 200px;
+  margin-right: 200px;
 }
 
 .mb-12{
@@ -840,6 +901,10 @@ video {
 .w-max{
   width: -moz-max-content;
   width: max-content;
+}
+
+.w-\[1000px\]{
+  width: 1000px;
 }
 
 .flex-1{
@@ -1199,6 +1264,10 @@ video {
   padding-top: 1rem;
 }
 
+.pb-\[3px\]{
+  padding-bottom: 3px;
+}
+
 .font-poppins{
   font-family: Poppins, sans-serif;
 }
@@ -1395,6 +1464,14 @@ video {
   transition-delay: 75ms;
 }
 
+.duration-75{
+  transition-duration: 75ms;
+}
+
+.ease-in-out{
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .lable{
   font-size: 14px;
   font-weight: 700;
@@ -1563,6 +1640,27 @@ td{
   @apply "border px-8 py-4;
 } */
 
+.hover\:border-2:hover{
+  border-width: 2px;
+}
+
+.hover\:border-4:hover{
+  border-width: 4px;
+}
+
+.hover\:border-\[2px\]:hover{
+  border-width: 2px;
+}
+
+.hover\:border-\[1px\]:hover{
+  border-width: 1px;
+}
+
+.hover\:border-black:hover{
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
+}
+
 .hover\:bg-blue-600:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(37 99 235 / var(--tw-bg-opacity));
@@ -1576,6 +1674,15 @@ td{
 .hover\:bg-red-600:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-white:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.hover\:text-\[100px\]:hover{
+  font-size: 100px;
 }
 
 .hover\:text-secondary:hover{
