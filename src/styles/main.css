@@ -558,6 +558,10 @@ video {
   }
 }
 
+.visible{
+  visibility: visible;
+}
+
 .absolute{
   position: absolute;
 }
@@ -590,24 +594,16 @@ video {
   top: 2.5rem;
 }
 
-.top-8{
-  top: 2rem;
-}
-
-.top-\[10px\]{
-  top: 10px;
-}
-
-.top-\[50\%\]{
-  top: 50%;
-}
-
 .top-12{
   top: 3rem;
 }
 
-.top-\[20px\]{
-  top: 20px;
+.top-8{
+  top: 2rem;
+}
+
+.top-\[50\%\]{
+  top: 50%;
 }
 
 .z-0{
@@ -616,6 +612,10 @@ video {
 
 .z-50{
   z-index: 50;
+}
+
+.m-12{
+  margin: 3rem;
 }
 
 .m-4{
@@ -628,10 +628,6 @@ video {
 
 .m-\[40px\]{
   margin: 40px;
-}
-
-.m-12{
-  margin: 3rem;
 }
 
 .mx-2{
@@ -692,6 +688,10 @@ video {
   margin-bottom: 1rem;
 }
 
+.mb-\[10px\]{
+  margin-bottom: 10px;
+}
+
 .ml-12{
   margin-left: 3rem;
 }
@@ -740,34 +740,6 @@ video {
   margin-top: 30px;
 }
 
-.mb-2{
-  margin-bottom: 0.5rem;
-}
-
-.mb-5{
-  margin-bottom: 1.25rem;
-}
-
-.mb-\[20px\]{
-  margin-bottom: 20px;
-}
-
-.mb-\[50px\]{
-  margin-bottom: 50px;
-}
-
-.mb-\[40px\]{
-  margin-bottom: 40px;
-}
-
-.mb-\[15px\]{
-  margin-bottom: 15px;
-}
-
-.mb-\[10px\]{
-  margin-bottom: 10px;
-}
-
 .block{
   display: block;
 }
@@ -790,6 +762,10 @@ video {
 
 .hidden{
   display: none;
+}
+
+.h-\[500\]{
+  height: 500;
 }
 
 .h-\[500px\]{
@@ -817,10 +793,6 @@ video {
   height: 100vh;
 }
 
-.h-\[500\]{
-  height: 500;
-}
-
 .w-1\/2{
   width: 50%;
 }
@@ -839,6 +811,10 @@ video {
 
 .w-\[300px\]{
   width: 300px;
+}
+
+.w-\[400px\]{
+  width: 400px;
 }
 
 .w-\[500px\]{
@@ -860,14 +836,6 @@ video {
 .w-max{
   width: -moz-max-content;
   width: max-content;
-}
-
-.w-\[200px\]{
-  width: 200px;
-}
-
-.w-\[400px\]{
-  width: 400px;
 }
 
 .flex-1{
@@ -982,12 +950,12 @@ video {
   border-width: 2px;
 }
 
-.border-\[2px\]{
-  border-width: 2px;
-}
-
 .border-4{
   border-width: 4px;
+}
+
+.border-\[2px\]{
+  border-width: 2px;
 }
 
 .border-b-2{
@@ -1000,6 +968,11 @@ video {
 
 .border-none{
   border-style: none;
+}
+
+.border-black{
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .border-gray-400{
@@ -1015,11 +988,6 @@ video {
 .border-red-600{
   --tw-border-opacity: 1;
   border-color: rgb(220 38 38 / var(--tw-border-opacity));
-}
-
-.border-black{
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .bg-\[red\]{
@@ -1248,6 +1216,10 @@ video {
   font-size: 17px;
 }
 
+.text-\[18px\]{
+  font-size: 18px;
+}
+
 .text-\[200px\]{
   font-size: 200px;
 }
@@ -1269,22 +1241,6 @@ video {
   line-height: 1.75rem;
 }
 
-.text-\[18px\]{
-  font-size: 18px;
-}
-
-.text-\[22px\]{
-  font-size: 22px;
-}
-
-.text-\[29px\]{
-  font-size: 29px;
-}
-
-.text-\[25px\]{
-  font-size: 25px;
-}
-
 .font-bold{
   font-weight: 700;
 }
@@ -1299,6 +1255,10 @@ video {
 
 .uppercase{
   text-transform: uppercase;
+}
+
+.lowercase{
+  text-transform: lowercase;
 }
 
 .italic{
@@ -1398,6 +1358,10 @@ video {
   --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.outline{
+  outline-style: solid;
 }
 
 .filter{
@@ -1522,6 +1486,47 @@ td{
 .error-message{
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
+.heading-one{
+  display: inline-block;
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  --tw-gradient-from: #6366f1 var(--tw-gradient-from-position);
+  --tw-gradient-from-position:  ;
+  --tw-gradient-to: rgb(99 102 241 / 0)  var(--tw-gradient-from-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to: rgb(168 85 247 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), #a855f7 var(--tw-gradient-via-position), var(--tw-gradient-to);
+  --tw-gradient-to: #ec4899 var(--tw-gradient-to-position);
+  --tw-gradient-to-position:  ;
+  -webkit-background-clip: text;
+          background-clip: text;
+  font-family: Poppins, sans-serif;
+  font-size: 80px;
+  font-weight: 700;
+  line-height: 130%;
+  color: transparent;
+}
+
+.heading-two{
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.heading-three{
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.heading-four{
+  font-weight: 700;
+  color: 20x;
+}
+
+.paragraph{
+  font-size: 18px;
+  line-height: 35px;
 }
 
 .modal-background {

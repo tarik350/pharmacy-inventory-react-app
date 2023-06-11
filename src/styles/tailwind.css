@@ -33,6 +33,24 @@ td {
   @apply text-red-600;
 }
 
+.heading-one {
+  @apply text-[60px] font-bold text-[80px] font-poppins  font-bold leading-[130%] bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500 bg-clip-text inline-block text-transparent;
+}
+.heading-two {
+  @apply text-[40px] font-bold;
+}
+.heading-three {
+  @apply text-[30px] font-bold;
+}
+
+.heading-four {
+  @apply text-[20x] font-bold;
+}
+
+.paragraph {
+  @apply leading-[35px] text-[18px];
+}
+
 .modal-background {
   width: 100vw;
   height: 100vh;
