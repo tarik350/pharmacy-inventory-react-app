@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import { navList } from "../constants";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,12 +12,22 @@ import {
 } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 import { IoChevronForward } from "react-icons/io5";
+
+import ShowModalContext from "../state/show-modal";
+
 const Navbar = () => {
   const [alignment, setAlignment] = useState("justify-start");
   const [showMedicineMenu, setShowMedicineMenu] = useState(false);
   const [active, setActive] = useState(0);
 
   const navigate = useNavigate();
+
+  const userContext = useContext(ShowModalContext);
+
+  const user = userContext.user;
+  const name = localStorage.getItem("name");
+  const email = localStorage.getItem("email");
+  const address = localStorage.getItem("address");
 
   const toggleTheme = () => {
     if (alignment === "justify-start") {
@@ -46,8 +56,8 @@ const Navbar = () => {
           </Link>
         </div>
         <div>
-          <p>username</p>
-          <p>user email</p>
+          <p className="text-black">{name}</p>
+          <p>{email}</p>
         </div>
       </div>
       <nav className=" flex flex-col justify-between  h-full  mt-[100px] ">

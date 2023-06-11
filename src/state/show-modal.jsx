@@ -4,13 +4,17 @@ import { useAsyncError } from "react-router-dom";
 
 const ShowModalContext = createContext({
   deletedMedicineIds: [],
+  user: {},
   addList: (value) => {},
   removeList: (value) => {},
   clearList: () => {},
+  addUser: (value) => {},
+  clearUser: () => {},
 });
 
 export function ShowModalProvider(props) {
   const [deletedMedicineIds, setDeletedMedicineIds] = useState([]);
+  const [user, setUser] = useState({});
   // let deletedMedicineIds = [];
 
   const addList = (value) => {
@@ -24,13 +28,25 @@ export function ShowModalProvider(props) {
     });
     // deletedMedicineIds = deletedM edicineIds.filter((e) => e !== value);
   };
+  const addUser = (value) => {
+    setUser(value);
+    console.log(user);
+  };
+
+  const clearUser = () => {
+    console.log("clearing");
+  };
 
   const clearList = () => {
-    setDeletedMedicineIds([]);
+    // setDeletedMedicineIds([]);
+    console.log("clearing ");
   };
 
   const context = {
     deletedMedicineIds: deletedMedicineIds,
+    user: user,
+    addUser: addUser,
+    clearUser: clearUser,
     addList: addList,
     removeList: removeList,
     clearList: clearList,

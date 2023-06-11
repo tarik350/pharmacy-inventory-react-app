@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { pharma_woman } from "../assets";
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
-import UserContext from "./state/user-state";
+import ShowModalContext from "../state/show-modal";
 
 //we should get user info here
 const login = gql`
@@ -24,6 +24,9 @@ const login = gql`
 
 const LoginPage = () => {
   let navigate = useNavigate();
+
+  const userContext = useContext(ShowModalContext);
+  const addUser = userContext.addUser;
 
   // const methods = useForm();
   const {
@@ -63,9 +66,6 @@ const LoginPage = () => {
     { loading: lazyLoading, error: lazyError, data: lasyData },
   ] = useLazyQuery(login);
 
-  const userContext = useContext(UserContext);
-  const addUser = userContext.addUser;
-
   // const addMedicineToDeleteList = showModalContext.addList;
 
   const handleLogin = async (email, password) => {
@@ -88,10 +88,17 @@ const LoginPage = () => {
           const address = value.data.location[0].address;
 
           const user = { name: name, email: email, address: address };
-          addUser({ user: user });
+          console.log(`=-=-=-=-=-=-=-=-=- before call`);
+
+          // addUser(user);
+          addUser(user);
+
           //if there is a data
           localStorage.setItem("token", value.data.login.token);
           localStorage.setItem("id", value.data.login.id);
+          localStorage.setItem("name", name);
+          localStorage.setItem("email", email);
+          localStorage.setItem("address", address);
 
           // navigateHome();
           navigate("/");

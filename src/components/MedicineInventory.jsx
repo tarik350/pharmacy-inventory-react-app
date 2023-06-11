@@ -7,7 +7,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiFillEdit, AiOutlineConsoleSql } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
-import ShowModalContext from "./state/show-modal";
+import ShowModalContext from "../state/show-modal";
 
 const GET_MEDICINE = gql`
   {

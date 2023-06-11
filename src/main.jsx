@@ -13,7 +13,7 @@ import {
   ApolloLink,
 } from "@apollo/client";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { ShowModalProvider } from "./components/state/show-modal";
+import { ShowModalProvider } from "./state/show-modal";
 
 import { setContext } from "@apollo/client/link/context";
 import Auth from "./components/Auth";
