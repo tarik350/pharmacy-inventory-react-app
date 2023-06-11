@@ -6,6 +6,7 @@ import { pharma_woman } from "../assets";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { StandaloneSearchBox, LoadScript } from "@react-google-maps/api";
 
 const SIGNUP = gql`
   mutation (
@@ -31,6 +32,18 @@ const SignupPage = () => {
   const nameRef = useRef(null);
   const pharmacyNameRef = useRef(null);
   const locationRef = useRef(null);
+
+  const inputRef = useRef();
+
+  const handlePlaceChanged = () => {
+    const [place] = inputRef.current.getPlaces();
+    if (place) {
+      console.log(place.formatted_address);
+      console.log(place);
+      console.log(place.geometry.location.lat());
+      console.log(place.geometry.location.lng());
+    }
+  };
 
   const {
     register,
@@ -187,7 +200,7 @@ const SignupPage = () => {
                   </span>
                 )}
               </div>
-              <div className="mb-4">
+              {/* <div className="mb-4">
                 <label className="">Location*</label>
                 <input
                   ref={locationRef}
@@ -198,7 +211,40 @@ const SignupPage = () => {
                   // } `}
                   placeholder="location"
                 />
-              </div>
+              </div> */}
+              <LoadScript
+                googleMapsApiKey={"AIzaSyDgNVT-sCtfUn1TPAuF8ompxW_gMlA5uLY"}
+                libraries={["places"]}
+              >
+                <StandaloneSearchBox
+                  onLoad={(ref) => (inputRef.current = ref)}
+                  onPlacesChanged={handlePlaceChanged}
+                >
+                  <div className="mb-4">
+                    <lable>enter you location name</lable>
+                    <input
+                      type="text"
+                      className={`${
+                        errors.password
+                          ? "text-field-error"
+                          : "text-field-signup"
+                      } `}
+                      placeholder="Location"
+                      {...register("location", {
+                        required: {
+                          value: true,
+                          message: "*requried",
+                        },
+                      })}
+                    />
+                    {errors.location && (
+                      <span className="error-message">
+                        {errors.location.message}
+                      </span>
+                    )}
+                  </div>
+                </StandaloneSearchBox>
+              </LoadScript>
 
               <div className="flex-1 relative mb-4">
                 <div className="mb-4">
