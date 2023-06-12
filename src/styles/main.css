@@ -562,6 +562,10 @@ video {
   visibility: visible;
 }
 
+.static{
+  position: static;
+}
+
 .absolute{
   position: absolute;
 }
@@ -642,6 +646,30 @@ video {
   right: 43%;
 }
 
+.top-\[-10px\]{
+  top: -10px;
+}
+
+.top-\[-40px\]{
+  top: -40px;
+}
+
+.top-\[-1000px\]{
+  top: -1000px;
+}
+
+.top-\[-100px\]{
+  top: -100px;
+}
+
+.top-\[-50px\]{
+  top: -50px;
+}
+
+.top-\[-60px\]{
+  top: -60px;
+}
+
 .z-0{
   z-index: 0;
 }
@@ -664,6 +692,10 @@ video {
 
 .m-\[40px\]{
   margin: 40px;
+}
+
+.m-0{
+  margin: 0px;
 }
 
 .mx-2{
@@ -858,6 +890,18 @@ video {
   height: 100vh;
 }
 
+.h-\[400\]{
+  height: 400;
+}
+
+.h-\[100px\]{
+  height: 100px;
+}
+
+.h-\[200px\]{
+  height: 200px;
+}
+
 .w-1\/2{
   width: 50%;
 }
@@ -907,6 +951,10 @@ video {
   width: 1000px;
 }
 
+.w-\[200px\]{
+  width: 200px;
+}
+
 .flex-1{
   flex: 1 1 0%;
 }
@@ -937,6 +985,18 @@ video {
 
 .grid-cols-4{
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-cols-3{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-cols-2{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-rows-4{
+  grid-template-rows: repeat(4, minmax(0, 1fr));
 }
 
 .flex-col{
@@ -983,12 +1043,20 @@ video {
   row-gap: 30px;
 }
 
+.gap-y-\[10px\]{
+  row-gap: 10px;
+}
+
 .self-start{
   align-self: flex-start;
 }
 
 .self-end{
   align-self: flex-end;
+}
+
+.self-center{
+  align-self: center;
 }
 
 .overflow-hidden{
@@ -1033,6 +1101,10 @@ video {
 
 .border-\[2px\]{
   border-width: 2px;
+}
+
+.border-\[1px\]{
+  border-width: 1px;
 }
 
 .border-b-2{
@@ -1161,6 +1233,14 @@ video {
   padding: 2px;
 }
 
+.p-0{
+  padding: 0px;
+}
+
+.p-4{
+  padding: 1rem;
+}
+
 .px-12{
   padding-left: 3rem;
   padding-right: 3rem;
@@ -1234,6 +1314,11 @@ video {
 .py-\[3px\]{
   padding-top: 3px;
   padding-bottom: 3px;
+}
+
+.px-20{
+  padding-left: 5rem;
+  padding-right: 5rem;
 }
 
 .pb-12{

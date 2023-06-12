@@ -1,11 +1,12 @@
 import React from "react";
 import { Pie, Bar, Line, Doughnut } from "react-chartjs-2";
+import Card from "../components/utils/Card";
 
 function PieChart({ chartData }) {
   return (
-    <div className=" border-4 border-black w-max m-12">
+    <Card>
       <h2 style={{ textAlign: "center" }}>Pie Chart</h2>
-      <div className="w-[400px] h-[500] ">
+      <div className="w-[300px] h-[400] ">
         <Doughnut
           data={chartData}
           options={{
@@ -21,7 +22,7 @@ function PieChart({ chartData }) {
           }}
         />
       </div>
-    </div>
+    </Card>
   );
 }
 export default PieChart;

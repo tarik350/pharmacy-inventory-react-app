@@ -1,10 +1,12 @@
+import Card from "../components/utils/Card";
 import React from "react";
 import { Pie, Bar, Line, PolarArea, Radar } from "react-chartjs-2";
+import FilledCard from "../components/utils/FilledCard";
 const LineChart = ({ chartData }) => {
   return (
-    <div className=" border-4 border-black w-max m-12">
+    <FilledCard>
       <h2 style={{ textAlign: "center" }}>Pie Chart</h2>
-      <div className="w-[400px] h-[500] ">
+      <div className="w-[300px] h-[400] ">
         <Bar
           data={chartData}
           options={{
@@ -20,7 +22,7 @@ const LineChart = ({ chartData }) => {
           }}
         />
       </div>
-    </div>
+    </FilledCard>
   );
 };
 

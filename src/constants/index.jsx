@@ -39,6 +39,17 @@ export const navList = [
   },
 ];
 
+export const medicineCatagory = [
+  "tablet",
+  "liquid",
+  "Capsule",
+  "Topical medicines",
+  "Suppositories",
+  "Drops",
+  "Inhalers",
+  "Injections",
+];
+
 export const countryCode = [
   { name: "nigeria", code: "ng" },
   { name: "india", code: "in" },
