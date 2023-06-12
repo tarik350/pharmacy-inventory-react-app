@@ -16,8 +16,11 @@ import { GiMedicines } from "react-icons/gi";
 import { BiSupport } from "react-icons/bi";
 import { BsFileCheck } from "react-icons/bs";
 
+import { RiDashboardFill } from "react-icons/ri";
+
 export const navList = [
   { name: "home", link: "/", icon: <AiFillHome /> },
+  { name: "Dashboard", link: "/dashboard", icon: <RiDashboardFill /> },
 
   {
     name: "medicine",

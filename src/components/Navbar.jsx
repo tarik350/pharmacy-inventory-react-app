@@ -65,6 +65,8 @@ const Navbar = () => {
 
     // setLoginStatus(false);
   };
+  console.log("-=-=--=-");
+  data && console.log(data);
   return (
     data && (
       <header className=" w-full relative  h-full  flex flex-col  shadow-sm rounded-xl  text-black ">

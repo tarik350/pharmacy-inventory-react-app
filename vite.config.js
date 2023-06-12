@@ -5,4 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   define: { "process.env": {} },
   plugins: [react()],
+  optimizeDeps: {
+    exclude: ["js-big-decimal"],
+  },
 });
