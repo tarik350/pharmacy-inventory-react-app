@@ -28,7 +28,7 @@ const Catagory = () => {
     data && count.push(data.medicine.length);
   }
 
-  console.log(count);
+  // console.log(count);
 
   //   if (loading) return <div>loadign</div>;
   //   if (error) return <div>{error.message}</div>;

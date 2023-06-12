@@ -11,9 +11,6 @@ const NewsFeed = () => {
       `https://newsapi.org/v2/top-headlines?country=${code}&category=health&apiKey=e09a4a6eee8a4f6684d1d6427225b1f4`
     );
     const data = await res.json();
-    // console.log("app started");
-
-    // console.log(data.articles[0]);
     setData(data.articles);
   };
   useEffect(() => {

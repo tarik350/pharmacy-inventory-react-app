@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { useQuery, gql, useMutation, useLazyQuery } from "@apollo/client";
 import Card from "./utils/Card";
 import { HiOutlinePlus } from "react-icons/hi";
 import { BsSearch, BsWindowDash, BsWindowDesktop } from "react-icons/bs";
@@ -8,6 +8,8 @@ import { AiFillEdit, AiOutlineConsoleSql } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 import ShowModalContext from "../state/show-modal";
+import { SEARCH_MED } from "../gql/queries";
+import CollapsePanel from "antd/es/collapse/CollapsePanel";
 
 const GET_MEDICINE = gql`
   {
@@ -60,6 +62,15 @@ const MedicineInventory = () => {
 
   const [showProgress, setShowProgress] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [search, setSearch] = useState(false);
+
+  useEffect(() => {
+    if (!autorized) {
+      navigate("/login");
+    } else {
+      console.log("authorized");
+    }
+  }, []);
 
   let deleteMedicinesId = [];
 
@@ -70,6 +81,11 @@ const MedicineInventory = () => {
     deleteMutationFunction,
     { data: deleteData, loading: deleteLoading, error: deleteError },
   ] = useMutation(DELETE_MED);
+
+  const [
+    searchMed,
+    { loading: lazyLoading, error: lazyError, data: lazyData },
+  ] = useLazyQuery(SEARCH_MED);
 
   const deleteSingleMedicine = async (id) => {
     console.log("delete started");
@@ -86,15 +102,20 @@ const MedicineInventory = () => {
     console.log("delet loading");
   }
 
-  useEffect(() => {
-    if (!autorized) {
-      navigate("/login");
-    } else {
-      console.log("authorized");
+  const handleKeyDown = async (event) => {
+    if (event.key === "Enter") {
+      //write logic for serch
+      await searchMed({
+        variables: {
+          name: event.target.value,
+        },
+      });
+      setSearch(true);
     }
-  }, []);
+  };
+
   const { refetch, loading, error, data } = useQuery(GET_MEDICINE, {
-    // pollInterval: 10,
+    pollInterval: 5,
   });
 
   if (loading) {
@@ -138,6 +159,7 @@ const MedicineInventory = () => {
   };
 
   if (loading) return <div>loading</div>;
+  if (lazyLoading) return <CircularProgress />;
 
   return (
     data && (
@@ -189,6 +211,7 @@ const MedicineInventory = () => {
               <BsSearch className="absolute right-5 " />
               <input
                 type="text"
+                onKeyDown={handleKeyDown}
                 className="border-2 p-2 mr-2 border-primary w-64"
                 placeholder="quick search"
               />
@@ -235,67 +258,139 @@ const MedicineInventory = () => {
                     <th className="border-none bg-transparent"></th>
                   </tr>
                 </thead>
-                {data.medicine.map((item, index) => {
-                  return (
-                    <tbody className="" key={index}>
-                      <tr className="">
-                        <td>
-                          <input
-                            type="checkbox"
-                            value={item.id}
-                            onChange={(event) => {
-                              if (event.currentTarget.checked) {
-                                console.log("checked");
-                                console.log(event.currentTarget.value);
+                {search
+                  ? lazyData &&
+                    lazyData.medicine.length !== 0 &&
+                    lazyData.medicine.map((item, index) => {
+                      return (
+                        <tbody className="" key={index}>
+                          <tr className="">
+                            <td>
+                              <input
+                                type="checkbox"
+                                value={item.id}
+                                onChange={(event) => {
+                                  if (event.currentTarget.checked) {
+                                    console.log("checked");
+                                    console.log(event.currentTarget.value);
 
-                                // deleteMedicinesId.push(
-                                //   event.currentTarget.value
-                                // );
-                                addMedicineToDeleteList(
-                                  event.currentTarget.value
-                                );
-                                console.log(`inserted : ${deleteMedicinesId}`);
-                              } else {
-                                // deleteMedicinesId = deleteMedicinesId.filter(
-                                //   (e) => e !== event.currentTarget.value
-                                // );
-                                removeMedicineFromDeleteList(
-                                  event.currentTarget.value
-                                );
-                                console.log(`deleted : ${deleteMedicinesId}`);
-                              }
-                            }}
-                          />
-                        </td>
-                        <td className="">{item.medicine_name}</td>
-                        <td className="">{item.generic_name}</td>
-                        <td className="">{item.sku}</td>
-                        <td className="">{item.weight}</td>
-                        <td className="">{item.catagory}</td>
-                        <td className="">{item.manufacturer}</td>
-                        <td className="">{item.brand_name}</td>
-                        <td className="">{item.price}</td>
-                        <td className="">{item.amount_in_stock}</td>
-                        <td className="">{item.expire_date}</td>
-                        <td className="">active</td>
-                        <td className="w-[10px]  cursor-pointer group  hover:bg-red-600 hover:text-white transition-all delay-75">
-                          <div
-                            onClick={() => {
-                              console.log("delete single");
-                              deleteSingleMedicine(item.id);
-                            }}
-                            className=" cursor-pointer"
-                          >
-                            <RiDeleteBin6Line className="text-red-600 group-hover:text-white text-xl transition-all delay-75" />
-                          </div>
-                        </td>
-                        <td className="w-[10px]  cursor-pointer group hover:bg-blue-600 transition-all delay-75 ">
-                          <AiFillEdit className="text-blue-600 group-hover:text-white text-xl transition-all delay-75" />
-                        </td>
-                      </tr>
-                    </tbody>
-                  );
-                })}
+                                    // deleteMedicinesId.push(
+                                    //   event.currentTarget.value
+                                    // );
+                                    addMedicineToDeleteList(
+                                      event.currentTarget.value
+                                    );
+                                    console.log(
+                                      `inserted : ${deleteMedicinesId}`
+                                    );
+                                  } else {
+                                    // deleteMedicinesId = deleteMedicinesId.filter(
+                                    //   (e) => e !== event.currentTarget.value
+                                    // );
+                                    removeMedicineFromDeleteList(
+                                      event.currentTarget.value
+                                    );
+                                    console.log(
+                                      `deleted : ${deleteMedicinesId}`
+                                    );
+                                  }
+                                }}
+                              />
+                            </td>
+                            <td className="">{item.medicine_name}</td>
+                            <td className="">{item.generic_name}</td>
+                            <td className="">{item.sku}</td>
+                            <td className="">{item.weight}</td>
+                            <td className="">{item.catagory}</td>
+                            <td className="">{item.manufacturer}</td>
+                            <td className="">{item.brand_name}</td>
+                            <td className="">{item.price}</td>
+                            <td className="">{item.amount_in_stock}</td>
+                            <td className="">{item.expire_date}</td>
+                            <td className="">active</td>
+                            <td className="w-[10px]  cursor-pointer group  hover:bg-red-600 hover:text-white transition-all delay-75">
+                              <div
+                                onClick={() => {
+                                  console.log("delete single");
+                                  deleteSingleMedicine(item.id);
+                                }}
+                                className=" cursor-pointer"
+                              >
+                                <RiDeleteBin6Line className="text-red-600 group-hover:text-white text-xl transition-all delay-75" />
+                              </div>
+                            </td>
+                            <td className="w-[10px]  cursor-pointer group hover:bg-blue-600 transition-all delay-75 ">
+                              <AiFillEdit className="text-blue-600 group-hover:text-white text-xl transition-all delay-75" />
+                            </td>
+                          </tr>
+                        </tbody>
+                      );
+                    })
+                  : data.medicine.map((item, index) => {
+                      return (
+                        <tbody className="" key={index}>
+                          <tr className="">
+                            <td>
+                              <input
+                                type="checkbox"
+                                value={item.id}
+                                onChange={(event) => {
+                                  if (event.currentTarget.checked) {
+                                    console.log("checked");
+                                    console.log(event.currentTarget.value);
+
+                                    // deleteMedicinesId.push(
+                                    //   event.currentTarget.value
+                                    // );
+                                    addMedicineToDeleteList(
+                                      event.currentTarget.value
+                                    );
+                                    console.log(
+                                      `inserted : ${deleteMedicinesId}`
+                                    );
+                                  } else {
+                                    // deleteMedicinesId = deleteMedicinesId.filter(
+                                    //   (e) => e !== event.currentTarget.value
+                                    // );
+                                    removeMedicineFromDeleteList(
+                                      event.currentTarget.value
+                                    );
+                                    console.log(
+                                      `deleted : ${deleteMedicinesId}`
+                                    );
+                                  }
+                                }}
+                              />
+                            </td>
+                            <td className="">{item.medicine_name}</td>
+                            <td className="">{item.generic_name}</td>
+                            <td className="">{item.sku}</td>
+                            <td className="">{item.weight}</td>
+                            <td className="">{item.catagory}</td>
+                            <td className="">{item.manufacturer}</td>
+                            <td className="">{item.brand_name}</td>
+                            <td className="">{item.price}</td>
+                            <td className="">{item.amount_in_stock}</td>
+                            <td className="">{item.expire_date}</td>
+                            <td className="">active</td>
+                            <td className="w-[10px]  cursor-pointer group  hover:bg-red-600 hover:text-white transition-all delay-75">
+                              <div
+                                onClick={() => {
+                                  console.log("delete single");
+                                  deleteSingleMedicine(item.id);
+                                }}
+                                className=" cursor-pointer"
+                              >
+                                <RiDeleteBin6Line className="text-red-600 group-hover:text-white text-xl transition-all delay-75" />
+                              </div>
+                            </td>
+                            <td className="w-[10px]  cursor-pointer group hover:bg-blue-600 transition-all delay-75 ">
+                              <AiFillEdit className="text-blue-600 group-hover:text-white text-xl transition-all delay-75" />
+                            </td>
+                          </tr>
+                        </tbody>
+                      );
+                    })}
               </table>
               <div className="flex items-center self-end">
                 <div className="error">

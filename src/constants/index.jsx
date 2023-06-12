@@ -53,6 +53,21 @@ export const medicineCatagory = [
   "Injections",
 ];
 
+export const expireYear = [
+  "2023",
+  "2024",
+  "2025",
+  "2026",
+  "2027",
+  "2028",
+  "2029",
+  "2030",
+  "2031",
+  "2032",
+  "2033",
+  "2034",
+];
+
 export const countryCode = [
   { name: "nigeria", code: "ng" },
   { name: "india", code: "in" },

@@ -72,6 +72,7 @@ const Navbar = () => {
       <header className=" w-full relative  h-full  flex flex-col  shadow-sm rounded-xl  text-black ">
         <div
           onClick={() => {
+            setActive(-1);
             navigate("/profile");
           }}
           className=" cursor-pointer border-gray-400 pb-4 pl-4 pt-4 flex items-center"

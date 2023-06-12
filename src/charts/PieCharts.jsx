@@ -5,22 +5,24 @@ import Card from "../components/utils/Card";
 function PieChart({ chartData }) {
   return (
     <Card>
-      <h2 style={{ textAlign: "center" }}>Pie Chart</h2>
-      <div className="w-[300px] h-[300px] ">
-        <Pie
-          data={chartData}
-          options={{
-            plugins: {
-              title: {
-                display: true,
-                text: "Users Gained between 2016-2020",
+      <div className="flex flex-col items-center justify-center">
+        <h2 style={{ textAlign: "center" }}>Catagory</h2>
+        <div className="w-[300px] h-[300px] ">
+          <Pie
+            data={chartData}
+            options={{
+              plugins: {
+                title: {
+                  display: true,
+                  text: "Catagory with pie chart",
+                },
+                legend: {
+                  display: false,
+                },
               },
-              legend: {
-                display: false,
-              },
-            },
-          }}
-        />
+            }}
+          />
+        </div>
       </div>
     </Card>
   );
