@@ -74,22 +74,28 @@ const Navbar = () => {
           onClick={() => {
             navigate("/profile");
           }}
-          className="border-b-2  border-gray-400 pb-4 pl-4 pt-4 flex items-center"
+          className=" cursor-pointer border-gray-400 pb-4 pl-4 pt-4 flex items-center"
         >
           <div className="pr-2 ">
             <Link to="/">
-              <div className="border-[2px] border-gray-400 overflow-hidden  rounded-full flex justify-center items-center w-[50px] h-[50px] ">
-                <img className=" object-cover" src={logo} />
+              <div className="border-[2px] border-gray-400 overflow-hidden  rounded-full flex justify-center items-center w-[60px] h-[60px] ">
+                <img
+                  className="hover:scale-150  object-cover transition-all duration-100"
+                  src={logo}
+                />
               </div>
             </Link>
           </div>
           {data && (
             <div>
-              <div>{data.users[0].pharmacy_name}</div>
-              <div>{data.users[0].email}</div>
+              <div className="text-[18px] font-bold text-primary hover:text-secondary">
+                {data.users[0].pharmacy_name}
+              </div>
+              <div className="italic text-gray-500">{data.users[0].email}</div>
             </div>
           )}
         </div>
+        <div className="h-[2px] w-[200px] mt-12 bg-black mx-[20px] self-center"></div>
         <nav className=" flex flex-col justify-between  h-full  mt-[100px] ">
           <ul className="flex flex-col self-start  pl-4 justify-center ">
             {navList.map((item, index) => {
