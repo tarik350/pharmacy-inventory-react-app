@@ -152,14 +152,14 @@ const Navbar = () => {
                             <p>medince list</p>
                           </Link>
                         </li>{" "}
-                        <li>
+                        {/* <li>
                           <Link
                             className=" text-[17px]   text-black hover:text-secondary transition-all "
                             to="/description"
                           >
                             <p>medince desciption</p>
                           </Link>
-                        </li>
+                        </li> */}
                       </ul>
                     </div>
                   )}

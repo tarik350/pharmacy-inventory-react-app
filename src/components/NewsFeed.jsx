@@ -5,6 +5,7 @@ const NewsFeed = () => {
   const [appData, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [clicked, setClicked] = useState(false);
+  const [active, setActive] = useState(0);
 
   const fetchNews = async (code) => {
     const res = await fetch(
@@ -14,7 +15,7 @@ const NewsFeed = () => {
     setData(data.articles);
   };
   useEffect(() => {
-    fetchNews("in");
+    fetchNews("ng");
   }, []);
 
   return (
@@ -30,13 +31,14 @@ const NewsFeed = () => {
             <div
               key={index}
               onClick={() => {
+                setActive(index);
                 fetchNews(code.code);
 
                 console.log(index);
               }}
               className={`border-2 m-4 px-8 py-2 rounded-full hover:bg-red-300 transition-all delay-75 cursor-pointer ${
-                clicked ? "bg-red-400" : ""
-              }`}
+                active === index ? "bg-red-400" : ""
+              } `}
             >
               {code.name}
             </div>

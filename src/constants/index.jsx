@@ -72,6 +72,12 @@ export const countryCode = [
   { name: "nigeria", code: "ng" },
   { name: "india", code: "in" },
   { name: "USA", code: "us" },
+  { name: "Australia", code: "au" },
+  { name: "South Africa", code: "sa" },
+  { name: "United Kingdom", code: "gb" },
+  { name: "Brazil", code: "br" },
+  { name: "China", code: "ch" },
+  { name: "japan", code: "jp" },
 ];
 
 export const inventoryFields = [
