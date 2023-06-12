@@ -12,6 +12,7 @@ import PrivacyPolicy from "./PrivacyPolicy";
 import TermsAndCondition from "./TermsAndCondition";
 import About from "./About";
 import Support from "./Support";
+import Card from "./utils/Card";
 
 export {
   Navbar,
@@ -21,6 +22,7 @@ export {
   Auth,
   NewsFeed,
   SignupPage,
+  Card,
   MedicineDescription,
   ShowNavBar,
   LoginPage,

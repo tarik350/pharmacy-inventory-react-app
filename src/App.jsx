@@ -18,6 +18,7 @@ import { Route, Routes } from "react-router-dom";
 // import Test from "./charts/CustomeDonutChart";
 import PlaceComponent from "./map/place.component";
 import Dashboard from "./components/Dashboard";
+import Profile from "./components/Profile";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="/privacy" element={<PrivacyPolicy />}></Route>
           <Route path="/terms" element={<TermsAndCondition />}></Route>
           <Route path="/support" element={<Support />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
         </Routes>
       </div>

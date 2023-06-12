@@ -1570,6 +1570,30 @@ td{
   outline-offset: 2px;
 }
 
+.update-btn{
+  border-radius: 0.5rem;
+  border-width: 2px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  font-size: 14px;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 75ms;
+  transition-duration: 75ms;
+}
+
+.update-btn:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
+}
+
 .error-message{
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
