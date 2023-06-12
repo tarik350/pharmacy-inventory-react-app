@@ -3,9 +3,11 @@ import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { Data } from "../store/Data";
 import PieChart from "./PieCharts";
-import { Line, Pie } from "react-chartjs-2";
+import { Doughnut, Line, Pie } from "react-chartjs-2";
 import LineChart from "./LineChart";
-const Test = () => {
+import DoughnutChart from "./DoughnutChart";
+import { cardHeaderClasses } from "@mui/material";
+const CustomeDonutChart = () => {
   const [chartData, setChartData] = useState({
     labels: Data.map((data) => data.year),
     datasets: [
@@ -27,10 +29,11 @@ const Test = () => {
 
   return (
     <div className="App">
-      <PieChart chartData={chartData} />
-      <LineChart chartData={chartData} />
+      {/* <PieChart chartData={chartData} /> */}
+      {/* <LineChart chartData={chartData} /> */}
+      <DoughnutChart chartData={chartData} />
     </div>
   );
 };
 
-export default Test;
+export default CustomeDonutChart;

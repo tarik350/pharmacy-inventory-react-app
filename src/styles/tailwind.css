@@ -67,3 +67,8 @@ td {
 td{
   @apply "border px-8 py-4;
 } */
+.center {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
