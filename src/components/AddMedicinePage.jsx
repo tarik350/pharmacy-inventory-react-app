@@ -64,7 +64,8 @@ const AddMedicine = () => {
   const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [message, setMessage] = useState("");
+  const [flag, setFlag] = useState("");
   useEffect(() => {
     if (!autorized) {
       navigate("/login");
@@ -180,12 +181,16 @@ const AddMedicine = () => {
       },
     })
       .then((value) => {
+        setMessage("medicine added successfully");
+        setFlag("success");
         //notify user
         console.log(`medince added successfully`);
         console.log("lsjkdflsjdflsjdflj");
         console.log(value.data.insert_medicine.returning[0]);
       })
       .catch((err) => {
+        setMessage(`error sending the message: ${err.message}`);
+        setFlag("error");
         //notify users
         console.log(`eror: ${err}`);
       });
@@ -493,6 +498,13 @@ const AddMedicine = () => {
                       onEditorChange={onchange}
                     />
                   </div>
+                </div>
+                <div
+                  className={`${flag === "error" && "text-red-600 "} ${
+                    flag === "success" && "text-green-600"
+                  } text-black font-bold text-[18px] py-4 `}
+                >
+                  {loading ? "sending" : message}
                 </div>
 
                 <div className="self-end mt-12 bg-gradient-to-r w-max p-[2px]  from-indigo-500 via-purple-500 to-pink-500   justify-end">

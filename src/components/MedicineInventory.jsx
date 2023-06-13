@@ -62,6 +62,8 @@ const MedicineInventory = () => {
 
   const [showProgress, setShowProgress] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState("");
+  const [flag, setFlag] = useState("");
   const [search, setSearch] = useState(false);
 
   useEffect(() => {
@@ -93,9 +95,15 @@ const MedicineInventory = () => {
       variables: {
         id: id,
       },
-    }).then((value) => {
-      console.log(`medincne deleted successfull: ${value}`);
-    });
+    })
+      .then((value) => {
+        window.location.reload(false);
+        console.log(`medincne deleted successfull: ${value}`);
+      })
+      .catch((err) => {
+        setMessage("medicine deleted successfully");
+        setFlag("success");
+      });
   };
 
   if (deleteLoading) {
@@ -154,6 +162,8 @@ const MedicineInventory = () => {
             id: deleteMedicinesIdState[id],
           },
         }).then((value) => {
+          window.location.reload(false);
+
           console.log("delete successfully");
         });
       }
@@ -399,6 +409,14 @@ const MedicineInventory = () => {
                       );
                     })}
               </table>
+
+              <div
+                className={`${flag === "error" && "text-red-600 "} ${
+                  flag === "success" && "text-green-600"
+                } text-black font-bold text-[18px] py-4 `}
+              >
+                {loading ? "sending" : message}
+              </div>
               <div className="flex items-center self-end">
                 <div className="error">
                   <p>{}</p>
