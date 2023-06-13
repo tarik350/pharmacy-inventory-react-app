@@ -102,6 +102,12 @@ const MedicineInventory = () => {
     console.log("delet loading");
   }
 
+  const handleSearchChange = (event) => {
+    if (event.target.value.length === 0) {
+      window.location.reload(false);
+    }
+  };
+
   const handleKeyDown = async (event) => {
     if (event.key === "Enter") {
       //write logic for serch
@@ -163,11 +169,11 @@ const MedicineInventory = () => {
 
   return (
     data && (
-      <div className="   text-[10px]  ">
+      <div className="   text-[10px]   ">
         <div
           className={`${
             showModal
-              ? "flex  items-end justify-center   rounded-xl  absolute top-[50%] z-50 left-[50%] center"
+              ? "   rounded-xl  absolute h-screen w-screen  z-50   "
               : "hidden"
           }   `}
         >
@@ -212,6 +218,7 @@ const MedicineInventory = () => {
               <input
                 type="text"
                 onKeyDown={handleKeyDown}
+                onChange={handleSearchChange}
                 className="border-2 p-2 mr-2 border-primary w-64"
                 placeholder="quick search"
               />

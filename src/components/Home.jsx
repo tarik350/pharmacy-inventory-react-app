@@ -39,7 +39,7 @@ const Home = () => {
 
   return (
     data && (
-      <main className="flex flex-col mx-[40px] justify-center items-center  ">
+      <main className="flex flex-col mx-[40px] justify-center items-center   ">
         <div className="self-end my-8">{/* <Auth /> */}</div>
         <section className="flex  justify-center items-center flex-2 ">
           <div className="w-1/2 grow">
@@ -50,20 +50,20 @@ const Home = () => {
               Manage your Pharmacy with Samaritan
             </p>
 
-            <p className=" leading-[150%] my-8 text-gray-500">
-              is simply dummy text of the printing and typesetting industry.
-              Lorem Ipsum has been the industry's standard dummy text ever since
-              the 1500s, when an unknown printer took a galley of type and
-              scrambled it to make a type specimen book. It has survived not
-              only five centuries, but also the leap into electronic
-              typesetting, remaining essentially unchanged. It was popularised
-              in the 1960s with the release of Letraset sheets containing Lorem
-              Ipsum passages, and more recently with desktop publishing software
-              like Aldus PageMaker including versions of Lorem Ipsum{" "}
+            <p className=" leading-[150%] italic text-[20px] my-8 text-gray-500">
+              At our pharmacy, we strive to provide the best service and meet
+              all your medication needs. Our comprehensive inventory system
+              ensures that we have a wide range of medicines available to cater
+              to your requirements
             </p>
 
             <div className="flex items-center">
-              <button className="bg-black text-white px-6 py-4 mr-6">
+              <button
+                onClick={() => {
+                  navigate("/addmed");
+                }}
+                className="bg-black text-white px-6 py-4 mr-6"
+              >
                 Get Started
               </button>
               <p>

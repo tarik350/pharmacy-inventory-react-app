@@ -75,7 +75,7 @@ const Profile = () => {
   return (
     data &&
     locationData && (
-      <div className="flex justify-center  mx-[40px] my-[40px]  h-screen ">
+      <div className="flex justify-center  mx-[40px] my-[40px]  ">
         <div className="w-full ">
           <Card>
             <div className="">

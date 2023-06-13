@@ -38,7 +38,7 @@ td {
 }
 
 .heading-one {
-  @apply text-[60px] font-bold text-[80px] font-poppins  font-bold leading-[130%] bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500 bg-clip-text inline-block text-transparent;
+  @apply text-[60px] font-bold mb-12 font-poppins   leading-[130%] bg-gradient-to-r  from-indigo-500 via-purple-500 to-pink-500 bg-clip-text inline-block text-transparent;
 }
 .heading-two {
   @apply text-[40px] font-bold;

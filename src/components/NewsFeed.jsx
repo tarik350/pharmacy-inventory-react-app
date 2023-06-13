@@ -19,11 +19,12 @@ const NewsFeed = () => {
   }, []);
 
   return (
-    <div className=" ">
-      <div>
-        <h1 className="text-6xl font-bold font-poppins uppercase my-12  border-b-[2px] pb-12">
+    <div className="mx-[40px] my-[40px] ">
+      <div className="">
+        <h1 className="font-bold font-poppins  uppercase heading-one">
           news feed
         </h1>
+        <div className="h-[1px] mb-8 mx-4 w-full bg-gray-500"></div>
       </div>
       <div className="flex">
         {countryCode.map((code, index) => {
@@ -36,7 +37,7 @@ const NewsFeed = () => {
 
                 console.log(index);
               }}
-              className={`border-2 m-4 px-8 py-2 rounded-full hover:bg-red-300 transition-all delay-75 cursor-pointer ${
+              className={`border-2 mx-4 px-8  py-2 flex justify-center items-center w-max rounded-full hover:bg-red-300 transition-all delay-75 cursor-pointer ${
                 active === index ? "bg-red-400" : ""
               } `}
             >
