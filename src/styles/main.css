@@ -606,12 +606,32 @@ video {
   top: -55px;
 }
 
+.top-\[50\%\]{
+  top: 50%;
+}
+
 .top-\[50px\]{
   top: 50px;
 }
 
 .top-\[7\%\]{
   top: 7%;
+}
+
+.bottom-0{
+  bottom: 0px;
+}
+
+.top-\[100px\]{
+  top: 100px;
+}
+
+.top-\[200px\]{
+  top: 200px;
+}
+
+.top-\[400px\]{
+  top: 400px;
 }
 
 .z-0{
@@ -1240,11 +1260,6 @@ video {
   padding-bottom: 1rem;
 }
 
-.py-8{
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
 .py-\[10px\]{
   padding-top: 10px;
   padding-bottom: 10px;
@@ -1437,6 +1452,11 @@ video {
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-red-500{
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
 .underline{

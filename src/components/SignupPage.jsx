@@ -185,6 +185,8 @@ const SignupPage = () => {
     navigate("/login");
   };
 
+  const apiKey = import.meta.env.VITE_REACT_APP_GOOGLE_API_KEY;
+
   return (
     // <div className="flex justify-center items-center">
     <div className="flex justify-center items-center h-screen">
@@ -306,10 +308,7 @@ const SignupPage = () => {
                   placeholder="location"
                 />
               </div> */}
-              <LoadScript
-                googleMapsApiKey={"AIzaSyDgNVT-sCtfUn1TPAuF8ompxW_gMlA5uLY"}
-                libraries={["places"]}
-              >
+              <LoadScript googleMapsApiKey={apiKey} libraries={["places"]}>
                 <StandaloneSearchBox
                   onLoad={(ref) => (inputRef.current = ref)}
                   onPlacesChanged={handlePlaceChanged}

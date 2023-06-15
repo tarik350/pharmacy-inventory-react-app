@@ -55,14 +55,13 @@ const Location = ({ location, lid }) => {
       .catch((err) => console.log(`error: ${err.message}`));
   };
 
+  const apiKey = import.meta.env.VITE_REACT_APP_GOOGLE_API_KEY;
+
   return (
     <div className="mb-4">
       <label className="f">Location</label>
 
-      <LoadScript
-        googleMapsApiKey={"AIzaSyDgNVT-sCtfUn1TPAuF8ompxW_gMlA5uLY"}
-        libraries={["places"]}
-      >
+      <LoadScript googleMapsApiKey={apiKey} libraries={["places"]}>
         <StandaloneSearchBox
           onLoad={(ref) => (inputRef.current = ref)}
           onPlacesChanged={handlePlaceChanged}

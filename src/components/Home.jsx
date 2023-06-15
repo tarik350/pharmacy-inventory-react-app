@@ -24,6 +24,8 @@ const Home = () => {
   const navigate = useNavigate();
   const uid = localStorage.getItem("id");
 
+  console.log(import.meta.env.VITE_REACT_APP_GOOGLE_API_KEY);
+
   const { data, error, loading } = useQuery(GETUSER, {
     variables: { uid },
   });
