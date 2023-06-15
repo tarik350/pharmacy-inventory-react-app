@@ -16,7 +16,7 @@ import {
 import { useState, useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 // import Test from "./charts/CustomeDonutChart";
-import PlaceComponent from "./map/place.component";
+
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 
