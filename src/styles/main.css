@@ -711,31 +711,6 @@ video {
   margin-bottom: 80px;
 }
 
-.my-\[30px\]{
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-
-.my-\[250px\]{
-  margin-top: 250px;
-  margin-bottom: 250px;
-}
-
-.my-\[2px\]{
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-
-.my-\[25px\]{
-  margin-top: 25px;
-  margin-bottom: 25px;
-}
-
-.mx-3{
-  margin-left: 0.75rem;
-  margin-right: 0.75rem;
-}
-
 .mb-12{
   margin-bottom: 3rem;
 }
@@ -1263,6 +1238,11 @@ video {
 .py-4{
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.py-8{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .py-\[10px\]{

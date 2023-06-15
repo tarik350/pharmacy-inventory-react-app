@@ -122,7 +122,9 @@ const LoginPage = () => {
             <h2 className="text-4xl  text-primary font-bold uppercase font-poppins ">
               Welcome Back!
             </h2>
-            <p className="">Please Log into your account</p>
+            <p className="text-gray-400 text-[20px]  italic ">
+              Please Log into your account
+            </p>
           </div>
           <form noValidate onSubmit={(e) => e.preventDefault()}>
             <div className="flex   flex-col w-[500px]">

@@ -175,7 +175,12 @@ const MedicineInventory = () => {
   };
 
   if (loading) return <div>loading</div>;
-  if (lazyLoading) return <CircularProgress />;
+  if (lazyLoading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <CircularProgress />
+      </div>
+    );
 
   return (
     data && (

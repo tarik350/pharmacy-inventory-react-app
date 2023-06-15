@@ -195,7 +195,7 @@ const SignupPage = () => {
             <h2 className="text-4xl text-primary font-bold uppercase font-poppins ">
               Dont have an Account?
             </h2>
-            <p className="text-gray-500 text-xl">
+            <p className="text-gray-400 text-[20px]  italic">
               Please sign in with simple steps
             </p>
           </div>
