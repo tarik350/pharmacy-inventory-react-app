@@ -42,13 +42,14 @@ const App = () => {
       <ShowNavBar>
         <div className="bg-gray-200 w-[300px] h-[920px] my-8 mx-4 rounded-xl ">
           <Navbar />
+          <div>the app is working correctly</div>
         </div>
       </ShowNavBar>
       <div className="flex-1 ">
         <Routes>
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/signup" element={<SignupPage />}></Route>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="/" element={<LoginPage />}></Route>
           <Route path="/addmed" element={<AddMedicine />}></Route>
           <Route path="/inventory" element={<MedicineInventory />}></Route>
           <Route path="/news" element={<NewsFeed />}></Route>
