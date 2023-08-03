@@ -36,7 +36,7 @@ const App = () => {
   ///and set the value to false when logout button is clicked
 
   ///everytime the value changes we have to reset the app and rebuild the entire app
-
+  ///i have to correct the pathes if the deployment does not work this time
   return (
     <div className="flex  ">
       <ShowNavBar>
@@ -48,7 +48,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/signup" element={<SignupPage />}></Route>
-          <Route path="/React" element={<Home />}></Route>
+          <Route path="/" element={<Home />}></Route>
           <Route path="/addmed" element={<AddMedicine />}></Route>
           <Route path="/inventory" element={<MedicineInventory />}></Route>
           <Route path="/news" element={<NewsFeed />}></Route>
