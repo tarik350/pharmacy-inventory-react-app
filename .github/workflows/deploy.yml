@@ -37,10 +37,6 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm install
-      - name: install shx
-        run: npm install shx
-      - name: add 404 file
-        run: shx cp dist/index.html dist/404.html
       - name: Build
         run: npm run build
       - name: Setup Pages

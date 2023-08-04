@@ -118,11 +118,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       cacheLocation="localstorage"
     >
       <ApolloProvider client={client}>
-        <BrowserRouter
-          basename={
-            import.meta.env.DEV ? "/" : "/pharmacy-inventory-react-app/"
-          }
-        >
+        <BrowserRouter basename="/pharmacy-inventory-react-app/">
           <App />
           {/* <Auth /> */}
         </BrowserRouter>
