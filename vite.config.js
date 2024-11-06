@@ -21,14 +21,18 @@ import { BiCommand } from "react-icons/bi";
 
 // export default defineConfig(({mode,command}))
 
-export default defineConfig(({ command, mode, ssrBuild }) => {
-  const config = {
-    plugins: [react()],
-    base: "/",
-  };
+// export default defineConfig(({ command, mode, ssrBuild }) => {
+//   const config = {
+//     plugins: [react()],
+//     base: "/",
+//   };
 
-  if (command !== "serve") {
-    config.base = "/pharmacy-inventory-react-app/";
-  }
-  return config;
+//   if (command !== "serve") {
+//     config.base = "/pharmacy-inventory-react-app/";
+//   }
+//   return config;
+// });
+export default defineConfig({
+  plugins: [react()],
+  base: "/pharmacy-inventory-react-app/",
 });

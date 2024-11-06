@@ -41,3 +41,5 @@ export const SEARCH_MED = gql`
     }
   }
 `;
+
+// /get/mediicne  wheere name === x

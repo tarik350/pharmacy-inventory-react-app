@@ -25,9 +25,6 @@ td {
 .text-field-signup {
   @apply rounded-md w-full text-[16px]  grow  border focus:outline-none focus:border-primary  border-gray-400  px-3 py-[20px];
 }
-.text-field-error {
-  @apply rounded-md w-full text-[16px]  grow border  border-red-600 focus:outline-none focus:border-primary    px-3 py-[20px];
-}
 
 .update-btn {
   @apply border-2 py-0 px-12 rounded-lg text-[14px] bg-blue-500 text-white font-bold hover:bg-blue-700 transition-all delay-75 duration-75;

@@ -126,7 +126,7 @@ const Support = () => {
                   apiKey="utllbsqr2qw8jfn1o7uj4rijs3puf8wd44tmv0ndfwsoyr5o"
                   // ref={descriptionRef}
                   onInit={(evt, editor) => (descriptionRef.current = editor)}
-                  // outputFormat="text"
+                  outputFormat="text"
                   // initialValue="<p>This is the initial content of the editor.</p>"
                   init={{
                     height: 250,
